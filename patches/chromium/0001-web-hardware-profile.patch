@@ -1,0 +1,284 @@
+diff --git a/content/browser/renderer_host/render_process_host_impl.cc b/content/browser/renderer_host/render_process_host_impl.cc
+index 22bf8ff..80aec70 100644
+--- a/content/browser/renderer_host/render_process_host_impl.cc
++++ b/content/browser/renderer_host/render_process_host_impl.cc
+@@ -204,6 +204,7 @@
+ #include "storage/browser/quota/quota_manager.h"
+ #include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
+ #include "third_party/blink/public/common/features.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ #include "third_party/blink/public/common/page/launching_process_state.h"
+ #include "third_party/blink/public/common/storage_key/storage_key.h"
+ #include "third_party/blink/public/common/switches.h"
+@@ -2033,9 +2034,12 @@ bool RenderProcessHostImpl::Init() {
+ 
+   // Calculate the CPU performance tier, allowing for overrides.
+   content::cpu_performance::Tier cpu_tier;
+-  if (std::optional<int> override =
+-          GetContentClient()->browser()->GetCpuPerformanceTierOverride(
+-              GetBrowserContext())) {
++  if (const auto& profile = blink::GetWebHardwareProfile()) {
++    cpu_tier =
++        static_cast<content::cpu_performance::Tier>(profile->cpu_performance);
++  } else if (std::optional<int> override =
++                 GetContentClient()->browser()->GetCpuPerformanceTierOverride(
++                     GetBrowserContext())) {
+     cpu_tier = content::cpu_performance::TierFromInt(*override).value_or(
+         content::cpu_performance::Tier::kUnknown);
+   } else {
+diff --git a/third_party/blink/common/BUILD.gn b/third_party/blink/common/BUILD.gn
+index 8e635b0..dcbfc31 100644
+--- a/third_party/blink/common/BUILD.gn
++++ b/third_party/blink/common/BUILD.gn
+@@ -167,6 +167,7 @@ source_set("common") {
+     "frame/user_activation_state.cc",
+     "frame/view_transition_state_mojom_traits.cc",
+     "global_privacy_control/global_privacy_control_util.cc",
++    "hardware/web_hardware_profile.cc",
+     "indexeddb/indexed_db_default_mojom_traits.cc",
+     "indexeddb/indexeddb_key.cc",
+     "indexeddb/indexeddb_key_path.cc",
+@@ -388,6 +389,7 @@ source_set("common_unittests_sources") {
+     "device_memory/approximated_device_memory_unittest.cc",
+     "frame/delegated_capability_request_token_unittest.cc",
+     "frame/user_activation_state_unittest.cc",
++    "hardware/web_hardware_profile_unittest.cc",
+     "indexeddb/indexed_db_default_mojom_traits_unittest.cc",
+     "indexeddb/indexeddb_key_unittest.cc",
+     "input/synthetic_web_input_event_builders_unittest.cc",
+diff --git a/third_party/blink/common/device_memory/approximated_device_memory.cc b/third_party/blink/common/device_memory/approximated_device_memory.cc
+index 7fd53eb..d02b9f8 100644
+--- a/third_party/blink/common/device_memory/approximated_device_memory.cc
++++ b/third_party/blink/common/device_memory/approximated_device_memory.cc
+@@ -9,6 +9,7 @@
+ #include "base/feature_list.h"
+ #include "base/system/sys_info.h"
+ #include "third_party/blink/public/common/features.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ 
+ namespace blink {
+ 
+@@ -18,10 +19,14 @@ int64_t ApproximatedDeviceMemory::physical_memory_mb_ = 0;
+ 
+ // static
+ void ApproximatedDeviceMemory::Initialize() {
+-  if (approximated_device_memory_gb_ > 0.0)
++  if (approximated_device_memory_gb_ > 0.0) {
+     return;
++  }
+   DCHECK_EQ(0, physical_memory_mb_);
+-  physical_memory_mb_ = ::base::SysInfo::AmountOfTotalPhysicalMemory().InMiB();
++  const auto& profile = GetWebHardwareProfile();
++  physical_memory_mb_ =
++      profile ? static_cast<int64_t>(profile->device_memory_gb) * 1024
++              : ::base::SysInfo::AmountOfTotalPhysicalMemory().InMiB();
+   CalculateAndSetApproximatedDeviceMemory();
+ }
+ 
+diff --git a/third_party/blink/common/hardware/web_hardware_profile.cc b/third_party/blink/common/hardware/web_hardware_profile.cc
+new file mode 100644
+index 0000000..58714d5
+--- /dev/null
++++ b/third_party/blink/common/hardware/web_hardware_profile.cc
+@@ -0,0 +1,78 @@
++// Copyright 2026 The Chromium Authors
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
++
++#include "base/check.h"
++#include "base/environment.h"
++#include "base/json/json_reader.h"
++#include "base/no_destructor.h"
++#include "base/values.h"
++
++namespace blink {
++
++std::optional<WebHardwareProfile> ParseWebHardwareProfile(
++    std::string_view json) {
++  auto dict = base::JSONReader::ReadDict(json, base::JSON_PARSE_RFC);
++  if (!dict) {
++    return std::nullopt;
++  }
++
++  auto read_int = [&dict](std::string_view key, int& destination) {
++    const base::Value* value = dict->Find(key);
++    if (!value) {
++      return true;
++    }
++    if (!value->is_int()) {
++      return false;
++    }
++    destination = value->GetInt();
++    return true;
++  };
++
++  WebHardwareProfile profile;
++  if (!read_int("hardwareConcurrency", profile.hardware_concurrency) ||
++      !read_int("deviceMemory", profile.device_memory_gb) ||
++      profile.hardware_concurrency < 1) {
++    return std::nullopt;
++  }
++
++  // Start with desktop memory tiers that share the 64-bit V8 heap ceiling.
++  // Smaller tiers also need coordinated isolate resource constraints.
++  if (profile.device_memory_gb != 8 && profile.device_memory_gb != 16 &&
++      profile.device_memory_gb != 32) {
++    return std::nullopt;
++  }
++
++  const int cores = profile.hardware_concurrency;
++  profile.cpu_performance = cores <= 2    ? 1
++                            : cores <= 4  ? 2
++                            : cores <= 12 ? 3
++                                          : 4;
++  if (!read_int("cpuPerformance", profile.cpu_performance) ||
++      profile.cpu_performance < 0 || profile.cpu_performance > 4) {
++    return std::nullopt;
++  }
++  return profile;
++}
++
++const std::optional<WebHardwareProfile>& GetWebHardwareProfile() {
++  static const base::NoDestructor<std::optional<WebHardwareProfile>> profile(
++      [] {
++        auto json =
++            base::Environment::Create()->GetVar("INVISIBLE_CHROMIUM_PROFILE");
++        if (!json) {
++          return std::optional<WebHardwareProfile>();
++        }
++        auto parsed = ParseWebHardwareProfile(*json);
++        CHECK(parsed)
++            << "Invalid INVISIBLE_CHROMIUM_PROFILE: expected a JSON "
++               "object with positive integer hardwareConcurrency, "
++               "deviceMemory in [8, 16, 32], and cpuPerformance in [0, 4]";
++        return parsed;
++      }());
++  return *profile;
++}
++
++}  // namespace blink
+diff --git a/third_party/blink/common/hardware/web_hardware_profile_unittest.cc b/third_party/blink/common/hardware/web_hardware_profile_unittest.cc
+new file mode 100644
+index 0000000..eb1b10c
+--- /dev/null
++++ b/third_party/blink/common/hardware/web_hardware_profile_unittest.cc
+@@ -0,0 +1,46 @@
++// Copyright 2026 The Chromium Authors
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
++
++#include "testing/gtest/include/gtest/gtest.h"
++
++namespace blink {
++namespace {
++
++TEST(WebHardwareProfileTest, EmptyObjectSelectsDesktopDefaults) {
++  auto profile = ParseWebHardwareProfile("{}");
++  ASSERT_TRUE(profile);
++  EXPECT_EQ(8, profile->hardware_concurrency);
++  EXPECT_EQ(8, profile->device_memory_gb);
++  EXPECT_EQ(3, profile->cpu_performance);
++}
++
++TEST(WebHardwareProfileTest, DerivesTierFromDeclaredCores) {
++  auto profile =
++      ParseWebHardwareProfile(R"({"hardwareConcurrency":4,"deviceMemory":16})");
++  ASSERT_TRUE(profile);
++  EXPECT_EQ(4, profile->hardware_concurrency);
++  EXPECT_EQ(16, profile->device_memory_gb);
++  EXPECT_EQ(2, profile->cpu_performance);
++}
++
++TEST(WebHardwareProfileTest, ExplicitTierOverridesCoreClassification) {
++  auto profile = ParseWebHardwareProfile(
++      R"({"hardwareConcurrency":8,"deviceMemory":32,"cpuPerformance":4})");
++  ASSERT_TRUE(profile);
++  EXPECT_EQ(4, profile->cpu_performance);
++}
++
++TEST(WebHardwareProfileTest, RejectsInvalidConfiguration) {
++  for (const char* json :
++       {"", "[]", R"({"hardwareConcurrency":0})",
++        R"({"hardwareConcurrency":"8"})", R"({"deviceMemory":4})",
++        R"({"cpuPerformance":5})"}) {
++    EXPECT_FALSE(ParseWebHardwareProfile(json)) << json;
++  }
++}
++
++}  // namespace
++}  // namespace blink
+diff --git a/third_party/blink/public/common/BUILD.gn b/third_party/blink/public/common/BUILD.gn
+index 4d7fbfa..5124ae3 100644
+--- a/third_party/blink/public/common/BUILD.gn
++++ b/third_party/blink/public/common/BUILD.gn
+@@ -164,6 +164,7 @@ source_set("headers") {
+     "frame/user_activation_update_source.h",
+     "frame/view_transition_state.h",
+     "global_privacy_control/global_privacy_control_util.h",
++    "hardware/web_hardware_profile.h",
+     "history/session_history_constants.h",
+     "indexeddb/indexed_db_default_mojom_traits.h",
+     "indexeddb/indexeddb_key.h",
+diff --git a/third_party/blink/public/common/hardware/web_hardware_profile.h b/third_party/blink/public/common/hardware/web_hardware_profile.h
+new file mode 100644
+index 0000000..30e84c2
+--- /dev/null
++++ b/third_party/blink/public/common/hardware/web_hardware_profile.h
+@@ -0,0 +1,34 @@
++// Copyright 2026 The Chromium Authors
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++#ifndef THIRD_PARTY_BLINK_PUBLIC_COMMON_HARDWARE_WEB_HARDWARE_PROFILE_H_
++#define THIRD_PARTY_BLINK_PUBLIC_COMMON_HARDWARE_WEB_HARDWARE_PROFILE_H_
++
++#include <optional>
++#include <string_view>
++
++#include "third_party/blink/public/common/common_export.h"
++
++namespace blink {
++
++// Web-visible declarations, independent of the resources used by the browser's
++// scheduler and allocators. One profile applies to the whole browser instance.
++struct BLINK_COMMON_EXPORT WebHardwareProfile {
++  int hardware_concurrency = 8;
++  int device_memory_gb = 8;
++  int cpu_performance = 3;
++};
++
++BLINK_COMMON_EXPORT std::optional<WebHardwareProfile> ParseWebHardwareProfile(
++    std::string_view json);
++
++// INVISIBLE_CHROMIUM_PROFILE is set before launching the browser and inherited
++// by its children, including Linux zygotes. The first read is cached for the
++// process lifetime. An unset variable preserves the upstream data sources.
++BLINK_COMMON_EXPORT const std::optional<WebHardwareProfile>&
++GetWebHardwareProfile();
++
++}  // namespace blink
++
++#endif  // THIRD_PARTY_BLINK_PUBLIC_COMMON_HARDWARE_WEB_HARDWARE_PROFILE_H_
+diff --git a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+index f5c0db2..15e1dec 100644
+--- a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
++++ b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+@@ -5,10 +5,14 @@
+ #include "third_party/blink/renderer/core/frame/navigator_concurrent_hardware.h"
+ 
+ #include "base/system/sys_info.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ 
+ namespace blink {
+ 
+ unsigned NavigatorConcurrentHardware::hardwareConcurrency() const {
++  if (const auto& profile = GetWebHardwareProfile()) {
++    return static_cast<unsigned>(profile->hardware_concurrency);
++  }
+   return static_cast<unsigned>(base::SysInfo::NumberOfProcessors());
+ }
+ 
