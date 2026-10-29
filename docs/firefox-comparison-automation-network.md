@@ -58,7 +58,7 @@
 - 语言/时区包括 header、Navigator/WorkerNavigator、Intl、Date、lastModified；这些结果按浏览器实例的统一配置对照。
 - 文件上传、下载、filechooser interception、CSP opt-in、ignore_https_errors opt-in、认证、response body 解压作为协议功能测试。
 
-本文件完成源码映射；尚未把这些对照项都运行成 Chromium 定制版回归结果。
+本文件记录源码映射；后续 CPU/RAM 原生实现及其运行结果见 [NATIVE.md](NATIVE.md)。
 
 ## 核验与原始索引
 

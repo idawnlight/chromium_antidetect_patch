@@ -79,7 +79,7 @@ out/Release/blink_common_unittests \
 autoninja -C out/Release chrome
 ```
 
-当前参数为 release、非 component、无调试符号、LTO/PGO/remoteexec 关闭。`out/Release` 包含浏览器运行所需的二进制和资源；直接挂载整个目录到桌面容器运行。
+当前参数为 release、非 component、无调试符号、LTO/PGO/remoteexec 关闭；`use_dummy_lastchange=false` 使版本元数据使用源码的真实 Git revision。`out/Release` 包含浏览器运行所需的二进制和资源；直接挂载整个目录到桌面容器运行。
 
 ## 验证入口
 
@@ -94,4 +94,24 @@ node scripts/verify-hardware.mjs /path/to/out/Release/chrome evidence/hardware-v
 
 `--stock-only` 只运行原版路径，已在现有 CfT `.4` 上通过；见 [工具运行记录](../evidence/hardware-verification-stock-cft-156.0.8078.4.json)。这份记录用于确认测试入口可用，native 结果使用自行构建的 `.73` 单独记录。
 
-构建与实际运行结果在完成后记录到本文件。
+## 本次构建与运行结果
+
+2026-10-29 完成 Linux x86_64 的完整 `chrome` 构建。源码为 `156.0.8078.73`，使用该 release hooks 提供的 Clang `24.0.0git`，参数见 [linux-release.gn](../build/linux-release.gn)。构建产物位于本机：
+
+```text
+/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome
+```
+
+首次完整构建耗时约 76 分钟，版本元数据增量构建约 88 秒，均退出 0。最终浏览器报告的 revision 为 `@2f9a11097447f226133bc1a31c787291a5eeab98`。工具链、参数、源码提交、构建日志位置与验证入口汇总于 [构建记录](../evidence/native-build-156.0.8078.73.json)。
+
+配置解析 4 项测试与原版内存分档 1 项测试全部通过，见 [5/5 单测记录](../evidence/hardware-profile-unittests.txt)。完整浏览器在 Docker 桌面中以 8 CPU、8 GiB cgroup 限额运行，三个独立进程的结果如下：
+
+| 启动配置 | HC | deviceMemory / 两种内存 CH | Window cpuPerformance | 结果 |
+| --- | --- | --- | --- | --- |
+| 不设置环境变量 | 48 | 32 | 4 | 通过 |
+| `{}` | 8 | 8 | 3 | 通过 |
+| `{"hardwareConcurrency":4,"deviceMemory":16,"cpuPerformance":2}` | 4 | 16 | 2 | 通过 |
+
+每组均检查主页面、同源 iframe、实际 OOPIF、Dedicated/Nested/Shared/Service Worker 的首段读取，以及跨站导航与返回后的读取。Worker 保持原版暴露范围，不出现 `cpuPerformance`。未 opt-in 时不发送内存 CH；收到 `Accept-CH` 后，Browser 导航与 Renderer 子资源的 `Device-Memory`、`Sec-CH-Device-Memory` 均与 JS 相同。三组实际 `jsHeapSizeLimit` 都为 **4,395,630,592 bytes**，动态 used/total 由真实分配产生。
+
+完整断言与快照见 [三组功能验证](../evidence/hardware-verification-chromium-156.0.8078.73.json)。另用同一构建及默认配置读取 [Linux 桌面快照](../evidence/container-desktop-chromium-156.0.8078.73.json)：Linux x86_64、Chromium UA-CH、1920×1080×24、DPR 1、Mesa llvmpipe WebGL1/2 实际编译 shader、48 kHz 双声道音频，时区为 America/New_York。

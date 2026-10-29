@@ -7,7 +7,7 @@
 - Firefox 原始改动账本：[firefox-source-ledger.json](../evidence/firefox-source-ledger.json)，对比 `FIREFOX_151_0_RELEASE` → 作者 `firefox-53`。下文保留其 `S53-*` hunk ID，便于追溯原始改动。
 - 已逐项查看当前发布源码 `firefox_stable_159`，HEAD 为 `d416cbfe5dc9884c4c3eba13ac4b94ef8fd923c2`，浏览器二进制源码身份为 `358357508394bb2ac288ece425ba2e7e68b94957`。行号以当前工作树为准，不沿用旧文档行号。
 - Chromium 为 `156.0.8078.73`，提交 `2f9a11097447f226133bc1a31c787291a5eeab98`。源码取自[同提交源码树](https://chromium.googlesource.com/chromium/src/+/2f9a11097447f226133bc1a31c787291a5eeab98/)。
-- [HARDWARE_APIS.md](HARDWARE_APIS.md) 及专题报告是此前盘点；Chromium 当前尚无 native 功能补丁。下表的“已盘点”表示此前报告已包含这条路径。
+- [HARDWARE_APIS.md](HARDWARE_APIS.md) 及专题报告是此前盘点；本专题记录原生修改前的源码盘点，后续 CPU/RAM 实现见 [NATIVE.md](NATIVE.md)。下表的“已盘点”表示此前报告已包含这条路径。
 - 本专题只比较身份、会话传播、时区/语言、屏幕/窗口、输入能力、桌面偏好、存储和 PDF 插件；图形/字体渲染、媒体和网络另由并行专题覆盖。
 
 ## 对照矩阵

@@ -4,8 +4,9 @@
 
 目标是保留正常 Linux 桌面、真实渲染与媒体行为，减少网页直接取得的 CPU、内存、GPU 等硬件细节。
 
-本轮完成了稳定版源码调查、Firefox 实际改动对照，以及 Docker 中的原版 Linux 桌面运行。原生补丁及构建尚未开始。
+已完成稳定版源码调查、Firefox 实际改动对照和 Docker 桌面运行。第一组 CPU/RAM 原生补丁已完成完整浏览器构建，5 项单元测试和三组 Docker 功能验证全部通过。
 
+- [CPU/RAM 原生实现、配置与构建](docs/NATIVE.md)
 - [硬件与显示 API 总报告、首版改动范围](docs/HARDWARE_APIS.md)
 - [CPU、内存、存储、网络与外设](docs/cpu-devices.md)
 - [显示、窗口、缩放、CSS 与输入](docs/display.md)
@@ -17,7 +18,10 @@
 - [Docker 桌面安装、运行与结果](docs/CONTAINER.md)
 - [原版运行记录](evidence/stock-cft-156.0.8078.4.json)
 - [Docker 运行记录](evidence/container-desktop-cft-156.0.8078.4.json)
+- [自构建 CPU/RAM 三组验证](evidence/hardware-verification-chromium-156.0.8078.73.json)
+- [自构建 Linux 桌面记录](evidence/container-desktop-chromium-156.0.8078.73.json)
+- [构建参数、工具链与验证汇总](evidence/native-build-156.0.8078.73.json)
 
-源码结论固定为 Chromium `156.0.8078.73`。运行记录来自本机已有 Chrome for Testing `156.0.8078.4`，两者版本分别记录。报告中的源码链接固定到提交，不跟随 main。
+源码与原生构建为 Chromium `156.0.8078.73`；此前的原版调查和容器记录使用本机已有 Chrome for Testing `156.0.8078.4`。各份记录分别注明实际版本。报告中的源码链接固定到提交，不跟随 main。
 
 浏览器二进制、Python runtime 和 Playwright Python 兼容入口各自维护版本，沿用已有 core/wrapper 的职责边界。

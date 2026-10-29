@@ -448,7 +448,7 @@ async function runScenario(scenario, display, temporary, origins, report) {
       connection.close();
     }
     await terminate(browser);
-    await rm(userDirectory, { recursive: true, force: true });
+    await rm(userDirectory, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
   }
 }
 
@@ -507,7 +507,7 @@ try {
   server.closeAllConnections();
   if (server.listening) await new Promise(resolve => server.close(resolve));
   await terminate(xvfb);
-  await rm(temporary, { recursive: true, force: true });
+  await rm(temporary, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, `${JSON.stringify(report, null, 2)}\n`);
   console.log(JSON.stringify({

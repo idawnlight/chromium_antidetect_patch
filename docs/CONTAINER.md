@@ -2,6 +2,8 @@
 
 本目录的镜像提供浏览器实际使用的 Linux 桌面服务：Xvfb、Openbox、D-Bus session、Mesa、字体/fontconfig、PulseAudio 和 speech-dispatcher。基础镜像使用 `ubuntu:24.04` 标签。浏览器按独立版本提供，运行时挂载进去。
 
+自构建 `156.0.8078.73` 的 CPU/RAM 配置、构建和三组验证见 [原生实现](NATIVE.md)。本文件保留早期 CfT `.4` 桌面实验；自构建桌面快照另存为 [Chromium `.73` 记录](../evidence/container-desktop-chromium-156.0.8078.73.json)。
+
 ## 构建
 
 在仓库根目录执行：

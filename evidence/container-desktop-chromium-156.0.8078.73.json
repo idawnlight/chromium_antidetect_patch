@@ -1,0 +1,555 @@
+{
+  "observedAt": "2026-10-29T12:56:58.071Z",
+  "binary": "/opt/chrome/chrome",
+  "version": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.73",
+    "revision": "@2f9a11097447f226133bc1a31c787291a5eeab98",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.25"
+  },
+  "sourceResearchVersion": "156.0.8078.73",
+  "observationVersion": "156.0.8078.73",
+  "environment": {
+    "display": "external X11 desktop",
+    "locale": "en_US.UTF-8",
+    "timeZone": "America/New_York",
+    "platform": "linux",
+    "arch": "x64",
+    "logicalCpuCount": 48,
+    "availableParallelism": 8,
+    "totalMemoryBytes": 134779289600,
+    "cgroup": {
+      "memory.max": "8589934592",
+      "cpu.max": "800000 100000",
+      "cpuset.cpus.effective": "0-47"
+    }
+  },
+  "launchArgs": [
+    "--user-data-dir=<temporary>",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--remote-debugging-port=33503",
+    "--window-size=1280,800",
+    "--ozone-platform=x11",
+    "--lang=en-US",
+    "--no-sandbox",
+    "--use-gl=angle",
+    "--use-angle=gl",
+    "--ignore-gpu-blocklist",
+    "--enable-speech-dispatcher",
+    "about:blank"
+  ],
+  "values": {
+    "secureContext": true,
+    "crossOriginIsolated": false,
+    "navigator": {
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "cpuPerformance": 3,
+      "maxTouchPoints": 0,
+      "platform": "Linux x86_64",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "language": "en-US",
+      "languages": [
+        "en-US"
+      ],
+      "pdfViewerEnabled": true,
+      "webdriver": false,
+      "vendor": "Google Inc."
+    },
+    "locale": {
+      "intl": {
+        "locale": "en-US",
+        "calendar": "gregory",
+        "numberingSystem": "latn",
+        "timeZone": "America/New_York",
+        "year": "numeric",
+        "month": "numeric",
+        "day": "numeric"
+      },
+      "lastModified": "01/01/2026 07:00:00",
+      "fixedDate": "Thu Jan 01 2026 07:00:00 GMT-0500 (Eastern Standard Time)"
+    },
+    "pageState": {
+      "visibility": "visible",
+      "hidden": false,
+      "hasFocus": true,
+      "userActivation": {
+        "isActive": false,
+        "hasBeenActive": false
+      }
+    },
+    "pdf": {
+      "plugins": [
+        "PDF Viewer",
+        "Chrome PDF Viewer",
+        "Chromium PDF Viewer",
+        "Microsoft Edge PDF Viewer",
+        "WebKit built-in PDF"
+      ],
+      "mimeTypes": [
+        "application/pdf",
+        "text/pdf"
+      ]
+    },
+    "window": {
+      "innerWidth": 1272,
+      "innerHeight": 709,
+      "outerWidth": 1280,
+      "outerHeight": 800,
+      "screenX": 10,
+      "screenY": 10,
+      "devicePixelRatio": 1
+    },
+    "screen": {
+      "width": 1920,
+      "height": 1080,
+      "availWidth": 1920,
+      "availHeight": 1080,
+      "availLeft": 0,
+      "availTop": 0,
+      "colorDepth": 24,
+      "pixelDepth": 24,
+      "isExtended": false,
+      "orientation": {
+        "type": "landscape-primary",
+        "angle": 0
+      }
+    },
+    "css": {
+      "pointer:fine": true,
+      "pointer:coarse": false,
+      "any-pointer:fine": true,
+      "hover:hover": true,
+      "any-hover:hover": true,
+      "color-gamut:srgb": true,
+      "color-gamut:p3": false,
+      "color-gamut:rec2020": false,
+      "dynamic-range:high": false,
+      "video-dynamic-range:high": false,
+      "update:fast": true,
+      "prefers-color-scheme:dark": false,
+      "prefers-reduced-motion:reduce": false,
+      "forced-colors:active": false,
+      "inverted-colors:inverted": false
+    },
+    "connection": {
+      "type": null,
+      "effectiveType": "4g",
+      "downlink": 1.55,
+      "downlinkMax": null,
+      "rtt": 100,
+      "saveData": false
+    },
+    "performanceMemory": {
+      "jsHeapSizeLimit": 4395630592,
+      "totalJSHeapSize": 1048866,
+      "usedJSHeapSize": 586690
+    },
+    "storage": {
+      "quota": 10737418240,
+      "usage": 0,
+      "usageDetails": {}
+    },
+    "battery": {
+      "charging": true,
+      "chargingTime": 0,
+      "dischargingTime": null,
+      "level": 1
+    },
+    "uaData": {
+      "architecture": "x86",
+      "bitness": "64",
+      "brands": [
+        {
+          "brand": "Not:A-Brand",
+          "version": "8"
+        },
+        {
+          "brand": "Chromium",
+          "version": "156"
+        }
+      ],
+      "fullVersionList": [
+        {
+          "brand": "Not:A-Brand",
+          "version": "8.0.0.0"
+        },
+        {
+          "brand": "Chromium",
+          "version": "156.0.8078.73"
+        }
+      ],
+      "mobile": false,
+      "model": "",
+      "platform": "Linux",
+      "platformVersion": "",
+      "wow64": false
+    },
+    "permissions": {
+      "window-management": "prompt",
+      "local-fonts": "prompt",
+      "camera": "prompt",
+      "microphone": "prompt",
+      "geolocation": "prompt",
+      "accelerometer": "granted",
+      "gyroscope": "granted",
+      "magnetometer": "granted",
+      "idle-detection": "prompt"
+    },
+    "exposure": {
+      "gpu": "object",
+      "usb": "object",
+      "hid": "object",
+      "serial": "object",
+      "bluetooth": "undefined",
+      "getGamepads": "function",
+      "getScreenDetails": "function",
+      "queryLocalFonts": "function",
+      "PressureObserver": "function",
+      "measureUserAgentSpecificMemory": "undefined"
+    },
+    "mediaDevices": [
+      {
+        "kind": "audiooutput",
+        "hasLabel": false,
+        "hasDeviceId": false,
+        "hasGroupId": false
+      }
+    ],
+    "webgl": {
+      "webgl": {
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+        "unmaskedVendor": "Google Inc. (Mesa)",
+        "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384,
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "default",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "shaderCompiled": true,
+        "translatedShaderLength": 108,
+        "translatedShaderPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n  (gl_Position = vec4(0.0, 0.0, 0.0, 0.0));\n  (gl_Position = _ua);\n}\n",
+        "extensions": [
+          "ANGLE_instanced_arrays",
+          "EXT_blend_minmax",
+          "EXT_clip_control",
+          "EXT_color_buffer_half_float",
+          "EXT_depth_clamp",
+          "EXT_disjoint_timer_query",
+          "EXT_float_blend",
+          "EXT_frag_depth",
+          "EXT_polygon_offset_clamp",
+          "EXT_shader_texture_lod",
+          "EXT_texture_compression_bptc",
+          "EXT_texture_compression_rgtc",
+          "EXT_texture_filter_anisotropic",
+          "EXT_texture_mirror_clamp_to_edge",
+          "EXT_sRGB",
+          "KHR_parallel_shader_compile",
+          "OES_element_index_uint",
+          "OES_fbo_render_mipmap",
+          "OES_standard_derivatives",
+          "OES_texture_float",
+          "OES_texture_float_linear",
+          "OES_texture_half_float",
+          "OES_texture_half_float_linear",
+          "OES_vertex_array_object",
+          "WEBGL_blend_func_extended",
+          "WEBGL_color_buffer_float",
+          "WEBGL_compressed_texture_s3tc",
+          "WEBGL_compressed_texture_s3tc_srgb",
+          "WEBGL_debug_renderer_info",
+          "WEBGL_debug_shaders",
+          "WEBGL_depth_texture",
+          "WEBGL_draw_buffers",
+          "WEBGL_lose_context",
+          "WEBGL_multi_draw",
+          "WEBGL_polygon_mode"
+        ]
+      },
+      "webgl2": {
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "unmaskedVendor": "Google Inc. (Mesa)",
+        "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384,
+        "contextAttributes": {
+          "alpha": true,
+          "antialias": true,
+          "depth": true,
+          "desynchronized": false,
+          "failIfMajorPerformanceCaveat": false,
+          "powerPreference": "default",
+          "premultipliedAlpha": true,
+          "preserveDrawingBuffer": false,
+          "stencil": false,
+          "xrCompatible": false
+        },
+        "shaderCompiled": true,
+        "translatedShaderLength": 108,
+        "translatedShaderPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n  (gl_Position = vec4(0.0, 0.0, 0.0, 0.0));\n  (gl_Position = _ua);\n}\n",
+        "extensions": [
+          "EXT_clip_control",
+          "EXT_color_buffer_float",
+          "EXT_color_buffer_half_float",
+          "EXT_conservative_depth",
+          "EXT_depth_clamp",
+          "EXT_disjoint_timer_query_webgl2",
+          "EXT_float_blend",
+          "EXT_polygon_offset_clamp",
+          "EXT_render_snorm",
+          "EXT_texture_compression_bptc",
+          "EXT_texture_compression_rgtc",
+          "EXT_texture_filter_anisotropic",
+          "EXT_texture_mirror_clamp_to_edge",
+          "EXT_texture_norm16",
+          "KHR_parallel_shader_compile",
+          "NV_shader_noperspective_interpolation",
+          "OES_draw_buffers_indexed",
+          "OES_sample_variables",
+          "OES_shader_multisample_interpolation",
+          "OES_texture_float_linear",
+          "OVR_multiview2",
+          "WEBGL_blend_func_extended",
+          "WEBGL_clip_cull_distance",
+          "WEBGL_compressed_texture_s3tc",
+          "WEBGL_compressed_texture_s3tc_srgb",
+          "WEBGL_debug_renderer_info",
+          "WEBGL_debug_shaders",
+          "WEBGL_lose_context",
+          "WEBGL_multi_draw",
+          "WEBGL_polygon_mode",
+          "WEBGL_provoking_vertex",
+          "WEBGL_stencil_texturing"
+        ]
+      }
+    },
+    "webgpu": null,
+    "audio": {
+      "sampleRate": 48000,
+      "baseLatency": 0.010666666666666666,
+      "outputLatency": 0,
+      "state": "suspended",
+      "maxChannelCount": 2
+    },
+    "voices": {
+      "count": 13363,
+      "languages": [
+        "af",
+        "sq",
+        "am",
+        "ar",
+        "an",
+        "hy",
+        "hyw",
+        "as",
+        "az",
+        "ba",
+        "eu",
+        "be",
+        "bn",
+        "bpy",
+        "bs",
+        "bg",
+        "ca",
+        "chr-US-QAAA-X-WEST",
+        "yue",
+        "cmn",
+        "cmn-LATN-PINYIN",
+        "cv",
+        "hr",
+        "cs",
+        "da",
+        "ja",
+        "nl",
+        "en-US",
+        "en-US-NYC",
+        "en-029",
+        "en-GB",
+        "en-GB-X-GBCLAN",
+        "en-GB-X-RP",
+        "en-GB-SCOTLAND",
+        "en-GB-X-GBCWMD",
+        "eo",
+        "et",
+        "fi",
+        "fr-BE",
+        "fr-FR",
+        "fr-CH",
+        "ga",
+        "gd",
+        "ka",
+        "de",
+        "grc",
+        "el",
+        "kl",
+        "gn",
+        "gu",
+        "ht",
+        "hak",
+        "haw",
+        "he",
+        "hi",
+        "hu",
+        "is",
+        "io",
+        "id",
+        "ia",
+        "it",
+        "quc",
+        "kn",
+        "kk",
+        "piqd",
+        "kok",
+        "ko",
+        "ku",
+        "ky",
+        "qdb",
+        "ltg",
+        "la",
+        "lv",
+        "lfn",
+        "lt",
+        "jbo",
+        "smj",
+        "lb",
+        "mk",
+        "ms",
+        "ml",
+        "mt",
+        "mr",
+        "my",
+        "mi",
+        "nci",
+        "ne",
+        "nog",
+        "nb",
+        "or",
+        "om",
+        "pap",
+        "fa-LATN",
+        "fa",
+        "pl",
+        "pt-BR",
+        "pt",
+        "pa",
+        "py",
+        "qu",
+        "qya",
+        "ro",
+        "ru-LV",
+        "ru",
+        "sr",
+        "tn",
+        "shn",
+        "sjn",
+        "sd",
+        "si",
+        "sk",
+        "sl",
+        "es-419",
+        "es",
+        "sw",
+        "sv",
+        "ta",
+        "tt",
+        "te",
+        "th",
+        "tr",
+        "tk",
+        "uk",
+        "ur",
+        "ug",
+        "uz",
+        "vi-VN-X-CENTRAL",
+        "vi",
+        "vi-VN-X-SOUTH",
+        "cy"
+      ],
+      "sample": [
+        {
+          "name": "Afrikaans espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": true
+        },
+        {
+          "name": "Afrikaans+Adam espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Alex espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Alicia espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Andrea espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Andy espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Annie espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Afrikaans+Antonio espeak-ng",
+          "lang": "af",
+          "localService": true,
+          "default": false
+        }
+      ]
+    },
+    "fonts": {
+      "computedBodyFontFamily": "\"Times New Roman\""
+    },
+    "raf": {
+      "samples": 30,
+      "min": 16.56399999999985,
+      "median": 16.699999999999818,
+      "max": 16.800000000000182
+    },
+    "worker": {
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+    },
+    "serviceWorker": {
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+    }
+  }
+}

@@ -52,7 +52,7 @@ Xvfb 的职责是显示服务，它自身不提供 GPU。反过来，提供 rend
 5. **EME/CDM**：key system/configuration/robustness 与实际可用 CDM；与一般 codec 支持分开。
 6. **环境生命周期**：音频 sink 启动/断开，media 首次/缓存/并发枚举与 devicechange，TTS 首次加载/voiceschanged/实际 utterance。
 
-以上补充来自源码入口与 Firefox 具体 hunk 的对照。原生 Chromium 产品代码在本轮没有变更；这些是实现与容器基准的输入。
+以上补充来自源码入口与 Firefox 具体 hunk 的对照。本专题是实现与容器基准的输入；后续 CPU/RAM 原生实现见 [NATIVE.md](NATIVE.md)。
 
 ## 核验与原始索引
 

@@ -109,7 +109,7 @@ CPU/RAM 的实际观测与源码一致：Docker cgroup 限额没有改变这些�
 
 ## 首版 native 开发切口
 
-第一组补丁选择 **CPU/RAM 声明**：共同网页可见 HC、Browser CPU tier、公共 approximated memory，以及导航/子资源 Client Hints。用每 browser process 的不可变配置作为数据源，renderer 与各类 Worker 在第一段网页脚本之前得到配置。普通 Linux 桌面样例可从 8 线程、8 GiB、high CPU tier 开始，具体档位为显式配置。
+第一组补丁已实现 **CPU/RAM 声明**：共同网页可见 HC、Browser CPU tier、公共 approximated memory，以及导航/子资源 Client Hints。用每 browser process 的不可变配置作为数据源，renderer 与各类 Worker 在第一段网页脚本之前得到配置。普通 Linux 桌面样例可从 8 线程、8 GiB、high CPU tier 开始，具体档位为显式配置。
 
 实现仅调整网页声明入口；系统 CPU/内存查询仍供线程池、调度和真实资源管理使用。8 GiB 以上的 Linux 64-bit V8 默认已处于同一 old-generation 上限档，先用实际 heap limit 核对这组选择。
 
@@ -117,14 +117,14 @@ CPU/RAM 的实际观测与源码一致：Docker cgroup 限额没有改变这些�
 
 显示、字体和音频先由真实运行环境决定。窗口与显示参数从 native 读回成为会话状态。CDP 输入 x/y 使用 viewport CSS px；截图 Page.Viewport clip 为 DIP，后端按实际页面 zoom 与输出缩放转换。
 
-## 下一步验证
+## 验证状态与后续工作
 
-- 同版本原版/定制版对照；Window、同/跨源 iframe、Dedicated/Shared/ServiceWorker 的首段读取及导航后读取。
-- JS memory 与导航/子资源 Client Hints 对照，包括 opt-in 与 policy；heap limit 与实际分配行为另行记录。
-- CPU/RAM 配置开关与固定配置的重启一致性；保留正常 Linux UA/UA-CH。
-- 实际显示下的 screen/CSS/DPR、页面缩放、截图尺寸与点击位置联动。
-- WebGL1/2、OffscreenCanvas 与 WebGPU metadata/能力/简单渲染对照。
-- 原生构建、Python CDP 后端和 GitHub Release 安装分别记录源码、版本与产物身份。
+- 已完成同版本自构建浏览器在配置关闭、默认开启、自定义值三种状态下的对照，覆盖 Window、同源 iframe、真实 OOPIF、Dedicated/Nested/Shared/ServiceWorker 首段读取，以及跨站导航与返回。
+- 已完成 JS 内存与导航/子资源两种 Client Hints 的 opt-in 对照；三组实际 heap limit 均为 4,395,630,592 bytes。
+- 已取得自构建浏览器的 Linux UA/UA-CH、真实桌面、WebGL 和音频快照。CPU/RAM 声明按配置生效，完整结果见 [原生实现与验证](NATIVE.md)。
+- 后续补充持久 profile 重启、内存 CH policy delegation，以及页面缩放、截图尺寸与点击位置联动。
+- 下一组原生修改处理 WebGL1/2、OffscreenCanvas 与 WebGPU metadata/能力/简单渲染对照。
+- Python CDP 后端和 GitHub Release 安装按各自仓库继续实现，浏览器原生层独立构建、发版。
 
 ## 专题实现依据
 
@@ -133,4 +133,4 @@ CPU/RAM 的实际观测与源码一致：Docker cgroup 限额没有改变这些�
 - [GPU、字体、音频、媒体、RTC](render-media.md)
 - [WebNN、WebXR、DevicePosture、区段与屏幕键盘](additional.md)
 
-本轮完成源码盘点、Firefox 实际改动对照和 Docker 桌面运行；native 补丁及定制浏览器构建尚未执行。
+源码盘点、Firefox 实际改动对照和 Docker 桌面运行已完成。CPU/RAM 原生补丁已完成完整浏览器构建、5 项单元测试和三组 Docker 功能验证；配置、构建与运行记录见 [NATIVE.md](NATIVE.md)。

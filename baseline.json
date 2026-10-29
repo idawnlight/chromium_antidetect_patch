@@ -18,7 +18,8 @@
     "skia": "a65b5cc03a5131808aec172085b7074fc66625b9",
     "webrtc": "19576e37870bfe5a0a910a32f98ff411f722f43a"
   },
-  "research_status": "source_inventory_complete",
-  "native_patch_status": "not_started",
-  "native_build_status": "not_started"
+  "research_status": "firefox_comparison_and_container_complete",
+  "native_patch_status": "hardware_profile_implemented",
+  "native_build_status": "chrome_build_passed",
+  "native_verification_status": "hardware_profiles_passed"
 }

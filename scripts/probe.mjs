@@ -149,5 +149,5 @@ try {
   await terminate(browser);
   await terminate(xvfb);
   server.closeAllConnections();server.close();
-  await rm(temporary, { recursive:true,force:true });
+  await rm(temporary, { recursive:true,force:true,maxRetries:10,retryDelay:100 });
 }
