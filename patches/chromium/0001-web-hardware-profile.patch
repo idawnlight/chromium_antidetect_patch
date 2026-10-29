@@ -77,10 +77,10 @@ index 7fd53eb..d02b9f8 100644
  
 diff --git a/third_party/blink/common/hardware/web_hardware_profile.cc b/third_party/blink/common/hardware/web_hardware_profile.cc
 new file mode 100644
-index 0000000..58714d5
+index 0000000..c2764d8
 --- /dev/null
 +++ b/third_party/blink/common/hardware/web_hardware_profile.cc
-@@ -0,0 +1,78 @@
+@@ -0,0 +1,76 @@
 +// Copyright 2026 The Chromium Authors
 +// Use of this source code is governed by a BSD-style license that can be
 +// found in the LICENSE file.
@@ -90,7 +90,6 @@ index 0000000..58714d5
 +#include "base/check.h"
 +#include "base/environment.h"
 +#include "base/json/json_reader.h"
-+#include "base/no_destructor.h"
 +#include "base/values.h"
 +
 +namespace blink {
@@ -141,21 +140,20 @@ index 0000000..58714d5
 +}
 +
 +const std::optional<WebHardwareProfile>& GetWebHardwareProfile() {
-+  static const base::NoDestructor<std::optional<WebHardwareProfile>> profile(
-+      [] {
-+        auto json =
-+            base::Environment::Create()->GetVar("INVISIBLE_CHROMIUM_PROFILE");
-+        if (!json) {
-+          return std::optional<WebHardwareProfile>();
-+        }
-+        auto parsed = ParseWebHardwareProfile(*json);
-+        CHECK(parsed)
-+            << "Invalid INVISIBLE_CHROMIUM_PROFILE: expected a JSON "
-+               "object with positive integer hardwareConcurrency, "
-+               "deviceMemory in [8, 16, 32], and cpuPerformance in [0, 4]";
-+        return parsed;
-+      }());
-+  return *profile;
++  static const std::optional<WebHardwareProfile> profile = [] {
++    auto json =
++        base::Environment::Create()->GetVar("INVISIBLE_CHROMIUM_PROFILE");
++    if (!json) {
++      return std::optional<WebHardwareProfile>();
++    }
++    auto parsed = ParseWebHardwareProfile(*json);
++    CHECK(parsed)
++        << "Invalid INVISIBLE_CHROMIUM_PROFILE: expected a JSON "
++           "object with positive integer hardwareConcurrency, "
++           "deviceMemory in [8, 16, 32], and cpuPerformance in [0, 4]";
++    return parsed;
++  }();
++  return profile;
 +}
 +
 +}  // namespace blink

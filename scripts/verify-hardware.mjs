@@ -493,6 +493,11 @@ try {
     );
   }
   for (const scenario of scenarios) await runScenario(scenario, display, temporary, origins, report);
+  const stockHeapLimit = report.scenarios[0].snapshots.page.performanceMemory.jsHeapSizeLimit;
+  for (const scenario of report.scenarios.slice(1)) {
+    assert.equal(scenario.snapshots.page.performanceMemory.jsHeapSizeLimit, stockHeapLimit,
+      `${scenario.name}: desktop memory profile must preserve the upstream heap ceiling`);
+  }
   report.status = 'passed';
 } catch (error) {
   report.status = 'failed';
