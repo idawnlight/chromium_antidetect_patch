@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "channel": "Stable",
+  "platform": "Linux",
+  "milestone": 156,
+  "version": "156.0.8078.73",
+  "tag": "156.0.8078.73",
+  "commit": "2f9a11097447f226133bc1a31c787291a5eeab98",
+  "upstream": "https://chromium.googlesource.com/chromium/src.git",
+  "mirror": "https://github.com/chromium/chromium.git",
+  "upstream_branch_head": "8078",
+  "release_source": "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1",
+  "observed_on": "2026-10-29",
+  "dependencies": {
+    "v8": "235050a0df6db2c9d92a419af2b72fbf3b2dd73b",
+    "angle": "127e783de33425c27a70a3f48da9d9202d6a0745",
+    "dawn": "0caf3649477f7c3ffbd4b1ca4764a81b469b1582",
+    "skia": "a65b5cc03a5131808aec172085b7074fc66625b9",
+    "webrtc": "19576e37870bfe5a0a910a32f98ff411f722f43a"
+  },
+  "research_status": "source_inventory_complete",
+  "native_patch_status": "not_started",
+  "native_build_status": "not_started"
+}
