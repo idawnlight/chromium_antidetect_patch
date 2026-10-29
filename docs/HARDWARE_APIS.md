@@ -47,6 +47,30 @@
 4. **GPU identity 和实际能力分别处理。**WebGL 字符串可以减少细节；limits、shader、codec、像素和 WebGPU 执行仍使用实际硬件能力。
 5. **默认暴露与授权/实验接口分别记录。**传感器、keyboard map、多屏布尔状态等与完整设备 chooser 不同；WebNN、HDR 扩展、Linux Bluetooth 等按固定 tag 的实际 feature 状态记录。
 
+## 与 Firefox 实际改动对照后的补充
+
+对照从原始 Firefox 改动账本和当前 Firefox 159 实现出发。原账本包含 440 文件、642 个 hunk；三篇专题显式引用其中 150 个不同 hunk，另列 Chromium 自身新增的入口。完整索引见 [firefox-crosswalk-index.json](../evidence/firefox-crosswalk-index.json)。
+
+| 此前遗漏或未展开的组 | 具体入口与关系 | 实施归属 |
+| --- | --- | --- |
+| 语言与时区全链 | Accept-Language、Navigator、Intl、Date、lastModified、原生表单、字体 fallback，以及 Worker/Worklet 初始状态 | 启动前设实际 locale、TZ 和 profile；一身份一 browser process |
+| native 日期路径 | `document.lastModified` 在 Linux 使用 libc `localtime_r`，CDP 时区覆盖修改的是 ICU/V8 | 进程 TZ 与浏览器时区统一；以后支持同进程多时区时才需接 native |
+| 完整桌面状态 | GTK 颜色/主题/系统字体、文字缩放、控件、XInput、窗口管理、focus/visibility/occlusion | 容器提供桌面；Python 后端负责实际窗口激活和坐标转换 |
+| 图形的独立出口 | translated shader、GPU timer queries、context 创建及 fallback、PBO、ImageBitmap/Offscreen/WebGPU 读回 | 实际 GPU/软件 backend；保留原生执行与输出 |
+| 媒体和语音生命周期 | 枚举首次/缓存/并发调用、devicechange、真实 sink/capture、voiceschanged、实际语音引擎 | 容器运行音频和 TTS 服务；后端接原生事件 |
+| 浏览器功能组合 | EME/CDM、PDF/plugins、codec、storage partition/persistence/OPFS | 浏览器构建和实际 profile/volume；与 Linux 构建的功能一致 |
+| 网络独立路径 | RTC ICE/SDP/stats、STUN/TURN DNS、QUIC、系统 NetworkContext、退出子进程 | 容器路由与 DNS；需要代理时分别处理 HTTP auth 和 SOCKS auth |
+| 自动化执行语义 | CDP domain、isolated world、Error/console 序列化、user activation、输入 timestamp/ACK | Python CDP 后端对接 Chromium 已有能力 |
+
+几个影响架构的具体结论：
+
+- Chromium 的 headed + 非零 CDP 端口启动路径不设置 `AutomationControlled`。`headless`、pipe 和 port=0 有不同源码分支。
+- 原版 SOCKS5 greeting 只有 NO_AUTH；Fetch 域的 HTTP proxy auth 不会增加 SOCKS5 认证支持。
+- Firefox 的 Windows 字体/度量、DWrite、DirectX shader、任务栏和平台声明不迁入 Linux 方案；使用真实 Linux 的字体、窗口和图形链。
+- 输入、文件选择器、CSP 和网络拦截已有 CDP 能力，新增工作主要在 Python 后端；humanize 继续属于共享 Python 动作层。
+
+逐项实现与源码位置见 [身份/区域/显示/输入](firefox-comparison-identity.md)、[图形/字体/媒体](firefox-comparison-render.md)、[自动化/网络](firefox-comparison-automation-network.md)。
+
 ## 本机原版运行记录
 
 使用本机已有 Chrome for Testing **156.0.8078.4**，Linux x86_64、X11/Xvfb 1920×1080×24、1280×800 浏览器窗口。浏览器未使用 getter 覆写。该机器的 AppArmor/user namespace 配置使原始启动报 No usable sandbox，本轮观测启动显式记录了 `--no-sandbox`。运行快照不是 `.73` 原生构建结果。
@@ -65,6 +89,23 @@
 | WebGL / WebGPU | 该虚拟显示环境未取得 context / adapter；GPU 功能结论来自固定源码 |
 
 完整结果含浏览器 revision、启动参数和宿主资源信息，见 [JSON](../evidence/stock-cft-156.0.8078.4.json)。
+
+## Docker 桌面实际运行
+
+已使用现有 Docker 构建 Ubuntu 24.04 + Xvfb + Openbox + Mesa + PulseAudio + speech-dispatcher 镜像并运行上述原版浏览器。容器限额为 8 CPU、8 GiB，使用独立显示、profile 和进程；镜像用 `ubuntu:24.04` 标签。安装和运行命令见 [容器文档](CONTAINER.md)。
+
+| 观测 | 实际结果 |
+| --- | --- |
+| 容器限额 / 网页硬件声明 | 8 CPU、8 GiB / HC=48、deviceMemory=32、cpuPerformance=4；Worker/SW 同样为 48/32 |
+| UA / 平台 / webdriver | 原版 Linux UA、Linux x86_64、false；headed + 非零本地 CDP 端口 |
+| 显示 / 窗口 / 输入能力 | screen 1920×1080×24、outer 1280×800、inner 1272×653、DPR 1；pointer fine / hover、touch=0 |
+| focus / visibility / rAF | true / visible / 中位约 16.7 ms |
+| WebGL1/2 | Mesa llvmpipe，经 ANGLE OpenGL；真实 shader 编译成功；maxTextureSize=16384 |
+| WebGPU | 此软件桌面配置无 adapter |
+| 音频 | 实际 PulseAudio 48 kHz、双声道；采样时 context 为 suspended |
+| 区域与时区 | en-US / America/New_York；Date 与 Last-Modified 均把 UTC 12:00 转为当地 07:00 |
+
+CPU/RAM 的实际观测与源码一致：Docker cgroup 限额没有改变这些网页 getter 的宿主数据源。图形则已从上一轮单独 Xvfb 的 null context 改为可运行的实际 Mesa 软件 GL。详细快照见 [Docker 运行记录](../evidence/container-desktop-cft-156.0.8078.4.json)。
 
 ## 首版 native 开发切口
 
@@ -92,4 +133,4 @@
 - [GPU、字体、音频、媒体、RTC](render-media.md)
 - [WebNN、WebXR、DevicePosture、区段与屏幕键盘](additional.md)
 
-本轮完成源码盘点、缓存身份核对和原版运行观察；native 补丁及定制浏览器构建尚未执行。
+本轮完成源码盘点、Firefox 实际改动对照和 Docker 桌面运行；native 补丁及定制浏览器构建尚未执行。

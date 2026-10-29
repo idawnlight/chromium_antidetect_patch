@@ -1,0 +1,340 @@
+{
+  "passed": true,
+  "chromium_revision": "2f9a11097447f226133bc1a31c787291a5eeab98",
+  "firefox_original_product": {
+    "ref": "firefox-53",
+    "commit": "57a89f0152b8ada6613bf5d008db923873c955a5"
+  },
+  "firefox_release_source": "358357508394bb2ac288ece425ba2e7e68b94957",
+  "firefox_release_worktree_head": "d416cbfe5dc9884c4c3eba13ac4b94ef8fd923c2",
+  "report_sha256": "7baf195d1b095d1987028505ac80b2deb114b4435375d600eed524f0aa7166f7",
+  "referenced_ledger_hunks": [
+    {
+      "id": "S53-03eb42c947",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-048064d740",
+      "path": "dom/canvas/WebGLContext.cpp"
+    },
+    {
+      "id": "S53-101a6139a0",
+      "path": "gfx/thebes/gfxFcPlatformFontList.cpp"
+    },
+    {
+      "id": "S53-10ea1ca83f",
+      "path": "gfx/2d/StealthGlyphCoverage.cpp"
+    },
+    {
+      "id": "S53-1201fcc426",
+      "path": "dom/media/webspeech/synth/SpeechSynthesisVoice.cpp"
+    },
+    {
+      "id": "S53-1a9d7df01c",
+      "path": "dom/media/webspeech/synth/SpeechSynthesis.cpp"
+    },
+    {
+      "id": "S53-2f96a048f8",
+      "path": "dom/canvas/WebGLShader.cpp"
+    },
+    {
+      "id": "S53-502c4c3609",
+      "path": "gfx/thebes/gfxFont.cpp"
+    },
+    {
+      "id": "S53-52e62d706d",
+      "path": "gfx/skia/skia/src/core/SkScalerContext.cpp"
+    },
+    {
+      "id": "S53-5355269deb",
+      "path": "dom/webgpu/CanvasContext.cpp"
+    },
+    {
+      "id": "S53-57734b5859",
+      "path": "gfx/thebes/StealthBundleFontList.cpp"
+    },
+    {
+      "id": "S53-58da7701bc",
+      "path": "gfx/2d/StealthCanvasProjection.cpp"
+    },
+    {
+      "id": "S53-5fec258bcb",
+      "path": "dom/media/webaudio/AudioContext.cpp"
+    },
+    {
+      "id": "S53-64b799a1c0",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-656af48027",
+      "path": "dom/canvas/OffscreenCanvasDisplayHelper.cpp"
+    },
+    {
+      "id": "S53-6ba68bc3c5",
+      "path": "gfx/thebes/gfxHarfBuzzShaper.cpp"
+    },
+    {
+      "id": "S53-6dfbab49a9",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-76e56a6283",
+      "path": "dom/media/webspeech/synth/SpeechSynthesisVoice.cpp"
+    },
+    {
+      "id": "S53-7cc8ed90f4",
+      "path": "dom/media/mediacapabilities/MediaCapabilities.cpp"
+    },
+    {
+      "id": "S53-7e2f078c43",
+      "path": "gfx/2d/RecordedEventImpl.h"
+    },
+    {
+      "id": "S53-8bcac39120",
+      "path": "gfx/2d/DrawTargetRecording.cpp"
+    },
+    {
+      "id": "S53-8d40d63a0a",
+      "path": "dom/canvas/OffscreenCanvas.cpp"
+    },
+    {
+      "id": "S53-900630848e",
+      "path": "gfx/thebes/gfxFcPlatformFontList.cpp"
+    },
+    {
+      "id": "S53-91f2803d88",
+      "path": "dom/canvas/CanvasRenderingContext2D.cpp"
+    },
+    {
+      "id": "S53-978ec58b7c",
+      "path": "gfx/2d/RecordedEventImpl.h"
+    },
+    {
+      "id": "S53-9b1cfe5255",
+      "path": "gfx/thebes/gfxFT2FontBase.cpp"
+    },
+    {
+      "id": "S53-9c141c26c3",
+      "path": "dom/canvas/WebGLShaderValidator.cpp"
+    },
+    {
+      "id": "S53-9cda742311",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-aa27c6721d",
+      "path": "dom/media/mediacapabilities/MediaCapabilities.cpp"
+    },
+    {
+      "id": "S53-aca1b34414",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-acbfcccc46",
+      "path": "gfx/thebes/gfxFont.cpp"
+    },
+    {
+      "id": "S53-b111a24170",
+      "path": "browser/fonts/bundle-fonts.list"
+    },
+    {
+      "id": "S53-b62380d922",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-ba318bf545",
+      "path": "dom/media/webaudio/AnalyserNode.cpp"
+    },
+    {
+      "id": "S53-bc0112e2ee",
+      "path": "dom/media/webaudio/AnalyserNode.cpp"
+    },
+    {
+      "id": "S53-bedc62d1f3",
+      "path": "dom/canvas/CanvasRenderingContext2D.cpp"
+    },
+    {
+      "id": "S53-c01a92afb4",
+      "path": "gfx/thebes/gfxPlatformFontList.cpp"
+    },
+    {
+      "id": "S53-c21de1d4ea",
+      "path": "dom/media/StealthMediaDeclaration.cpp"
+    },
+    {
+      "id": "S53-c307470d9c",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-c752aa6d6a",
+      "path": "dom/media/MediaManager.cpp"
+    },
+    {
+      "id": "S53-cb0c135830",
+      "path": "dom/html/HTMLCanvasElement.cpp"
+    },
+    {
+      "id": "S53-cb2eb0f949",
+      "path": "dom/canvas/CanvasUtils.h"
+    },
+    {
+      "id": "S53-cbf5ede26b",
+      "path": "dom/media/MediaManager.cpp"
+    },
+    {
+      "id": "S53-d720fa6f62",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-d97e018f67",
+      "path": "dom/media/webaudio/AudioDestinationNode.cpp"
+    },
+    {
+      "id": "S53-dada91f2f5",
+      "path": "dom/canvas/ClientWebGLContext.cpp"
+    },
+    {
+      "id": "S53-deb47bf457",
+      "path": "dom/media/webaudio/DynamicsCompressorNode.h"
+    },
+    {
+      "id": "S53-e44204c6c3",
+      "path": "dom/media/CubebUtils.cpp"
+    },
+    {
+      "id": "S53-e873af0455",
+      "path": "dom/webgpu/CanvasContext.cpp"
+    },
+    {
+      "id": "S53-e969ecafc7",
+      "path": "dom/media/platforms/PDMFactory.cpp"
+    },
+    {
+      "id": "S53-f1b94c5034",
+      "path": "dom/media/webaudio/AudioContext.cpp"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "third_party/blink/renderer/modules/webgl/webgl_debug_shaders.cc",
+      "blob": "0bd94e997dc906d0dd79784c1dbceba9e21e4c41",
+      "sha256": "10088aafbdbf48563484368a82fef6aa41309c6100af1118ee800268e4ef2031",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/ext_disjoint_timer_query.cc",
+      "blob": "e2770d7f65b6e607641ea8c1fadccab30bb71223",
+      "sha256": "b5e9408ec76200abbd35efc1c4e65fbcd6d49555e07598d0dc7543e6ecdf30bd",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/ext_disjoint_timer_query_webgl2.cc",
+      "blob": "196b1aa25320018e0ad0b6073c9970511c1c4472",
+      "sha256": "cd1fec330138f54cdc99ef8b4a0f9fe606cc5b406e28f8a3ca4837b7aa0ca332",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/webgl2_rendering_context_base.cc",
+      "blob": "9eb36fe26cc59e1d248b41b1f02adff133585474",
+      "sha256": "30289da234726ac9e03c91e1139ee89003cf9dc22e937a17f8bc6f21d78f3fa6",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/webgl_context_attribute_helpers.cc",
+      "blob": "6f2969ca81b72a782338be0dd2d8af5e311ae69b",
+      "sha256": "89b202f111481e4766f7dda3b52bb84911d2fa88b69ffe44ce7362fd42d3e625",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/webgl_context_attributes.idl",
+      "blob": "672610de4d76c68fc0a8c82694583183d74e0a4c",
+      "sha256": "a15b60a7d311a1795c028d60aa3cc461f70c18f6f49a526fb06c4dbb5f6fbaf3",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc",
+      "blob": "b17f336f90c46575d6fc0668a9e85183cdd8c0e6",
+      "sha256": "cdd4ad854c1af086de7b9dc7d5850b8a20e50490aa39a8b56be87fc4251b8d57",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc",
+      "blob": "e014baae31c870f3fbd3d22fa1de0c2085aee587",
+      "sha256": "1505f168a9323c8601278e0ebf0d797c0af301382097d9c0e2de2e5600eb0085",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/modules/encryptedmedia/navigator_request_media_key_system_access.cc",
+      "blob": "1e8d7ec85167d625a729cd8dd6729efee913f3b9",
+      "sha256": "9850b5b2106baa86e553a5ce7fd947d5102e83f333ce555785c819ea6588b06e",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "third_party/blink/renderer/platform/media/key_system_config_selector.cc",
+      "blob": "989ee45d69a26bb1e6af411b88e01e6739f72d21",
+      "sha256": "bb81dfb2b57b5075cb48034766241562964f4174e0639f34eb2e6f4d09f2a615",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "media/base/key_systems_impl.cc",
+      "blob": "0e01cbef5d28f19ed5f4fcc55bef40705aa61538",
+      "sha256": "9e3c492d3f49617b8e31d53fb44990f0ebb2efec7070ccdc74079c0ec1772c8d",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "media/media_options.gni",
+      "blob": "f3313ea46763209530a589af52038ea2811b991d",
+      "sha256": "1bcb71de32c1b658b6a95d0a50887c06c874e58e540defe626a0c039a586241b",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "content/browser/speech/tts_linux.cc",
+      "blob": "f613b03e89176f6124f84f6e1c885e2cb4119be9",
+      "sha256": "4b70bccc9bef5dcef4c2e370f70610197e2981bc70cb3123b4e9a0cb251ff75a",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "ui/gl/gl_features.cc",
+      "blob": "882ac8560e57f93b973a8e0ea47309d15fe5d1f5",
+      "sha256": "2fae3b29991b37b7e07552ff8086fc6a03c0aa52950191a29442ad9606af8e54",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "ui/gl/init/gl_factory.cc",
+      "blob": "dc414403749a7cbc62b6d84370981e90008610a5",
+      "sha256": "2c5a2af0e4cd91f0eb96f22730e23fc3a80da092d29f336097cd218d1c813c2c",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "content/browser/gpu/gpu_data_manager_impl_private.cc",
+      "blob": "f94809eb651a633414a9b8d6f95f6fd261228aa9",
+      "sha256": "afaeb9a4b3be862319bd57aefb81723f55170c1c3eddbc255cbc8d5a030f67d0",
+      "git_blob_matches_fixed_revision": true
+    },
+    {
+      "path": "gpu/command_buffer/service/webgpu_decoder_impl.cc",
+      "blob": "02a3f6f90b62e0ddae6ee9425e08f9c1410587e7",
+      "sha256": "1d7035dfc3b684fd84c752e4cffd2f926612499940949a9ffc5016561a0ec989",
+      "git_blob_matches_fixed_revision": true
+    }
+  ],
+  "local_links": [
+    "analysis/reproduction/source-change-ledger.json",
+    "firefox_stable_159/dom/canvas/CanvasUtils.cpp",
+    "firefox_stable_159/dom/html/HTMLCanvasElement.cpp",
+    "firefox_stable_159/dom/webgpu/CanvasContext.cpp",
+    "firefox_stable_159/dom/canvas/ClientWebGLContext.cpp",
+    "firefox_stable_159/dom/canvas/ClientWebGLContext.cpp",
+    "firefox_stable_159/dom/canvas/ClientWebGLContext.cpp",
+    "firefox_stable_159/dom/canvas/WebGLShader.cpp",
+    "firefox_stable_159/gfx/thebes/gfxFcPlatformFontList.cpp",
+    "firefox_stable_159/gfx/thebes/gfxFont.cpp",
+    "firefox_stable_159/dom/canvas/CanvasRenderingContext2D.cpp",
+    "firefox_stable_159/gfx/skia/skia/src/core/SkScalerContext.cpp",
+    "firefox_stable_159/gfx/thebes/gfxFcPlatformFontList.cpp",
+    "invisible_core_159/src/invisible_core/prefs.py",
+    "firefox_stable_159/dom/media/mediacapabilities/MediaCapabilities.cpp",
+    "firefox_stable_159/dom/media/MediaManager.cpp",
+    "firefox_stable_159/dom/media/webspeech/synth/SpeechSynthesis.cpp"
+  ]
+}

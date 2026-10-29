@@ -1,0 +1,1059 @@
+{
+  "firefox": {
+    "commit": "d416cbfe5dc9884c4c3eba13ac4b94ef8fd923c2",
+    "files": [
+      {
+        "path": "docshell/base/BrowsingContext.cpp",
+        "blob": "ec883cf30bf4ce9d11d4ad1fc3f046ef1d0946ee",
+        "expected_blob": "ec883cf30bf4ce9d11d4ad1fc3f046ef1d0946ee",
+        "verified": true,
+        "sha256": "0a4c27d4acdfac6b2e46c2ef6a39def05195127d73faa47159ec3558f26f109e"
+      },
+      {
+        "path": "docshell/base/CanonicalBrowsingContext.cpp",
+        "blob": "37d3bc2c6a343d9a2741da15879eaf26b04cf7c5",
+        "expected_blob": "37d3bc2c6a343d9a2741da15879eaf26b04cf7c5",
+        "verified": true,
+        "sha256": "fd1eb3de2f945fde92a8c124f9b961043e59bb5387001b6c3b8def01e40ccaa5"
+      },
+      {
+        "path": "docshell/base/nsDocShell.cpp",
+        "blob": "ee774405a25ce6f03acc27ae2cf516f44ee7b40a",
+        "expected_blob": "ee774405a25ce6f03acc27ae2cf516f44ee7b40a",
+        "verified": true,
+        "sha256": "bf42da44a4e75979a36c22b4b264bd39228025f6251ed9d5cebd24207d75c466"
+      },
+      {
+        "path": "docshell/base/nsDocShell.h",
+        "blob": "40e072d879438b73fd31335b9ecec8fe4461baf9",
+        "expected_blob": "40e072d879438b73fd31335b9ecec8fe4461baf9",
+        "verified": true,
+        "sha256": "03a3a14907fe5d71d38b77c1688375fb3475a6ece9ec556b38678e0682c91ed4"
+      },
+      {
+        "path": "docshell/base/nsIDocShell.idl",
+        "blob": "12d3422b9660ad3e89b85e62a1ef706da027b9ee",
+        "expected_blob": "12d3422b9660ad3e89b85e62a1ef706da027b9ee",
+        "verified": true,
+        "sha256": "b58f51830f2845a243da05295ab17775768492379b186fb37e44fbb95a3d84f3"
+      },
+      {
+        "path": "dom/base/Navigator.cpp",
+        "blob": "e150bbd3bb1f35f4bdbdcc0600fb97e0d8acff4c",
+        "expected_blob": "e150bbd3bb1f35f4bdbdcc0600fb97e0d8acff4c",
+        "verified": true,
+        "sha256": "2ba496ba35f9346828573c7e5d480a442655d90877f7d894c06d9639938554f3"
+      },
+      {
+        "path": "dom/base/StealthSessionDeclaration.cpp",
+        "blob": "f5dfb4c65dc7dd51775485b120a731fdd22a4ab8",
+        "expected_blob": "f5dfb4c65dc7dd51775485b120a731fdd22a4ab8",
+        "verified": true,
+        "sha256": "fec25259d1e265f45df83727db3f24ab1a7b7264a2d0ec31dbc0b93a79b9cd72"
+      },
+      {
+        "path": "dom/base/StealthSessionDeclaration.h",
+        "blob": "9789d093d1d206b08ef7b35944c5864e5bfb3f12",
+        "expected_blob": "9789d093d1d206b08ef7b35944c5864e5bfb3f12",
+        "verified": true,
+        "sha256": "87181a7239356bbefe47f5e164267702c8fac958c3dabc7756e7506091c15f3a"
+      },
+      {
+        "path": "dom/base/nsDOMWindowUtils.cpp",
+        "blob": "88410411bd6d523507f6134e472ed7d0a7a5b3cd",
+        "expected_blob": "88410411bd6d523507f6134e472ed7d0a7a5b3cd",
+        "verified": true,
+        "sha256": "274046779eb7834d9b604844b7c37edcaffdc13b3208665ca26c3d0e346f6cee"
+      },
+      {
+        "path": "dom/base/nsGlobalWindowOuter.cpp",
+        "blob": "093fbe27e7cdaecf37eaa2750c9f904893dae1b4",
+        "expected_blob": "093fbe27e7cdaecf37eaa2750c9f904893dae1b4",
+        "verified": true,
+        "sha256": "79db4fcfa8ea2c124922c3253f458069c48fcaeefe073bb279a000b6f2b7683f"
+      },
+      {
+        "path": "dom/base/nsGlobalWindowOuter.h",
+        "blob": "e7a68382b2a300555e35d886d2fc69fcbba1a659",
+        "expected_blob": "e7a68382b2a300555e35d886d2fc69fcbba1a659",
+        "verified": true,
+        "sha256": "e5f5de63b4200864c8afd755fc9bb0fb8d8cf72fbfa5a296e6eb451be9709bfd"
+      },
+      {
+        "path": "dom/base/nsScreen.cpp",
+        "blob": "da39d6caf7a2d8d9d4d94c55097fb402497476ed",
+        "expected_blob": "da39d6caf7a2d8d9d4d94c55097fb402497476ed",
+        "verified": true,
+        "sha256": "8e7e80c93ae3f585ff6fa85f61cbbe04b1b7fdd58c7669afcc9cb374999dcb5a"
+      },
+      {
+        "path": "dom/events/Event.cpp",
+        "blob": "2adf091f4f350d899b9006898629d16453008c6e",
+        "expected_blob": "2adf091f4f350d899b9006898629d16453008c6e",
+        "verified": true,
+        "sha256": "8361337e7537fd9a7745c987ce7303d636f755b19598932c3bc82507c368306d"
+      },
+      {
+        "path": "dom/events/EventStateManager.cpp",
+        "blob": "31766e618ece1a7749cedfee6117ae05729a5ae2",
+        "expected_blob": "31766e618ece1a7749cedfee6117ae05729a5ae2",
+        "verified": true,
+        "sha256": "be3f2404f96b1ca2e3e2af3c767d8669478b6d43c22e863a2d72ff7258f1ecb0"
+      },
+      {
+        "path": "dom/events/EventStateManager.h",
+        "blob": "9423499a11f5f6b07ecf787748a2ecd5da121d2f",
+        "expected_blob": "9423499a11f5f6b07ecf787748a2ecd5da121d2f",
+        "verified": true,
+        "sha256": "1d30d1e4e6647fe0607eb7fdc205401fc3f3fc28b33a346605dcb5757f6e1f57"
+      },
+      {
+        "path": "dom/interfaces/base/nsIDOMWindowUtils.idl",
+        "blob": "1fc7ef4b40630ba1890af503e46b0dec92070b4b",
+        "expected_blob": "1fc7ef4b40630ba1890af503e46b0dec92070b4b",
+        "verified": true,
+        "sha256": "37231f6e92b4e417b69a84814b2ba54909f8b6d7aa945aabbb7050e96c5e30e1"
+      },
+      {
+        "path": "dom/ipc/CoalescedMouseData.cpp",
+        "blob": "6d26968b8f84deb69383baac6929191f4876ad7d",
+        "expected_blob": "6d26968b8f84deb69383baac6929191f4876ad7d",
+        "verified": true,
+        "sha256": "28b1b7296cae6ca6c91163cc467ce76f38028cdff0c649f5cdbd39cb36c5b4ab"
+      },
+      {
+        "path": "dom/quota/ActorsParent.cpp",
+        "blob": "222c2e30c3677af9431fcacb1003d2d7666f5ac5",
+        "expected_blob": "222c2e30c3677af9431fcacb1003d2d7666f5ac5",
+        "verified": true,
+        "sha256": "ae2db3c4d713ba587d4ccdf8dd09159c9bf53b7d1e990a8b74d3ab43217a5787"
+      },
+      {
+        "path": "dom/serviceworkers/ServiceWorkerPrivate.cpp",
+        "blob": "ccc609e3c9df59f2c63c682db4b40ec705cfece6",
+        "expected_blob": "ccc609e3c9df59f2c63c682db4b40ec705cfece6",
+        "verified": true,
+        "sha256": "af68745d7e23301d46fcb1a52fbc7c1c56a99d33dfdcbed28bdb934b0e57aa1f"
+      },
+      {
+        "path": "dom/workers/WorkerLoadInfo.h",
+        "blob": "c354aab96f9391f3aa7f5c7ddf62cf82e18d6258",
+        "expected_blob": "c354aab96f9391f3aa7f5c7ddf62cf82e18d6258",
+        "verified": true,
+        "sha256": "e5213e0a75f98dbfbbf51e30e18543f5b07587101b58aca646653f9640d2442d"
+      },
+      {
+        "path": "dom/workers/WorkerNavigator.cpp",
+        "blob": "230ca85d43ae96d19d2914c6d9cf600d32a88e87",
+        "expected_blob": "230ca85d43ae96d19d2914c6d9cf600d32a88e87",
+        "verified": true,
+        "sha256": "91c3952edfb99e483aa433ed25fd9c4b18b0d8ec11e87f1b0eb3f0d5f0294538"
+      },
+      {
+        "path": "dom/workers/WorkerPrivate.cpp",
+        "blob": "d31229200e84e0f22332123c3057b53aa7009ab8",
+        "expected_blob": "d31229200e84e0f22332123c3057b53aa7009ab8",
+        "verified": true,
+        "sha256": "8b534d04e4c978c87f4fce863ec7ed96863f9aee017a6762a1e969f8da8dcdc8"
+      },
+      {
+        "path": "dom/workers/WorkerPrivate.h",
+        "blob": "ec35bf6331cdb377e97dae11c3c55cd41fa0b251",
+        "expected_blob": "ec35bf6331cdb377e97dae11c3c55cd41fa0b251",
+        "verified": true,
+        "sha256": "72612f78b1dd5f06f0347bf706847b505edf758c5ee7ad032bd65b49633bd9d1"
+      },
+      {
+        "path": "dom/workers/remoteworkers/RemoteWorkerChild.cpp",
+        "blob": "43f0c24a2d4e5cd90d36c665799106ebc93504d0",
+        "expected_blob": "43f0c24a2d4e5cd90d36c665799106ebc93504d0",
+        "verified": true,
+        "sha256": "d6862ac2e95060be12e4bf58cd14548a3e340a56da6e9973f87b2879a6c60ad9"
+      },
+      {
+        "path": "dom/workers/remoteworkers/RemoteWorkerTypes.ipdlh",
+        "blob": "d4484c83001bc2ad557b0651e5489ed703db6d97",
+        "expected_blob": "d4484c83001bc2ad557b0651e5489ed703db6d97",
+        "verified": true,
+        "sha256": "5c831fb9b59d9b9366516778e93b30ac6fb16ec59a11a3b31062feb663688414"
+      },
+      {
+        "path": "dom/workers/sharedworkers/SharedWorker.cpp",
+        "blob": "a319f7f2a0a3f2733d905a29f8b90b7dd11f4b7d",
+        "expected_blob": "a319f7f2a0a3f2733d905a29f8b90b7dd11f4b7d",
+        "verified": true,
+        "sha256": "f7908417650c0b4bfb75fa5bc01ce9f693927b382519081d14bbd8f2722f21a9"
+      },
+      {
+        "path": "dom/worklet/WorkletGlobalScope.cpp",
+        "blob": "54a557bd97bf6616e67b820b5f262857d801c409",
+        "expected_blob": "54a557bd97bf6616e67b820b5f262857d801c409",
+        "verified": true,
+        "sha256": "2d12a0aa329cb7ac57f206c8c94f93ad6d401f0811ac9e8f058d5a9dfe072315"
+      },
+      {
+        "path": "dom/worklet/WorkletImpl.cpp",
+        "blob": "f18936ac30160d2dc07fe7a73c45716f6e69c55b",
+        "expected_blob": "f18936ac30160d2dc07fe7a73c45716f6e69c55b",
+        "verified": true,
+        "sha256": "156b0baf27cda4b9f90a5a516a0635aaeb3aef0720792f9941446ac5beaee59d"
+      },
+      {
+        "path": "dom/worklet/WorkletImpl.h",
+        "blob": "b421b61e556e95521348f8c52e35ec9a63aaa426",
+        "expected_blob": "b421b61e556e95521348f8c52e35ec9a63aaa426",
+        "verified": true,
+        "sha256": "cc624146feb6e2a4801720bc052e3fc818a069b203da5815aa9a88db1ab35464"
+      },
+      {
+        "path": "dom/xslt/xslt/txEXSLTFunctions.cpp",
+        "blob": "93320594b3541b15de3d83452eb1c7b01d3ee3df",
+        "expected_blob": "93320594b3541b15de3d83452eb1c7b01d3ee3df",
+        "verified": true,
+        "sha256": "9dd1cc2de4e2117c15498411c279f8253c91cb5b33abda4f272ff7bfba884c7e"
+      },
+      {
+        "path": "intl/locale/LocaleService.cpp",
+        "blob": "7d7f0907658200ee5cf12374e95f727c0c183983",
+        "expected_blob": "7d7f0907658200ee5cf12374e95f727c0c183983",
+        "verified": true,
+        "sha256": "ef45a154ce8382ef221774f20dd01aa08a7123bf3a05682459272f14699f9c3c"
+      },
+      {
+        "path": "intl/locale/StealthSessionPrefs.cpp",
+        "blob": "edd8306882d61913df465fb12193c14bd5cf8f0a",
+        "expected_blob": "edd8306882d61913df465fb12193c14bd5cf8f0a",
+        "verified": true,
+        "sha256": "9a012ac4a3b659da2298bcd78a304fdbb0c1cba5ac9488e63b3005c5bd3dc298"
+      },
+      {
+        "path": "intl/locale/StealthSessionPrefs.h",
+        "blob": "7847ee838b19eb67270481f89777726fc4aef0cb",
+        "expected_blob": "7847ee838b19eb67270481f89777726fc4aef0cb",
+        "verified": true,
+        "sha256": "fdeb24794cd856039ff2f6973239681b6fd9de8c82c7258754d6e075a193ec88"
+      },
+      {
+        "path": "intl/locale/moz.build",
+        "blob": "7e753f0f3582a71e62e63da66b55fcfc1d908718",
+        "expected_blob": "7e753f0f3582a71e62e63da66b55fcfc1d908718",
+        "verified": true,
+        "sha256": "2de4074991920cc3119acd2c542d018a7d13eec0f2dad68b4873e292e34bd043"
+      },
+      {
+        "path": "intl/locale/nsLanguageAtomService.cpp",
+        "blob": "0a1756ab36ac38c3d5dbb4b864dfa6167157abec",
+        "expected_blob": "0a1756ab36ac38c3d5dbb4b864dfa6167157abec",
+        "verified": true,
+        "sha256": "ec2ccae40ac88197a038149cc616dbba84c931ca2da749a9356a489b88696d3d"
+      },
+      {
+        "path": "juggler/screencast/nsScreencastService.cpp",
+        "blob": "a372fdb5330b70f42db56c14f6ae8af1cab028d6",
+        "expected_blob": "a372fdb5330b70f42db56c14f6ae8af1cab028d6",
+        "verified": true,
+        "sha256": "f691e924af87c71eb30f10e779b1968f06366f67c14de9b18658048877ac4650"
+      },
+      {
+        "path": "juggler/screencast/nsScreencastService.h",
+        "blob": "df6c89a76b3d4cf270bbc1cf403d1dacb3eed530",
+        "expected_blob": "df6c89a76b3d4cf270bbc1cf403d1dacb3eed530",
+        "verified": true,
+        "sha256": "a16a970cdbaf67e503bb865fbb044ef06421f07da62528753a30421266965142"
+      },
+      {
+        "path": "layout/base/PresShell.cpp",
+        "blob": "613cc0f6e475cc537bc2abd810954346322c6ddf",
+        "expected_blob": "613cc0f6e475cc537bc2abd810954346322c6ddf",
+        "verified": true,
+        "sha256": "31f0aac38c3c8d03347df56594fd0b76b5ff4605af4c90cd17daf07c1ee90719"
+      },
+      {
+        "path": "layout/base/nsLayoutUtils.cpp",
+        "blob": "9fd3b051d884fa58f4b64742328943701fca85bc",
+        "expected_blob": "9fd3b051d884fa58f4b64742328943701fca85bc",
+        "verified": true,
+        "sha256": "4dc886f16e226250e8b37689c282a7c30df0c01b2dba6e7677aafc0b2cbc5262"
+      },
+      {
+        "path": "layout/base/nsLayoutUtils.h",
+        "blob": "9aa0e4dbc161e9cf3f41e6860dc51366d853280c",
+        "expected_blob": "9aa0e4dbc161e9cf3f41e6860dc51366d853280c",
+        "verified": true,
+        "sha256": "686b41d094d614111413644c7f51f64d849dd52b141760b68a28705b4946fefa"
+      },
+      {
+        "path": "layout/base/nsPresContext.cpp",
+        "blob": "7ea3209249c0460e4e2d7e0f7b32b3a426f2d06d",
+        "expected_blob": "7ea3209249c0460e4e2d7e0f7b32b3a426f2d06d",
+        "verified": true,
+        "sha256": "1240cd715a9f8500014bb4631ff6dd120e96853e5d072e8fba7a84fec42cfa41"
+      },
+      {
+        "path": "layout/painting/nsImageRenderer.cpp",
+        "blob": "c54d708611adb9226324b9c9cb7ced6a08c9f337",
+        "expected_blob": "c54d708611adb9226324b9c9cb7ced6a08c9f337",
+        "verified": true,
+        "sha256": "bea6c9a26246bab8df6f524a467ec59e2e730c3a399883ae3d077ae3be3b4d2a"
+      },
+      {
+        "path": "layout/style/FontFace.cpp",
+        "blob": "84d6c7992c6be688bf33a33c62b4fcf2256d1cb7",
+        "expected_blob": "84d6c7992c6be688bf33a33c62b4fcf2256d1cb7",
+        "verified": true,
+        "sha256": "50349cbcd404f8c3c651268b5a625e9318cb661e12017d8856737b931ee1e18c"
+      },
+      {
+        "path": "layout/style/FontFaceImpl.cpp",
+        "blob": "0e0efe0878f51f8088d3a314893a32848e196392",
+        "expected_blob": "0e0efe0878f51f8088d3a314893a32848e196392",
+        "verified": true,
+        "sha256": "7b4357c6d9f2082529f026dea345e75c62795f8e928c8f4d67ecef161548a79c"
+      },
+      {
+        "path": "layout/style/FontFaceImpl.h",
+        "blob": "e3c5148b414915c57d42f02008591e87a129e398",
+        "expected_blob": "e3c5148b414915c57d42f02008591e87a129e398",
+        "verified": true,
+        "sha256": "435688bf09cbb598cc90bdbad82019b858ea5ab33990a8ab7287726f5f256756"
+      },
+      {
+        "path": "layout/style/nsMediaFeatures.cpp",
+        "blob": "64dd51ab69d4115a66345d029e5f82b301252b3d",
+        "expected_blob": "64dd51ab69d4115a66345d029e5f82b301252b3d",
+        "verified": true,
+        "sha256": "a3cd74ebf070784ee2ffb2d2de9f4c8f608a5a4b7b5891561e857ab3eed48f69"
+      },
+      {
+        "path": "widget/MouseEvents.h",
+        "blob": "5d55b7475064071aa27d28c4b46df6c462bcc1c1",
+        "expected_blob": "5d55b7475064071aa27d28c4b46df6c462bcc1c1",
+        "verified": true,
+        "sha256": "baa501324720c9c6f88a6fe582a2b478882463762e1c981496b9e34eddaafcb6"
+      },
+      {
+        "path": "widget/gtk/nsWindow.cpp",
+        "blob": "49b42dfe3a09a5cde4081aa1764630bb0a089180",
+        "expected_blob": "49b42dfe3a09a5cde4081aa1764630bb0a089180",
+        "verified": true,
+        "sha256": "821f6c9f535b889cbbf9f5d0152f40da708c4565027db1be8d79a5d30598b9d8"
+      },
+      {
+        "path": "widget/nsBaseDragService.cpp",
+        "blob": "de5a28f92b2970ecebf36a36412ec2ae1d4680d5",
+        "expected_blob": "de5a28f92b2970ecebf36a36412ec2ae1d4680d5",
+        "verified": true,
+        "sha256": "7607d3bee0f7242aba9970af8d0c7aa67ad32349c8a8ed431e7c84b5ffa80953"
+      },
+      {
+        "path": "widget/nsGUIEventIPC.h",
+        "blob": "f852c75ab65a16e58c53c22c1a8ab8271ccb2912",
+        "expected_blob": "f852c75ab65a16e58c53c22c1a8ab8271ccb2912",
+        "verified": true,
+        "sha256": "0c1ce17a07ba8a8608ec6129e2f4d73d8721f35353c5355562d787f23f05b518"
+      },
+      {
+        "path": "widget/windows/TaskbarPreview.cpp",
+        "blob": "0d0e853eb8fe6f3f8c3e5a315f7c7bf3312da486",
+        "expected_blob": "0d0e853eb8fe6f3f8c3e5a315f7c7bf3312da486",
+        "verified": true,
+        "sha256": "8b8143eb9d84c88e9b6fdd728b43c614f4420d686e0b917725ecf4549a962b8f"
+      },
+      {
+        "path": "dom/base/Document.cpp",
+        "blob": "c95efba86a295ae75842f7003e4f18b454abc463",
+        "expected_blob": "c95efba86a295ae75842f7003e4f18b454abc463",
+        "verified": true,
+        "sha256": "d83d7983dd6d8e7194531a603d63adfbd0e3c2d8064ddf042d387b0ca8cb7632"
+      },
+      {
+        "path": "dom/base/nsPluginArray.cpp",
+        "blob": "1cf54112cb5c4e1c71fd942a8cde6d72660e7d89",
+        "expected_blob": "1cf54112cb5c4e1c71fd942a8cde6d72660e7d89",
+        "verified": true,
+        "sha256": "ac1be7d8e30ed625fb27d7a5c9ba5a288d84932ae67d9285620a715c4fa46aac"
+      },
+      {
+        "path": "modules/libpref/init/all.js",
+        "blob": "859f75ed860426d8d99fcebb6052aa40959f903a",
+        "expected_blob": "859f75ed860426d8d99fcebb6052aa40959f903a",
+        "verified": true,
+        "sha256": "35815ac12aa28026c67dc5810c908ddbb42f9dada1e317c298c9c98dd55515e3"
+      },
+      {
+        "path": "modules/libpref/init/StaticPrefList.yaml",
+        "blob": "60eaedf4001dfb0a0484871040984e710bb1ef86",
+        "expected_blob": "60eaedf4001dfb0a0484871040984e710bb1ef86",
+        "verified": true,
+        "sha256": "7646810e3004f6e05331fd8aff63fde6ce58c0612ce0a73a42f8a09651cb6da4"
+      },
+      {
+        "path": "xpfe/appshell/AppWindow.cpp",
+        "blob": "ef111cabad9c57300a5d1e361f72ed527589e02e",
+        "expected_blob": "ef111cabad9c57300a5d1e361f72ed527589e02e",
+        "verified": true,
+        "sha256": "30e52eaa4c3412e8e43b627ab43e0a10e572ed3f614a4c55dc3d7a5f842e8b75"
+      },
+      {
+        "path": "netwerk/protocol/http/nsHttpHandler.cpp",
+        "blob": "4b7b971656f431a641fdb89821c390a2f8b7b858",
+        "expected_blob": "4b7b971656f431a641fdb89821c390a2f8b7b858",
+        "verified": true,
+        "sha256": "33397f170a2a63229334e1d48791a4a1c0ad03257d46d9ec776da9322fd5cfb3"
+      }
+    ]
+  },
+  "chromium": {
+    "commit": "2f9a11097447f226133bc1a31c787291a5eeab98",
+    "files": [
+      {
+        "path": "base/BUILD.gn",
+        "blob": "9569528f10db05a50e9f5f37ae6eb7828a3f9077",
+        "expected_blob": "9569528f10db05a50e9f5f37ae6eb7828a3f9077",
+        "verified": true,
+        "sha256": "ffce1d396d85f6856d8d4f613174f700e0df8d88d5558114cc5346afea3a5739"
+      },
+      {
+        "path": "base/time/time_exploded_posix.cc",
+        "blob": "073b27e40f69b8c43e5534d55f2bdfee94fdd42e",
+        "expected_blob": "073b27e40f69b8c43e5534d55f2bdfee94fdd42e",
+        "verified": true,
+        "sha256": "71b40743ad0c11933e5b6460c6119b44c8347ae477864c6a336a1fcc0a189d99"
+      },
+      {
+        "path": "base/time/time_exploded_icu.cc",
+        "blob": "efc787c920a397c58560fd8bb6a4ffcfbc4ca5a7",
+        "expected_blob": "efc787c920a397c58560fd8bb6a4ffcfbc4ca5a7",
+        "verified": true,
+        "sha256": "93cfbe23233efa8fac70097f1b5d35f72f52e6d79c566fe110af25692fbd7f0e"
+      },
+      {
+        "path": "chrome/browser/renderer_preferences_util.cc",
+        "blob": "680a3df2d51cd0e748c2ca2549ad8196afd14dac",
+        "expected_blob": "680a3df2d51cd0e748c2ca2549ad8196afd14dac",
+        "verified": true,
+        "sha256": "a2e51d5bdb659fc839717b7458680e495f5166c6065d1ef22d27ea8ced4634e0"
+      },
+      {
+        "path": "chrome/browser/themes/theme_service.cc",
+        "blob": "404b10a09f126775ee15d4a3c9b6cade5b4bb5dc",
+        "expected_blob": "404b10a09f126775ee15d4a3c9b6cade5b4bb5dc",
+        "verified": true,
+        "sha256": "8e71adc6136429bf68042107a6a38948fb54bdc8f274b15005760d1d4b1e36f9"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/navigator_language.cc",
+        "blob": "03b1faff6b19ec0b98094c1c9ab822f84593783f",
+        "expected_blob": "03b1faff6b19ec0b98094c1c9ab822f84593783f",
+        "verified": true,
+        "sha256": "a9b17a04400764a34a7605c62621afea4166e00db31d016c2f0aef54981ef3aa"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/navigator.cc",
+        "blob": "583f05f8dd5fb74116ad81da63ee7e43445f8060",
+        "expected_blob": "583f05f8dd5fb74116ad81da63ee7e43445f8060",
+        "verified": true,
+        "sha256": "df8ed975407e288da7b276c3db97f92dfaf796f9e2b4e6e13679ee508713d904"
+      },
+      {
+        "path": "third_party/blink/renderer/core/execution_context/navigator_base.cc",
+        "blob": "83f427c5ec9b75cbf41935af9935f9fa293ea11c",
+        "expected_blob": "83f427c5ec9b75cbf41935af9935f9fa293ea11c",
+        "verified": true,
+        "sha256": "64b29bb294db26511bd68cb304837bca69fd13b16daf318eae6efbe0565d944b"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/navigator_ua_data.cc",
+        "blob": "dc01f2b63e5231190654e8507b79fb2ff611699b",
+        "expected_blob": "dc01f2b63e5231190654e8507b79fb2ff611699b",
+        "verified": true,
+        "sha256": "8c3eda6ba42d3147e697649b7d518ee467ddcda4641edc83b08a8970d15f46ab"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc",
+        "blob": "f5c0db2d1b58de1fb54aa6545de8ac0fb177319e",
+        "expected_blob": "f5c0db2d1b58de1fb54aa6545de8ac0fb177319e",
+        "verified": true,
+        "sha256": "7b689c17f7007b7e342412cb27165111fe6b5db8672ac27b8b9fc1ea0f432928"
+      },
+      {
+        "path": "third_party/blink/renderer/core/workers/worker_navigator.cc",
+        "blob": "db1a55d008e76f82189c55aab9869776832a18d7",
+        "expected_blob": "db1a55d008e76f82189c55aab9869776832a18d7",
+        "verified": true,
+        "sha256": "37f4057f55a047c1b30e365e68b2cc5c4fdff0a3418cf2e85d965fbab8b26462"
+      },
+      {
+        "path": "third_party/blink/renderer/core/workers/worker_global_scope.cc",
+        "blob": "32c00e338a044b52af9b851025f6a97934233bca",
+        "expected_blob": "32c00e338a044b52af9b851025f6a97934233bca",
+        "verified": true,
+        "sha256": "144edb3ab37db5f5b9fdfa83b51cc625e2aa2f15eb3836295a01501ebdb10f0d"
+      },
+      {
+        "path": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+        "blob": "270c78bfd0332ed53e21db79b02abac8cc1209a5",
+        "expected_blob": "270c78bfd0332ed53e21db79b02abac8cc1209a5",
+        "verified": true,
+        "sha256": "c378fecb1cd84682c73ac7ec7122dff402f4a1c9afc4156803f53ccb2db1ea3b"
+      },
+      {
+        "path": "third_party/blink/renderer/core/inspector/locale_controller.cc",
+        "blob": "5aab8bc930d8265f59ffbd94fd70e581c3b45e25",
+        "expected_blob": "5aab8bc930d8265f59ffbd94fd70e581c3b45e25",
+        "verified": true,
+        "sha256": "78db7722703ba0a9ccf308a2d8fa8f74cec718788ee97c63333ae6ad55c126f1"
+      },
+      {
+        "path": "third_party/blink/renderer/core/dom/document.cc",
+        "blob": "77293bb32ec177c81cebf87e942a593270981931",
+        "expected_blob": "77293bb32ec177c81cebf87e942a593270981931",
+        "verified": true,
+        "sha256": "9f6b0a23062180fba604ebe4c73e6f03efdce2767af104605f9ffb0250466552"
+      },
+      {
+        "path": "third_party/blink/renderer/core/xml/xslt_extensions.cc",
+        "blob": "46caa3fb913a5f3453e78219887ecc1798f4233e",
+        "expected_blob": "46caa3fb913a5f3453e78219887ecc1798f4233e",
+        "verified": true,
+        "sha256": "c7e55953deb113d6f78b89010cb4721969a2bfcbf1b6318de18b5d8e69ffd572"
+      },
+      {
+        "path": "third_party/blink/renderer/modules/plugins/navigator_plugins.cc",
+        "blob": "3292adeb74f49762330c5dd9965a400e974c4d7c",
+        "expected_blob": "3292adeb74f49762330c5dd9965a400e974c4d7c",
+        "verified": true,
+        "sha256": "52a4322e32cd7e0e99b156c5b2905aa5e312b4e7abb8ce8e44f695a6a93379d2"
+      },
+      {
+        "path": "third_party/blink/renderer/modules/plugins/dom_plugin_array.cc",
+        "blob": "3608837758b40f02b78631c3d709a2b7561cea7e",
+        "expected_blob": "3608837758b40f02b78631c3d709a2b7561cea7e",
+        "verified": true,
+        "sha256": "7f09b4cea5de5e1ffa3f201a5725e661dd92500a1e04384539d61bd7a6dc115d"
+      },
+      {
+        "path": "third_party/blink/renderer/platform/text/locale_icu.cc",
+        "blob": "27e89e3e898a2c7826fc3b6652bb630da79f556c",
+        "expected_blob": "27e89e3e898a2c7826fc3b6652bb630da79f556c",
+        "verified": true,
+        "sha256": "642287c3525704b2d383eff336440eb196c187f16bdcec451508da251608ca7c"
+      },
+      {
+        "path": "third_party/blink/renderer/platform/language.cc",
+        "blob": "238920d61b7c4d45d6f6c812ddba6dd4e0bfb40e",
+        "expected_blob": "238920d61b7c4d45d6f6c812ddba6dd4e0bfb40e",
+        "verified": true,
+        "sha256": "5f538ff6bb1112bb1180c0557a91d4fba2078afcbac3f641006873483721b6b7"
+      },
+      {
+        "path": "third_party/blink/renderer/core/layout/layout_theme_linux.cc",
+        "blob": "caffc334eaf49a81654d9d816906cde353d9c924",
+        "expected_blob": "caffc334eaf49a81654d9d816906cde353d9c924",
+        "verified": true,
+        "sha256": "6b710830f1bfd2d4ec81005a432f5665bf2199ebb5d2e6d1b1eec8d557ba66fc"
+      },
+      {
+        "path": "third_party/blink/renderer/core/layout/layout_theme.cc",
+        "blob": "e3735ca53c9cfca64dc31b2000414609dff1c82f",
+        "expected_blob": "e3735ca53c9cfca64dc31b2000414609dff1c82f",
+        "verified": true,
+        "sha256": "5ded089dc3ad18073e3487322d9faffcdc96fa5b547120d80c33f20d98d74cad"
+      },
+      {
+        "path": "ui/gtk/gtk_ui.cc",
+        "blob": "ce43b29eb301a846c84f26811b8632d737e91a5f",
+        "expected_blob": "ce43b29eb301a846c84f26811b8632d737e91a5f",
+        "verified": true,
+        "sha256": "ed90649098a6fa7adeaa35121da605dd1da8992c1cc67de78de433737d72f67b"
+      },
+      {
+        "path": "ui/base/pointer/pointer_device_linux.cc",
+        "blob": "5c9bf105bb1e75cb4d83dbc918e674b20125708e",
+        "expected_blob": "5c9bf105bb1e75cb4d83dbc918e674b20125708e",
+        "verified": true,
+        "sha256": "c7f9f6ea954b46479cf10d8f48244191d96844eaf49750cf38ef9da3f96c22ad"
+      },
+      {
+        "path": "content/browser/web_contents/slow_web_preference_cache.cc",
+        "blob": "e8fc8addb3d71a42ae84d402446b50bf531c818d",
+        "expected_blob": "e8fc8addb3d71a42ae84d402446b50bf531c818d",
+        "verified": true,
+        "sha256": "e143496ce7abd9345e400c6c54b5ff30ffb6f71f98ba928e32ff5b92a7debce9"
+      },
+      {
+        "path": "third_party/blink/renderer/core/events/mouse_event.cc",
+        "blob": "19f0f66095b4373fc111f912de9120ef167d1786",
+        "expected_blob": "19f0f66095b4373fc111f912de9120ef167d1786",
+        "verified": true,
+        "sha256": "3d8aca0557fa1635ef343014d1ed3f81fd01227f5e2e786723a9ade23e2f1d99"
+      },
+      {
+        "path": "storage/browser/quota/quota_manager_impl.cc",
+        "blob": "5c661f4973419fdc125531dd525ce22117d0a2bb",
+        "expected_blob": "5c661f4973419fdc125531dd525ce22117d0a2bb",
+        "verified": true,
+        "sha256": "d05685fe4c6ff9eecca85133d7a5ead5dbb187c6aab485c7143fe955ff31dc40"
+      },
+      {
+        "path": "third_party/blink/renderer/core/css/media_values.cc",
+        "blob": "0d602447425065814467b274270fc37d25a3a010",
+        "expected_blob": "0d602447425065814467b274270fc37d25a3a010",
+        "verified": true,
+        "sha256": "92f60cddfa313d0d334ddc8add812489c26d11d77cd496cb925fb60849c1634a"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/local_dom_window.cc",
+        "blob": "8285e3768996571cdae7409078a502a8f18bda89",
+        "expected_blob": "8285e3768996571cdae7409078a502a8f18bda89",
+        "verified": true,
+        "sha256": "7e9ff1d20107a394b16908b3c52e0c592c6c4e1cfaf1c6a741aac6e8659e26b7"
+      },
+      {
+        "path": "third_party/blink/renderer/core/frame/screen.cc",
+        "blob": "ed5028943e3d702f7332807f7fdff73c906dde51",
+        "expected_blob": "ed5028943e3d702f7332807f7fdff73c906dde51",
+        "verified": true,
+        "sha256": "7e272d8a476850413211b684b2e6bc25bf54cf42b39544ae9cb3f4716c3e2c70"
+      },
+      {
+        "path": "content/browser/devtools/protocol/input_handler.cc",
+        "blob": "8468f4d2562fac5859c8622666d2c67d749b6cfd",
+        "expected_blob": "8468f4d2562fac5859c8622666d2c67d749b6cfd",
+        "verified": true,
+        "sha256": "5008fb8d8eb67bb584c99e304eb8f2456c1d8c07b6afeed8214e215df77671f7"
+      }
+    ]
+  },
+  "core": {
+    "commit": "a5a040bc4be2c4351f2a7291df43a0d7d97a97bd",
+    "files": [
+      {
+        "path": "src/invisible_core/prefs.py",
+        "blob": "4988931840afbeabe0f83c3bdca7f0bb39237946",
+        "expected_blob": "4988931840afbeabe0f83c3bdca7f0bb39237946",
+        "verified": true,
+        "sha256": "f0d43565b8c3873566789ceabd2f2b6ad500f56d17ffd878839376e55aef16c1"
+      }
+    ]
+  },
+  "passed": true,
+  "hunks": [
+    {
+      "path": "docshell/base/BrowsingContext.cpp",
+      "ids": [
+        "S53-c0a481d6b7",
+        "S53-2f200b6f13",
+        "S53-2a2b0c8acf",
+        "S53-492da9489e",
+        "S53-5f45fbbbae",
+        "S53-0c6dfe911a",
+        "S53-ec8fdac199"
+      ]
+    },
+    {
+      "path": "docshell/base/CanonicalBrowsingContext.cpp",
+      "ids": [
+        "S53-016ad6edcf",
+        "S53-63e75a5aa7"
+      ]
+    },
+    {
+      "path": "docshell/base/nsDocShell.cpp",
+      "ids": [
+        "S53-a4e3e2ae4e",
+        "S53-764057d2be",
+        "S53-a9be3ba831"
+      ]
+    },
+    {
+      "path": "docshell/base/nsDocShell.h",
+      "ids": [
+        "S53-ef069441c3"
+      ]
+    },
+    {
+      "path": "docshell/base/nsIDocShell.idl",
+      "ids": [
+        "S53-e45f8ba6fa"
+      ]
+    },
+    {
+      "path": "dom/base/Document.cpp",
+      "ids": [
+        "S53-2335a83134",
+        "S53-68262bd941",
+        "S53-9d9e0e2851",
+        "S53-538ed4c8f4",
+        "S53-91e52ca743",
+        "S53-c79cb5432c"
+      ]
+    },
+    {
+      "path": "dom/base/Navigator.cpp",
+      "ids": [
+        "S53-aa04be578f",
+        "S53-df14e3309e",
+        "S53-afe3c6786e",
+        "S53-c38a7c47ea"
+      ]
+    },
+    {
+      "path": "dom/base/StealthSessionDeclaration.cpp",
+      "ids": [
+        "S53-84ca765b81"
+      ]
+    },
+    {
+      "path": "dom/base/StealthSessionDeclaration.h",
+      "ids": [
+        "S53-82bced95fb"
+      ]
+    },
+    {
+      "path": "dom/base/nsDOMWindowUtils.cpp",
+      "ids": [
+        "S53-ebcc7c21f0",
+        "S53-b8722f9917",
+        "S53-4dbf6f9141",
+        "S53-7e285a85e2"
+      ]
+    },
+    {
+      "path": "dom/base/nsGlobalWindowOuter.cpp",
+      "ids": [
+        "S53-2be5a928ea",
+        "S53-5d33c03e94",
+        "S53-fbb7df8d58",
+        "S53-f70f24890a",
+        "S53-116de589cc",
+        "S53-054c0fe7b4",
+        "S53-e5e7d1d8e7",
+        "S53-7fb0539098",
+        "S53-6d7e764893"
+      ]
+    },
+    {
+      "path": "dom/base/nsGlobalWindowOuter.h",
+      "ids": [
+        "S53-492bf19af9"
+      ]
+    },
+    {
+      "path": "dom/base/nsScreen.cpp",
+      "ids": [
+        "S53-decc03c3d8",
+        "S53-70e8abde09",
+        "S53-cf68440acd",
+        "S53-883d3c2db0",
+        "S53-f0d04ea9a3"
+      ]
+    },
+    {
+      "path": "dom/events/Event.cpp",
+      "ids": [
+        "S53-b2c684e66c",
+        "S53-0fa358fc36",
+        "S53-0544e0454c"
+      ]
+    },
+    {
+      "path": "dom/events/EventStateManager.cpp",
+      "ids": [
+        "S53-3ac09f3933",
+        "S53-a8787464ef"
+      ]
+    },
+    {
+      "path": "dom/events/EventStateManager.h",
+      "ids": [
+        "S53-b266647ae6"
+      ]
+    },
+    {
+      "path": "dom/interfaces/base/nsIDOMWindowUtils.idl",
+      "ids": [
+        "S53-c08f41a536",
+        "S53-f7cc8628ff"
+      ]
+    },
+    {
+      "path": "dom/ipc/CoalescedMouseData.cpp",
+      "ids": [
+        "S53-31dbc63b8a"
+      ]
+    },
+    {
+      "path": "dom/quota/ActorsParent.cpp",
+      "ids": [
+        "S53-79c649d40c",
+        "S53-13260869ed",
+        "S53-4c414ba62d",
+        "S53-92121d305d"
+      ]
+    },
+    {
+      "path": "dom/serviceworkers/ServiceWorkerPrivate.cpp",
+      "ids": [
+        "S53-233ed43164",
+        "S53-f004b89ef4",
+        "S53-fb877059c0",
+        "S53-06b69ce041"
+      ]
+    },
+    {
+      "path": "dom/workers/WorkerLoadInfo.h",
+      "ids": [
+        "S53-53a244c683"
+      ]
+    },
+    {
+      "path": "dom/workers/WorkerNavigator.cpp",
+      "ids": [
+        "S53-e067148ed0",
+        "S53-50fe80ff40",
+        "S53-bb1b55d81a"
+      ]
+    },
+    {
+      "path": "dom/workers/WorkerPrivate.cpp",
+      "ids": [
+        "S53-a20ad7d692",
+        "S53-72c340e698",
+        "S53-1f8e0d13d9",
+        "S53-d05be1cdba",
+        "S53-36e7dc4230",
+        "S53-c52bc12ada"
+      ]
+    },
+    {
+      "path": "dom/workers/WorkerPrivate.h",
+      "ids": [
+        "S53-4806cd7b4e",
+        "S53-93dddf2871"
+      ]
+    },
+    {
+      "path": "dom/workers/remoteworkers/RemoteWorkerChild.cpp",
+      "ids": [
+        "S53-429fc25b4b"
+      ]
+    },
+    {
+      "path": "dom/workers/remoteworkers/RemoteWorkerTypes.ipdlh",
+      "ids": [
+        "S53-d2cc9d07b6"
+      ]
+    },
+    {
+      "path": "dom/workers/sharedworkers/SharedWorker.cpp",
+      "ids": [
+        "S53-c5d19eb8bd"
+      ]
+    },
+    {
+      "path": "dom/worklet/WorkletGlobalScope.cpp",
+      "ids": [
+        "S53-dd9b854063",
+        "S53-ea439c22a2"
+      ]
+    },
+    {
+      "path": "dom/worklet/WorkletImpl.cpp",
+      "ids": [
+        "S53-447a1ee950",
+        "S53-347682fc4a"
+      ]
+    },
+    {
+      "path": "dom/worklet/WorkletImpl.h",
+      "ids": [
+        "S53-8f741f5ffe",
+        "S53-22ff405667"
+      ]
+    },
+    {
+      "path": "dom/xslt/xslt/txEXSLTFunctions.cpp",
+      "ids": [
+        "S53-52d5310a64",
+        "S53-9fe35b193b",
+        "S53-73c1d8c109"
+      ]
+    },
+    {
+      "path": "intl/locale/LocaleService.cpp",
+      "ids": [
+        "S53-6aaadfd179",
+        "S53-9533a1c86d",
+        "S53-d114e2c4a9",
+        "S53-8df28ab974"
+      ]
+    },
+    {
+      "path": "intl/locale/StealthSessionPrefs.cpp",
+      "ids": [
+        "S53-a8fc71e97a"
+      ]
+    },
+    {
+      "path": "intl/locale/StealthSessionPrefs.h",
+      "ids": [
+        "S53-0199d386f4"
+      ]
+    },
+    {
+      "path": "intl/locale/moz.build",
+      "ids": [
+        "S53-78cf1981bc",
+        "S53-fa19cf63dc"
+      ]
+    },
+    {
+      "path": "intl/locale/nsLanguageAtomService.cpp",
+      "ids": [
+        "S53-d6f21a30d1",
+        "S53-e57e368a18"
+      ]
+    },
+    {
+      "path": "juggler/screencast/nsScreencastService.cpp",
+      "ids": [
+        "S53-19fcde68c8"
+      ]
+    },
+    {
+      "path": "juggler/screencast/nsScreencastService.h",
+      "ids": [
+        "S53-5df6b171d5"
+      ]
+    },
+    {
+      "path": "layout/base/PresShell.cpp",
+      "ids": [
+        "S53-32492de2eb"
+      ]
+    },
+    {
+      "path": "layout/base/nsLayoutUtils.cpp",
+      "ids": [
+        "S53-4dc9933750"
+      ]
+    },
+    {
+      "path": "layout/base/nsLayoutUtils.h",
+      "ids": [
+        "S53-c9ca4b360a"
+      ]
+    },
+    {
+      "path": "layout/base/nsPresContext.cpp",
+      "ids": [
+        "S53-3f8c814afa",
+        "S53-986fb53c0d"
+      ]
+    },
+    {
+      "path": "layout/painting/nsImageRenderer.cpp",
+      "ids": [
+        "S53-304b668df7"
+      ]
+    },
+    {
+      "path": "layout/style/FontFace.cpp",
+      "ids": [
+        "S53-659cfcd961",
+        "S53-e4d08e781d"
+      ]
+    },
+    {
+      "path": "layout/style/FontFaceImpl.cpp",
+      "ids": [
+        "S53-6f6779362c",
+        "S53-c0fc5c6121"
+      ]
+    },
+    {
+      "path": "layout/style/FontFaceImpl.h",
+      "ids": [
+        "S53-a57d17ca09",
+        "S53-2cbfb2b9ef"
+      ]
+    },
+    {
+      "path": "layout/style/nsMediaFeatures.cpp",
+      "ids": [
+        "S53-027a7f0d7d",
+        "S53-bdf0e215e7",
+        "S53-275c8e2397",
+        "S53-17ebf1bb0a"
+      ]
+    },
+    {
+      "path": "modules/libpref/init/StaticPrefList.yaml",
+      "ids": [
+        "S53-615403f923",
+        "S53-b6006da775"
+      ]
+    },
+    {
+      "path": "modules/libpref/init/all.js",
+      "ids": [
+        "S53-b884cd814f",
+        "S53-a8727444cc",
+        "S53-4b493515fe",
+        "S53-9f0907e02a",
+        "S53-c605e15fca",
+        "S53-3d9c30b1f2",
+        "S53-abfa066658"
+      ]
+    },
+    {
+      "path": "netwerk/protocol/http/nsHttpHandler.cpp",
+      "ids": [
+        "S53-ed7f33c5d4",
+        "S53-46e3a5eab8"
+      ]
+    },
+    {
+      "path": "widget/MouseEvents.h",
+      "ids": [
+        "S53-b2ff9f992f",
+        "S53-6e4bfbcc8e"
+      ]
+    },
+    {
+      "path": "widget/gtk/nsWindow.cpp",
+      "ids": [
+        "S53-6d3ec2245c",
+        "S53-4e001a40bc"
+      ]
+    },
+    {
+      "path": "widget/nsBaseDragService.cpp",
+      "ids": [
+        "S53-16f107cd57"
+      ]
+    },
+    {
+      "path": "widget/nsGUIEventIPC.h",
+      "ids": [
+        "S53-83c3c077bc",
+        "S53-aa43ac5856"
+      ]
+    },
+    {
+      "path": "widget/windows/TaskbarPreview.cpp",
+      "ids": [
+        "S53-f406cb8d17"
+      ]
+    },
+    {
+      "path": "xpfe/appshell/AppWindow.cpp",
+      "ids": [
+        "S53-7a6598a3e6",
+        "S53-50c6d1baf5",
+        "S53-bbcc20747b"
+      ]
+    }
+  ]
+}
