@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-29T12:56:40.212Z",
+  "observedAt": "2026-11-11T18:07:24.266Z",
   "binary": "/opt/chrome/chrome",
   "mode": "stock-and-profile",
   "environment": {
@@ -19,20 +19,22 @@
         "--user-data-dir=<temporary>",
         "--no-first-run",
         "--no-default-browser-check",
-        "--remote-debugging-port=42025",
+        "--remote-debugging-port=41731",
         "--site-per-process",
         "--window-size=1280,800",
         "--ozone-platform=x11",
         "--no-sandbox",
+        "--use-gl=angle",
+        "--use-angle=gl",
         "about:blank"
       ],
       "status": "passed",
       "version": {
         "protocolVersion": "1.3",
-        "product": "Chrome/156.0.8078.73",
-        "revision": "@2f9a11097447f226133bc1a31c787291a5eeab98",
-        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-        "jsVersion": "15.6.75.25"
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
       },
       "initial": {
         "hardwareConcurrency": 48,
@@ -40,11 +42,11 @@
         "cpuPerformance": 4,
         "cpuPerformanceExposed": true,
         "secureContext": true,
-        "href": "http://127.0.0.1:38397/unprimed?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+        "href": "http://127.0.0.1:34127/unprimed?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
         "performanceMemory": {
           "jsHeapSizeLimit": 4395630592,
           "totalJSHeapSize": 1315016,
-          "usedJSHeapSize": 700576
+          "usedJSHeapSize": 699792
         }
       },
       "snapshots": {
@@ -54,11 +56,11 @@
           "cpuPerformance": 4,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/observed?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/observed?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1847930,
-            "usedJSHeapSize": 1168378
+            "usedJSHeapSize": 1167830
           }
         },
         "sameOriginFrame": {
@@ -67,11 +69,11 @@
           "cpuPerformance": 4,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/frame?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9&kind=same-origin",
+          "href": "http://127.0.0.1:34127/frame?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d&kind=same-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 2110887,
-            "usedJSHeapSize": 1516799
+            "usedJSHeapSize": 1525819
           }
         },
         "crossOriginFrame": {
@@ -80,11 +82,11 @@
           "cpuPerformance": 4,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/frame?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9&kind=cross-origin",
+          "href": "http://127.0.0.2:34127/frame?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d&kind=cross-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1049369,
-            "usedJSHeapSize": 506669
+            "usedJSHeapSize": 506561
           }
         },
         "dedicatedWorker": {
@@ -93,7 +95,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/dedicated.js?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/dedicated.js?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": null
         },
         "nestedWorker": {
@@ -102,7 +104,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/nested.js?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/nested.js?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": null
         },
         "sharedWorker": {
@@ -111,7 +113,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/shared.js?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/shared.js?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": null
         },
         "serviceWorker": {
@@ -120,7 +122,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/service.js?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/service.js?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": null
         }
       },
@@ -131,15 +133,15 @@
       },
       "crossOriginIframeTargets": [
         {
-          "targetId": "6491BF947A4861EC0CCEBA93F19F204C",
+          "targetId": "57DFB8BE72757795F298A53124793BC5",
           "type": "iframe",
-          "title": "http://127.0.0.2:38397/frame?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9&kind=cross-origin",
-          "url": "http://127.0.0.2:38397/frame?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9&kind=cross-origin",
+          "title": "http://127.0.0.2:34127/frame?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d&kind=cross-origin",
+          "url": "http://127.0.0.2:34127/frame?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d&kind=cross-origin",
           "attached": false,
-          "parentId": "17D186563228B1968050CA41D87C727A",
+          "parentId": "C1E19731942656CED5C9257340B887EF",
           "canAccessOpener": false,
-          "parentFrameId": "17D186563228B1968050CA41D87C727A",
-          "browserContextId": "94E0A0C3B930E479D6464CB65F2A3C28"
+          "parentFrameId": "C1E19731942656CED5C9257340B887EF",
+          "browserContextId": "1AC7500D89A4A546710DBA121F7A52E8"
         }
       ],
       "lifecycle": {
@@ -149,11 +151,11 @@
           "cpuPerformance": 4,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/lifecycle?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.2:34127/lifecycle?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1052873,
-            "usedJSHeapSize": 513633
+            "usedJSHeapSize": 513525
           }
         },
         "returnNavigation": {
@@ -162,18 +164,18 @@
           "cpuPerformance": 4,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/lifecycle?run=stock-3bea1634-395f-458d-bd75-e064a5425dc9",
+          "href": "http://127.0.0.1:34127/lifecycle?run=stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
-            "totalJSHeapSize": 1238619,
-            "usedJSHeapSize": 611123
+            "totalJSHeapSize": 1246811,
+            "usedJSHeapSize": 616063
           }
         }
       },
       "clientHints": {
         "initialNavigation": {
-          "run": "stock-3bea1634-395f-458d-bd75-e064a5425dc9",
-          "host": "127.0.0.1:38397",
+          "run": "stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
+          "host": "127.0.0.1:34127",
           "pathname": "/unprimed",
           "memoryHeaders": {
             "device-memory": null,
@@ -181,8 +183,8 @@
           }
         },
         "warmupNavigation": {
-          "run": "stock-3bea1634-395f-458d-bd75-e064a5425dc9",
-          "host": "127.0.0.1:38397",
+          "run": "stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
+          "host": "127.0.0.1:34127",
           "pathname": "/warmup",
           "memoryHeaders": {
             "device-memory": null,
@@ -190,8 +192,8 @@
           }
         },
         "optedInNavigation": {
-          "run": "stock-3bea1634-395f-458d-bd75-e064a5425dc9",
-          "host": "127.0.0.1:38397",
+          "run": "stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
+          "host": "127.0.0.1:34127",
           "pathname": "/observed",
           "memoryHeaders": {
             "device-memory": "32",
@@ -199,8 +201,8 @@
           }
         },
         "optedInSubresource": {
-          "run": "stock-3bea1634-395f-458d-bd75-e064a5425dc9",
-          "host": "127.0.0.1:38397",
+          "run": "stock-3203d88f-fd38-4054-8975-4da4a4af2a1d",
+          "host": "127.0.0.1:34127",
           "pathname": "/subresource",
           "memoryHeaders": {
             "device-memory": "32",
@@ -217,20 +219,22 @@
         "--user-data-dir=<temporary>",
         "--no-first-run",
         "--no-default-browser-check",
-        "--remote-debugging-port=39675",
+        "--remote-debugging-port=42255",
         "--site-per-process",
         "--window-size=1280,800",
         "--ozone-platform=x11",
         "--no-sandbox",
+        "--use-gl=angle",
+        "--use-angle=gl",
         "about:blank"
       ],
       "status": "passed",
       "version": {
         "protocolVersion": "1.3",
-        "product": "Chrome/156.0.8078.73",
-        "revision": "@2f9a11097447f226133bc1a31c787291a5eeab98",
-        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-        "jsVersion": "15.6.75.25"
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
       },
       "initial": {
         "hardwareConcurrency": 8,
@@ -238,11 +242,11 @@
         "cpuPerformance": 3,
         "cpuPerformanceExposed": true,
         "secureContext": true,
-        "href": "http://127.0.0.1:38397/unprimed?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+        "href": "http://127.0.0.1:34127/unprimed?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
         "performanceMemory": {
           "jsHeapSizeLimit": 4395630592,
           "totalJSHeapSize": 1315022,
-          "usedJSHeapSize": 700586
+          "usedJSHeapSize": 700362
         }
       },
       "snapshots": {
@@ -252,11 +256,11 @@
           "cpuPerformance": 3,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/observed?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/observed?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1847948,
-            "usedJSHeapSize": 1168904
+            "usedJSHeapSize": 1167228
           }
         },
         "sameOriginFrame": {
@@ -265,11 +269,11 @@
           "cpuPerformance": 3,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/frame?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f&kind=same-origin",
+          "href": "http://127.0.0.1:34127/frame?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6&kind=same-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
-            "totalJSHeapSize": 2110911,
-            "usedJSHeapSize": 1517347
+            "totalJSHeapSize": 2110940,
+            "usedJSHeapSize": 1537856
           }
         },
         "crossOriginFrame": {
@@ -278,11 +282,11 @@
           "cpuPerformance": 3,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/frame?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f&kind=cross-origin",
+          "href": "http://127.0.0.2:34127/frame?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6&kind=cross-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1049375,
-            "usedJSHeapSize": 506679
+            "usedJSHeapSize": 506571
           }
         },
         "dedicatedWorker": {
@@ -291,7 +295,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/dedicated.js?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/dedicated.js?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": null
         },
         "nestedWorker": {
@@ -300,7 +304,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/nested.js?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/nested.js?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": null
         },
         "sharedWorker": {
@@ -309,7 +313,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/shared.js?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/shared.js?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": null
         },
         "serviceWorker": {
@@ -318,7 +322,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/service.js?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/service.js?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": null
         }
       },
@@ -329,15 +333,15 @@
       },
       "crossOriginIframeTargets": [
         {
-          "targetId": "84663FCA49B6E44F33D005BEC7E437F3",
+          "targetId": "78981B6FC6812E887202C568E8130A09",
           "type": "iframe",
-          "title": "http://127.0.0.2:38397/frame?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f&kind=cross-origin",
-          "url": "http://127.0.0.2:38397/frame?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f&kind=cross-origin",
+          "title": "http://127.0.0.2:34127/frame?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6&kind=cross-origin",
+          "url": "http://127.0.0.2:34127/frame?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6&kind=cross-origin",
           "attached": false,
-          "parentId": "9A3AE8C0992973A4A4071EC5F4EB2968",
+          "parentId": "50BE7D3077D8DBCB04EE31B7978ACA78",
           "canAccessOpener": false,
-          "parentFrameId": "9A3AE8C0992973A4A4071EC5F4EB2968",
-          "browserContextId": "891BDBC89FF95C3F7C47240850547457"
+          "parentFrameId": "50BE7D3077D8DBCB04EE31B7978ACA78",
+          "browserContextId": "52016DC3FDB57C9129254917B1339659"
         }
       ],
       "lifecycle": {
@@ -347,11 +351,11 @@
           "cpuPerformance": 3,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/lifecycle?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.2:34127/lifecycle?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1052879,
-            "usedJSHeapSize": 513643
+            "usedJSHeapSize": 513535
           }
         },
         "returnNavigation": {
@@ -360,18 +364,18 @@
           "cpuPerformance": 3,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/lifecycle?run=defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
+          "href": "http://127.0.0.1:34127/lifecycle?run=defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
-            "totalJSHeapSize": 1238649,
-            "usedJSHeapSize": 611181
+            "totalJSHeapSize": 1242745,
+            "usedJSHeapSize": 616337
           }
         }
       },
       "clientHints": {
         "initialNavigation": {
-          "run": "defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
-          "host": "127.0.0.1:38397",
+          "run": "defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
+          "host": "127.0.0.1:34127",
           "pathname": "/unprimed",
           "memoryHeaders": {
             "device-memory": null,
@@ -379,8 +383,8 @@
           }
         },
         "warmupNavigation": {
-          "run": "defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
-          "host": "127.0.0.1:38397",
+          "run": "defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
+          "host": "127.0.0.1:34127",
           "pathname": "/warmup",
           "memoryHeaders": {
             "device-memory": null,
@@ -388,8 +392,8 @@
           }
         },
         "optedInNavigation": {
-          "run": "defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
-          "host": "127.0.0.1:38397",
+          "run": "defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
+          "host": "127.0.0.1:34127",
           "pathname": "/observed",
           "memoryHeaders": {
             "device-memory": "8",
@@ -397,8 +401,8 @@
           }
         },
         "optedInSubresource": {
-          "run": "defaults-2ca6e8ad-6615-4050-8432-9e3cb46c7a0f",
-          "host": "127.0.0.1:38397",
+          "run": "defaults-fd6b7450-1c90-4582-a4d1-09ab975036f6",
+          "host": "127.0.0.1:34127",
           "pathname": "/subresource",
           "memoryHeaders": {
             "device-memory": "8",
@@ -415,20 +419,22 @@
         "--user-data-dir=<temporary>",
         "--no-first-run",
         "--no-default-browser-check",
-        "--remote-debugging-port=42087",
+        "--remote-debugging-port=45695",
         "--site-per-process",
         "--window-size=1280,800",
         "--ozone-platform=x11",
         "--no-sandbox",
+        "--use-gl=angle",
+        "--use-angle=gl",
         "about:blank"
       ],
       "status": "passed",
       "version": {
         "protocolVersion": "1.3",
-        "product": "Chrome/156.0.8078.73",
-        "revision": "@2f9a11097447f226133bc1a31c787291a5eeab98",
-        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
-        "jsVersion": "15.6.75.25"
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
       },
       "initial": {
         "hardwareConcurrency": 4,
@@ -436,11 +442,11 @@
         "cpuPerformance": 2,
         "cpuPerformanceExposed": true,
         "secureContext": true,
-        "href": "http://127.0.0.1:38397/unprimed?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+        "href": "http://127.0.0.1:34127/unprimed?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
         "performanceMemory": {
           "jsHeapSizeLimit": 4395630592,
           "totalJSHeapSize": 1315026,
-          "usedJSHeapSize": 700590
+          "usedJSHeapSize": 700366
         }
       },
       "snapshots": {
@@ -450,11 +456,11 @@
           "cpuPerformance": 2,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/observed?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/observed?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1847960,
-            "usedJSHeapSize": 1168924
+            "usedJSHeapSize": 1168448
           }
         },
         "sameOriginFrame": {
@@ -463,11 +469,11 @@
           "cpuPerformance": 2,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/frame?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc&kind=same-origin",
+          "href": "http://127.0.0.1:34127/frame?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427&kind=same-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 2110927,
-            "usedJSHeapSize": 1517119
+            "usedJSHeapSize": 1526211
           }
         },
         "crossOriginFrame": {
@@ -476,11 +482,11 @@
           "cpuPerformance": 2,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/frame?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc&kind=cross-origin",
+          "href": "http://127.0.0.2:34127/frame?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427&kind=cross-origin",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1049379,
-            "usedJSHeapSize": 506683
+            "usedJSHeapSize": 506575
           }
         },
         "dedicatedWorker": {
@@ -489,7 +495,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/dedicated.js?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/dedicated.js?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": null
         },
         "nestedWorker": {
@@ -498,7 +504,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/nested.js?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/nested.js?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": null
         },
         "sharedWorker": {
@@ -507,7 +513,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/shared.js?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/shared.js?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": null
         },
         "serviceWorker": {
@@ -516,7 +522,7 @@
           "cpuPerformance": null,
           "cpuPerformanceExposed": false,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/service.js?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/service.js?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": null
         }
       },
@@ -527,15 +533,15 @@
       },
       "crossOriginIframeTargets": [
         {
-          "targetId": "485ED8EE1BB7134F6DAE6F5CB30F66D4",
+          "targetId": "8CF9EA911F0A66DEB0A4C9A9CE110E7D",
           "type": "iframe",
-          "title": "http://127.0.0.2:38397/frame?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc&kind=cross-origin",
-          "url": "http://127.0.0.2:38397/frame?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc&kind=cross-origin",
+          "title": "http://127.0.0.2:34127/frame?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427&kind=cross-origin",
+          "url": "http://127.0.0.2:34127/frame?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427&kind=cross-origin",
           "attached": false,
-          "parentId": "3C67204AC0173B242D06F41AF5A17CF2",
+          "parentId": "CDE81EACD2B1B146AB9AC92A3ADB999A",
           "canAccessOpener": false,
-          "parentFrameId": "3C67204AC0173B242D06F41AF5A17CF2",
-          "browserContextId": "2623EE5E60054474E5E9E7927C4B0567"
+          "parentFrameId": "CDE81EACD2B1B146AB9AC92A3ADB999A",
+          "browserContextId": "EE7E244DB37DE7CE74CDE60F68E0850D"
         }
       ],
       "lifecycle": {
@@ -545,11 +551,11 @@
           "cpuPerformance": 2,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.2:38397/lifecycle?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.2:34127/lifecycle?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
             "totalJSHeapSize": 1052883,
-            "usedJSHeapSize": 513647
+            "usedJSHeapSize": 513539
           }
         },
         "returnNavigation": {
@@ -558,18 +564,18 @@
           "cpuPerformance": 2,
           "cpuPerformanceExposed": true,
           "secureContext": true,
-          "href": "http://127.0.0.1:38397/lifecycle?run=configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
+          "href": "http://127.0.0.1:34127/lifecycle?run=configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
           "performanceMemory": {
             "jsHeapSizeLimit": 4395630592,
-            "totalJSHeapSize": 1238669,
-            "usedJSHeapSize": 611213
+            "totalJSHeapSize": 1242765,
+            "usedJSHeapSize": 616153
           }
         }
       },
       "clientHints": {
         "initialNavigation": {
-          "run": "configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
-          "host": "127.0.0.1:38397",
+          "run": "configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
+          "host": "127.0.0.1:34127",
           "pathname": "/unprimed",
           "memoryHeaders": {
             "device-memory": null,
@@ -577,8 +583,8 @@
           }
         },
         "warmupNavigation": {
-          "run": "configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
-          "host": "127.0.0.1:38397",
+          "run": "configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
+          "host": "127.0.0.1:34127",
           "pathname": "/warmup",
           "memoryHeaders": {
             "device-memory": null,
@@ -586,8 +592,8 @@
           }
         },
         "optedInNavigation": {
-          "run": "configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
-          "host": "127.0.0.1:38397",
+          "run": "configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
+          "host": "127.0.0.1:34127",
           "pathname": "/observed",
           "memoryHeaders": {
             "device-memory": "16",
@@ -595,8 +601,8 @@
           }
         },
         "optedInSubresource": {
-          "run": "configured-d8c45a8c-0a33-494b-a937-23ba200153fc",
-          "host": "127.0.0.1:38397",
+          "run": "configured-03c671f8-0b45-4b97-9bfa-712c5bfde427",
+          "host": "127.0.0.1:34127",
           "pathname": "/subresource",
           "memoryHeaders": {
             "device-memory": "16",
@@ -608,7 +614,7 @@
   ],
   "status": "passed",
   "origins": {
-    "main": "http://127.0.0.1:38397",
-    "cross": "http://127.0.0.2:38397"
+    "main": "http://127.0.0.1:34127",
+    "cross": "http://127.0.0.2:34127"
   }
 }

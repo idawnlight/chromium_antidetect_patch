@@ -1,0 +1,1217 @@
+{
+  "observedAt": "2026-11-11T18:07:13.156Z",
+  "binary": "/opt/chrome/chrome",
+  "scenarios": [
+    {
+      "name": "stock-port",
+      "transport": "port",
+      "profile": null,
+      "status": "passed",
+      "version": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
+      },
+      "collected": {
+        "page": {
+          "webdriver": false,
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": 4,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sameOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": 4,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "crossOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": 4,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "dedicatedWorker": {
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "nestedWorker": {
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sharedWorker": {
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "serviceWorker": {
+          "hardwareConcurrency": 48,
+          "deviceMemory": 32,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Mesa)",
+            "unmaskedRenderer": "ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL 4.5)",
+            "aliasedLineWidthRange": [
+              1,
+              255
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              256
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 32,
+            "maxElementsIndices": 3000,
+            "maxElementsVertices": 3000,
+            "minProgramTexelOffset": -32,
+            "maxProgramTexelOffset": 31,
+            "maxSamples": 4,
+            "msaaError": 0,
+            "maxTextureLodBias": 16,
+            "uniformBufferOffsetAlignment": 16,
+            "lowIntPrecision": [
+              15,
+              14,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "desktop": {
+          "screen": {
+            "width": 1920,
+            "height": 1080,
+            "availWidth": 1920,
+            "availHeight": 1044
+          },
+          "window": {
+            "innerWidth": 1272,
+            "innerHeight": 709,
+            "outerWidth": 1280,
+            "outerHeight": 800,
+            "chromeHeight": 91
+          },
+          "codecs": {
+            "h264": "probably",
+            "aac": "probably"
+          },
+          "devices": [
+            "audioinput",
+            "audiooutput"
+          ],
+          "audioInfo": {
+            "sampleRate": 48000,
+            "maxChannels": 2
+          },
+          "voicesCount": 0,
+          "bodyFont": "\"Times New Roman\"",
+          "desktopFontsAvailable": {
+            "ubuntu": true,
+            "notoSans": true,
+            "notoCjk": true,
+            "dejavuMono": true
+          },
+          "intlTimeZone": "America/New_York",
+          "lastModified": "01/01/2026 07:00:00"
+        }
+      }
+    },
+    {
+      "name": "desktop-defaults-pipe",
+      "transport": "pipe",
+      "profile": {},
+      "status": "passed",
+      "version": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
+      },
+      "collected": {
+        "page": {
+          "webdriver": false,
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": 3,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sameOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": 3,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "crossOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": 3,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 4395630592
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "dedicatedWorker": {
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "nestedWorker": {
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sharedWorker": {
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "serviceWorker": {
+          "hardwareConcurrency": 8,
+          "deviceMemory": 8,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (Intel)",
+            "unmaskedRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "desktop": {
+          "screen": {
+            "width": 1920,
+            "height": 1080,
+            "availWidth": 1920,
+            "availHeight": 1044
+          },
+          "window": {
+            "innerWidth": 1272,
+            "innerHeight": 709,
+            "outerWidth": 1280,
+            "outerHeight": 800,
+            "chromeHeight": 91
+          },
+          "codecs": {
+            "h264": "probably",
+            "aac": "probably"
+          },
+          "devices": [
+            "audioinput",
+            "audiooutput"
+          ],
+          "audioInfo": {
+            "sampleRate": 48000,
+            "maxChannels": 2
+          },
+          "voicesCount": 0,
+          "bodyFont": "\"Times New Roman\"",
+          "desktopFontsAvailable": {
+            "ubuntu": true,
+            "notoSans": true,
+            "notoCjk": true,
+            "dejavuMono": true
+          },
+          "intlTimeZone": "America/New_York",
+          "lastModified": "01/01/2026 07:00:00"
+        }
+      },
+      "runtimeEnableGetterHits": 0,
+      "inputEvents": [
+        {
+          "type": "pointermove",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 135,
+          "clientY": 145,
+          "screenX": 149,
+          "screenY": 242
+        },
+        {
+          "type": "pointermove",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 20,
+          "movementY": 15,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "pointerdown",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0.5,
+          "buttons": 1,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "mousedown",
+          "isTrusted": true,
+          "pointerId": null,
+          "pointerType": null,
+          "pressure": null,
+          "buttons": 1,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "pointerup",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "mouseup",
+          "isTrusted": true,
+          "pointerId": null,
+          "pointerType": null,
+          "pressure": null,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "click",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        }
+      ]
+    },
+    {
+      "name": "configured-4gb-port",
+      "transport": "port",
+      "profile": {
+        "hardwareConcurrency": 4,
+        "deviceMemory": 4,
+        "cpuPerformance": 2,
+        "webglVendor": "Google Inc. (AMD)",
+        "webglRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)"
+      },
+      "status": "passed",
+      "version": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/157.0.8103.50",
+        "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
+      },
+      "collected": {
+        "page": {
+          "webdriver": false,
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": 2,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 2248146944
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sameOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": 2,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 2248146944
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "crossOriginFrame": {
+          "webdriver": false,
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": 2,
+          "cpuPerformanceExposed": true,
+          "secureContext": true,
+          "performanceMemory": {
+            "jsHeapSizeLimit": 2248146944
+          },
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "dedicatedWorker": {
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "nestedWorker": {
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "sharedWorker": {
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "serviceWorker": {
+          "hardwareConcurrency": 4,
+          "deviceMemory": 4,
+          "cpuPerformance": null,
+          "cpuPerformanceExposed": false,
+          "secureContext": true,
+          "performanceMemory": null,
+          "webgl": {
+            "supported": true,
+            "caveatSucceeded": true,
+            "unmaskedVendor": "Google Inc. (AMD)",
+            "unmaskedRenderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi, renoir, ACO), OpenGL 4.6)",
+            "aliasedLineWidthRange": [
+              1,
+              7.375
+            ],
+            "aliasedPointSizeRange": [
+              1,
+              255
+            ],
+            "maxTextureSize": 16384,
+            "max3dTextureSize": 2048,
+            "maxVaryingVectors": 31,
+            "maxElementsIndices": 1048576,
+            "maxElementsVertices": 1048576,
+            "minProgramTexelOffset": -8,
+            "maxProgramTexelOffset": 7,
+            "maxSamples": 8,
+            "msaaError": 0,
+            "maxTextureLodBias": 15,
+            "uniformBufferOffsetAlignment": 64,
+            "lowIntPrecision": [
+              31,
+              30,
+              0
+            ],
+            "translatedPrefix": "#version 450\nin vec4 _ua;\nvoid main(){\n "
+          }
+        },
+        "desktop": {
+          "screen": {
+            "width": 1920,
+            "height": 1080,
+            "availWidth": 1920,
+            "availHeight": 1044
+          },
+          "window": {
+            "innerWidth": 1272,
+            "innerHeight": 709,
+            "outerWidth": 1280,
+            "outerHeight": 800,
+            "chromeHeight": 91
+          },
+          "codecs": {
+            "h264": "probably",
+            "aac": "probably"
+          },
+          "devices": [
+            "audioinput",
+            "audiooutput"
+          ],
+          "audioInfo": {
+            "sampleRate": 48000,
+            "maxChannels": 2
+          },
+          "voicesCount": 0,
+          "bodyFont": "\"Times New Roman\"",
+          "desktopFontsAvailable": {
+            "ubuntu": true,
+            "notoSans": true,
+            "notoCjk": true,
+            "dejavuMono": true
+          },
+          "intlTimeZone": "America/New_York",
+          "lastModified": "01/01/2026 07:00:00"
+        }
+      },
+      "runtimeEnableGetterHits": 0,
+      "inputEvents": [
+        {
+          "type": "pointermove",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 135,
+          "clientY": 145,
+          "screenX": 149,
+          "screenY": 242
+        },
+        {
+          "type": "pointermove",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 20,
+          "movementY": 15,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "pointerdown",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0.5,
+          "buttons": 1,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "mousedown",
+          "isTrusted": true,
+          "pointerId": null,
+          "pointerType": null,
+          "pressure": null,
+          "buttons": 1,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "pointerup",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "mouseup",
+          "isTrusted": true,
+          "pointerId": null,
+          "pointerType": null,
+          "pressure": null,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        },
+        {
+          "type": "click",
+          "isTrusted": true,
+          "pointerId": 1,
+          "pointerType": "mouse",
+          "pressure": 0,
+          "buttons": 0,
+          "movementX": 0,
+          "movementY": 0,
+          "clientX": 155,
+          "clientY": 160,
+          "screenX": 169,
+          "screenY": 257
+        }
+      ]
+    }
+  ],
+  "status": "passed"
+}

@@ -7,3 +7,5 @@ chrome_pgo_phase = 0
 use_thin_lto = false
 use_remoteexec = false
 use_dummy_lastchange = false
+proprietary_codecs = true
+ffmpeg_branding = "Chrome"

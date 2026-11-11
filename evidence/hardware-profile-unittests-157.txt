@@ -4,7 +4,7 @@ own process. For debugging a test inside a debugger, use the
 --single-process-tests.
 Using sharding settings from environment. This is shard 0/1
 Using 1 parallel jobs.
-Note: Google Test filter = ApproximatedDeviceMemoryTest.GetApproximatedDeviceMemory:WebHardwareProfileTest.EmptyObjectSelectsDesktopDefaults:WebHardwareProfileTest.DerivesTierFromDeclaredCores:WebHardwareProfileTest.ExplicitTierOverridesCoreClassification:WebHardwareProfileTest.RejectsInvalidConfiguration
+Note: Google Test filter = ApproximatedDeviceMemoryTest.GetApproximatedDeviceMemory:WebHardwareProfileTest.EmptyObjectSelectsLinuxDesktopDefaults:WebHardwareProfileTest.SupportsAllDesktopMemoryTiersAndDerivesCpuTier:WebHardwareProfileTest.ExplicitOverridesApplyCleanly:WebHardwareProfileTest.RejectsInvalidConfiguration
 [==========] Running 5 tests from 2 test suites.
 [----------] Global test environment set-up.
 [----------] 1 test from ApproximatedDeviceMemoryTest
@@ -13,12 +13,12 @@ Note: Google Test filter = ApproximatedDeviceMemoryTest.GetApproximatedDeviceMem
 [----------] 1 test from ApproximatedDeviceMemoryTest (0 ms total)
 
 [----------] 4 tests from WebHardwareProfileTest
-[ RUN      ] WebHardwareProfileTest.EmptyObjectSelectsDesktopDefaults
-[       OK ] WebHardwareProfileTest.EmptyObjectSelectsDesktopDefaults (0 ms)
-[ RUN      ] WebHardwareProfileTest.DerivesTierFromDeclaredCores
-[       OK ] WebHardwareProfileTest.DerivesTierFromDeclaredCores (0 ms)
-[ RUN      ] WebHardwareProfileTest.ExplicitTierOverridesCoreClassification
-[       OK ] WebHardwareProfileTest.ExplicitTierOverridesCoreClassification (0 ms)
+[ RUN      ] WebHardwareProfileTest.EmptyObjectSelectsLinuxDesktopDefaults
+[       OK ] WebHardwareProfileTest.EmptyObjectSelectsLinuxDesktopDefaults (0 ms)
+[ RUN      ] WebHardwareProfileTest.SupportsAllDesktopMemoryTiersAndDerivesCpuTier
+[       OK ] WebHardwareProfileTest.SupportsAllDesktopMemoryTiersAndDerivesCpuTier (0 ms)
+[ RUN      ] WebHardwareProfileTest.ExplicitOverridesApplyCleanly
+[       OK ] WebHardwareProfileTest.ExplicitOverridesApplyCleanly (0 ms)
 [ RUN      ] WebHardwareProfileTest.RejectsInvalidConfiguration
 [       OK ] WebHardwareProfileTest.RejectsInvalidConfiguration (0 ms)
 [----------] 4 tests from WebHardwareProfileTest (0 ms total)
@@ -27,9 +27,9 @@ Note: Google Test filter = ApproximatedDeviceMemoryTest.GetApproximatedDeviceMem
 [==========] 5 tests from 2 test suites ran. (1 ms total)
 [  PASSED  ] 5 tests.
 [1/5] ApproximatedDeviceMemoryTest.GetApproximatedDeviceMemory (0 ms)
-[2/5] WebHardwareProfileTest.EmptyObjectSelectsDesktopDefaults (0 ms)
-[3/5] WebHardwareProfileTest.DerivesTierFromDeclaredCores (0 ms)
-[4/5] WebHardwareProfileTest.ExplicitTierOverridesCoreClassification (0 ms)
+[2/5] WebHardwareProfileTest.EmptyObjectSelectsLinuxDesktopDefaults (0 ms)
+[3/5] WebHardwareProfileTest.SupportsAllDesktopMemoryTiersAndDerivesCpuTier (0 ms)
+[4/5] WebHardwareProfileTest.ExplicitOverridesApplyCleanly (0 ms)
 [5/5] WebHardwareProfileTest.RejectsInvalidConfiguration (0 ms)
 SUCCESS: all tests passed.
 Tests took 0 seconds.

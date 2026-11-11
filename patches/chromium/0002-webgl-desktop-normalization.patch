@@ -1,0 +1,349 @@
+diff --git a/gpu/command_buffer/service/service_utils.cc b/gpu/command_buffer/service/service_utils.cc
+index 75376d1c52..12fae31539 100644
+--- a/gpu/command_buffer/service/service_utils.cc
++++ b/gpu/command_buffer/service/service_utils.cc
+@@ -9,6 +9,7 @@
+ #include <string_view>
+ 
+ #include "base/command_line.h"
++#include "base/environment.h"
+ #include "base/logging.h"
+ #include "base/memory_coordinator/memory_consumer.h"
+ #include "base/memory_coordinator/utils.h"
+@@ -268,6 +269,9 @@ GpuPreferences ParseGpuPreferences(const base::CommandLine* command_line) {
+             std::move(ignored_entries);
+       }
+     }
++  } else if (base::Environment::Create()->HasVar(
++                 "INVISIBLE_CHROMIUM_PROFILE")) {
++    gpu_preferences.ignore_gpu_blocklist = true;
+   }
+   gpu_preferences.enable_webgpu =
+       command_line->HasSwitch(switches::kEnableUnsafeWebGPU) ||
+diff --git a/gpu/config/gpu_util.cc b/gpu/config/gpu_util.cc
+index 837c62e54c..00a27052c6 100644
+--- a/gpu/config/gpu_util.cc
++++ b/gpu/config/gpu_util.cc
+@@ -28,6 +28,7 @@
+ #include "base/base_paths.h"
+ #include "base/byte_size.h"
+ #include "base/command_line.h"
++#include "base/environment.h"
+ #include "base/files/file_path.h"
+ #include "base/logging.h"
+ #include "base/metrics/histogram_macros.h"
+@@ -647,7 +648,8 @@ GpuFeatureInfo ComputeGpuFeatureInfo(const GPUInfo& gpu_info,
+   GpuFeatureInfo gpu_feature_info;
+   std::set<int> blocklisted_features;
+   if (!gpu_preferences.ignore_gpu_blocklist &&
+-      !command_line->HasSwitch(switches::kUseGpuInTests)) {
++      !command_line->HasSwitch(switches::kUseGpuInTests) &&
++      !base::Environment::Create()->HasVar("INVISIBLE_CHROMIUM_PROFILE")) {
+     std::unique_ptr<GpuBlocklist> list(GpuBlocklist::Create());
+     if (gpu_preferences.log_gpu_control_list_decisions)
+       list->EnableControlListLogging("gpu_blocklist");
+diff --git a/third_party/blink/renderer/modules/webgl/webgl2_rendering_context_base.cc b/third_party/blink/renderer/modules/webgl/webgl2_rendering_context_base.cc
+index 9eb36fe26c..02343335ea 100644
+--- a/third_party/blink/renderer/modules/webgl/webgl2_rendering_context_base.cc
++++ b/third_party/blink/renderer/modules/webgl/webgl2_rendering_context_base.cc
+@@ -27,6 +27,7 @@
+ #include "third_party/blink/renderer/modules/webgl/webgl_fence_sync.h"
+ #include "third_party/blink/renderer/modules/webgl/webgl_framebuffer.h"
+ #include "third_party/blink/renderer/modules/webgl/webgl_program.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ #include "third_party/blink/renderer/modules/webgl/webgl_query.h"
+ #include "third_party/blink/renderer/modules/webgl/webgl_renderbuffer.h"
+ #include "third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.h"
+@@ -659,6 +660,11 @@ ScriptValue WebGL2RenderingContextBase::getInternalformatParameter(
+       auto values = base::HeapArray<GLint>::WithSize(length);
+       ContextGL()->GetInternalformativ(target, internalformat, GL_SAMPLES,
+                                        length, values.data());
++      if (const auto& p = GetWebHardwareProfile();
++          p && p->normalize_webgl && values[0] > 0 && values[0] < 8) {
++        const std::array<GLint, 2> desktop_samples = {8, 4};
++        return WebGLAny(script_state, DOMInt32Array::Create(desktop_samples));
++      }
+       return WebGLAny(script_state, DOMInt32Array::Create(values));
+     }
+     default:
+@@ -934,6 +940,14 @@ void WebGL2RenderingContextBase::RenderbufferStorageHelper(
+   if (!samples) {
+     ContextGL()->RenderbufferStorage(target, internalformat, width, height);
+   } else {
++    if (const auto& p = GetWebHardwareProfile();
++        p && p->normalize_webgl && samples <= 8) {
++      GLint actual_max_samples = 0;
++      ContextGL()->GetIntegerv(GL_MAX_SAMPLES, &actual_max_samples);
++      if (actual_max_samples > 0 && samples > actual_max_samples) {
++        samples = actual_max_samples;
++      }
++    }
+     ContextGL()->RenderbufferStorageMultisampleCHROMIUM(
+         target, samples, internalformat, width, height);
+   }
+@@ -4861,6 +4875,9 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_FRAGMENT_SHADER_DERIVATIVE_HINT:
+       return GetUnsignedIntParameter(script_state, pname);
+     case GL_MAX_3D_TEXTURE_SIZE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, max3d_texture_size_);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_ARRAY_TEXTURE_LAYERS:
+       return GetIntParameter(script_state, pname);
+@@ -4879,8 +4896,10 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_ELEMENT_INDEX:
+       return GetInt64Parameter(script_state, pname);
+     case GL_MAX_ELEMENTS_INDICES:
+-      return GetIntParameter(script_state, pname);
+     case GL_MAX_ELEMENTS_VERTICES:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 1048576);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_FRAGMENT_INPUT_COMPONENTS:
+       return GetIntParameter(script_state, pname);
+@@ -4889,12 +4908,21 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_FRAGMENT_UNIFORM_COMPONENTS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_PROGRAM_TEXEL_OFFSET:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 7);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_SAMPLES:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 8);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_SERVER_WAIT_TIMEOUT:
+       return GetInt64Parameter(script_state, pname);
+     case GL_MAX_TEXTURE_LOD_BIAS:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 15.0f);
++      }
+       return GetFloatParameter(script_state, pname);
+     case GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS:
+       return GetIntParameter(script_state, pname);
+@@ -4907,6 +4935,9 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_UNIFORM_BUFFER_BINDINGS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_VARYING_COMPONENTS:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 124);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_VERTEX_OUTPUT_COMPONENTS:
+       return GetIntParameter(script_state, pname);
+@@ -4915,6 +4946,9 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_VERTEX_UNIFORM_COMPONENTS:
+       return GetIntParameter(script_state, pname);
+     case GL_MIN_PROGRAM_TEXEL_OFFSET:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, -8);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_PACK_ROW_LENGTH:
+       return GetIntParameter(script_state, pname);
+@@ -4966,6 +5000,13 @@ ScriptValue WebGL2RenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_UNIFORM_BUFFER_BINDING:
+       return WebGLAny(script_state, bound_uniform_buffer_.Get());
+     case GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        GLint alignment = 0;
++        if (!isContextLost()) {
++          ContextGL()->GetIntegerv(pname, &alignment);
++        }
++        return WebGLAny(script_state, std::max<GLint>(alignment, 64));
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_UNPACK_IMAGE_HEIGHT:
+       return GetIntParameter(script_state, pname);
+diff --git a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
+index e72f6f7ca6..1166b09843 100644
+--- a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
++++ b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
+@@ -64,6 +64,7 @@
+ #include "media/gfx/paint_canvas_video_renderer.h"
+ #include "media/gfx/video_frame_shared_image_cache.h"
+ #include "third_party/blink/public/common/features.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ #include "third_party/blink/public/common/thread_safe_browser_interface_broker_proxy.h"
+ #include "third_party/blink/public/mojom/gpu/gpu.mojom-blink.h"
+ #include "third_party/blink/public/platform/platform.h"
+@@ -745,10 +746,14 @@ WebGLRenderingContextBase::CreateContextProviderInternal(
+   }
+ 
+   const auto& url = execution_context->Url();
++  const bool fail_if_major_caveat =
++      GetWebHardwareProfile().has_value()
++          ? false
++          : attributes.fail_if_major_performance_caveat;
+   std::unique_ptr<WebGraphicsContext3DProvider> context_provider =
+-      CreateWebGLGraphicsContextProvider(
+-          prefer_low_power_gpu, attributes.fail_if_major_performance_caveat,
+-          context_type, context_info, url);
++      CreateWebGLGraphicsContextProvider(prefer_low_power_gpu,
++                                         fail_if_major_caveat, context_type,
++                                         context_info, url);
+   if (context_provider && !context_provider->BindToCurrentSequence()) {
+     context_provider = nullptr;
+     context_info->error_message = StrCat({"BindToCurrentSequence failed: ",
+@@ -1478,18 +1483,31 @@ void WebGLRenderingContextBase::InitializeNewContext() {
+   ContextGL()->GetIntegerv(GL_MAX_VERTEX_ATTRIBS, &num_vertex_attribs);
+   max_vertex_attribs_ = num_vertex_attribs;
+ 
++  const auto& hw_profile = GetWebHardwareProfile();
++  const bool normalize_webgl = hw_profile && hw_profile->normalize_webgl;
++
+   max_texture_size_ = 0;
+   ContextGL()->GetIntegerv(GL_MAX_TEXTURE_SIZE, &max_texture_size_);
++  if (normalize_webgl) {
++    max_texture_size_ = std::min<GLint>(max_texture_size_, 16384);
++  }
+   max_texture_level_ =
+       WebGLTexture::ComputeLevelCount(max_texture_size_, max_texture_size_, 1);
+   max_cube_map_texture_size_ = 0;
+   ContextGL()->GetIntegerv(GL_MAX_CUBE_MAP_TEXTURE_SIZE,
+                            &max_cube_map_texture_size_);
++  if (normalize_webgl) {
++    max_cube_map_texture_size_ =
++        std::min<GLint>(max_cube_map_texture_size_, 16384);
++  }
+   max3d_texture_size_ = 0;
+   max3d_texture_level_ = 0;
+   max_array_texture_layers_ = 0;
+   if (IsWebGL2()) {
+     ContextGL()->GetIntegerv(GL_MAX_3D_TEXTURE_SIZE, &max3d_texture_size_);
++    if (normalize_webgl) {
++      max3d_texture_size_ = std::min<GLint>(max3d_texture_size_, 2048);
++    }
+     max3d_texture_level_ = WebGLTexture::ComputeLevelCount(
+         max3d_texture_size_, max3d_texture_size_, max3d_texture_size_);
+     ContextGL()->GetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS,
+@@ -1499,6 +1517,9 @@ void WebGLRenderingContextBase::InitializeNewContext() {
+       max_cube_map_texture_size_, max_cube_map_texture_size_, 1);
+   max_renderbuffer_size_ = 0;
+   ContextGL()->GetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &max_renderbuffer_size_);
++  if (normalize_webgl) {
++    max_renderbuffer_size_ = std::min<GLint>(max_renderbuffer_size_, 16384);
++  }
+ 
+   // These two values from EXT_draw_buffers are lazily queried.
+   max_draw_buffers_ = 0;
+@@ -4015,8 +4036,16 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_ACTIVE_TEXTURE:
+       return GetUnsignedIntParameter(script_state, pname);
+     case GL_ALIASED_LINE_WIDTH_RANGE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        const std::array<GLfloat, 2> range = {1.0f, 7.375f};
++        return WebGLAny(script_state, DOMFloat32Array::Create(range));
++      }
+       return GetWebGLFloatArrayParameter(script_state, pname);
+     case GL_ALIASED_POINT_SIZE_RANGE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        const std::array<GLfloat, 2> range = {1.0f, 255.0f};
++        return WebGLAny(script_state, DOMFloat32Array::Create(range));
++      }
+       return GetWebGLFloatArrayParameter(script_state, pname);
+     case GL_ALPHA_BITS:
+       if (drawing_buffer_->RequiresAlphaChannelToBePreserved())
+@@ -4091,16 +4120,28 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_CUBE_MAP_TEXTURE_SIZE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, max_cube_map_texture_size_);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_FRAGMENT_UNIFORM_VECTORS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_RENDERBUFFER_SIZE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, max_renderbuffer_size_);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_TEXTURE_IMAGE_UNITS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_TEXTURE_SIZE:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, max_texture_size_);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_VARYING_VECTORS:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        return WebGLAny(script_state, 31);
++      }
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_VERTEX_ATTRIBS:
+       return GetIntParameter(script_state, pname);
+@@ -4109,6 +4150,15 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+     case GL_MAX_VERTEX_UNIFORM_VECTORS:
+       return GetIntParameter(script_state, pname);
+     case GL_MAX_VIEWPORT_DIMS:
++      if (const auto& p = GetWebHardwareProfile(); p && p->normalize_webgl) {
++        std::array<GLint, 2> dims = {0, 0};
++        if (!isContextLost()) {
++          ContextGL()->GetIntegerv(pname, dims.data());
++          dims[0] = std::min<GLint>(dims[0], 16384);
++          dims[1] = std::min<GLint>(dims[1], 16384);
++        }
++        return WebGLAny(script_state, DOMInt32Array::Create(dims));
++      }
+       return GetWebGLIntArrayParameter(script_state, pname);
+     case GL_PACK_ALIGNMENT:
+       return GetIntParameter(script_state, pname);
+@@ -4219,6 +4269,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+       return ScriptValue::CreateNull(script_state->GetIsolate());
+     case WebGLDebugRendererInfo::kUnmaskedRendererWebgl:
+       if (ExtensionEnabled(kWebGLDebugRendererInfoName)) {
++        if (const auto& p = GetWebHardwareProfile()) {
++          return WebGLAny(script_state,
++                          String::FromUtf8(std::string_view(p->webgl_renderer)));
++        }
+         return WebGLAny(script_state,
+                         String(ContextGL()->GetString(GL_RENDERER)));
+       }
+@@ -4228,6 +4282,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+       return ScriptValue::CreateNull(script_state->GetIsolate());
+     case WebGLDebugRendererInfo::kUnmaskedVendorWebgl:
+       if (ExtensionEnabled(kWebGLDebugRendererInfoName)) {
++        if (const auto& p = GetWebHardwareProfile()) {
++          return WebGLAny(script_state,
++                          String::FromUtf8(std::string_view(p->webgl_vendor)));
++        }
+         return WebGLAny(script_state,
+                         String(ContextGL()->GetString(GL_VENDOR)));
+       }
+@@ -4529,6 +4587,13 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
+   GLint precision = 0;
+   ContextGL()->GetShaderPrecisionFormat(shader_type, precision_type, range,
+                                         &precision);
++  if (const auto& p = GetWebHardwareProfile();
++      p && p->normalize_webgl &&
++      (precision_type == GL_LOW_INT || precision_type == GL_MEDIUM_INT)) {
++    range[0] = 31;
++    range[1] = 30;
++    precision = 0;
++  }
+   return MakeGarbageCollected<WebGLShaderPrecisionFormat>(range[0], range[1],
+                                                           precision);
+ }
+@@ -9079,11 +9144,14 @@ void WebGLRenderingContextBase::MaybeRestoreContext(TimerBase*) {
+   Platform::WebGLContextInfo gl_info;
+   const auto& url = Host()->GetExecutionContextUrl();
+ 
++  const bool fail_if_major_caveat =
++      GetWebHardwareProfile().has_value()
++          ? false
++          : creation_attributes.fail_if_major_performance_caveat;
+   std::unique_ptr<WebGraphicsContext3DProvider> context_provider =
+       CreateWebGLGraphicsContextProvider(
+-          prefer_low_power_gpu,
+-          creation_attributes.fail_if_major_performance_caveat, context_type_,
+-          &gl_info, url);
++          prefer_low_power_gpu, fail_if_major_caveat, context_type_, &gl_info,
++          url);
+   scoped_refptr<DrawingBuffer> buffer;
+   if (context_provider && context_provider->BindToCurrentSequence()) {
+     // Construct a new drawing buffer with the new GL context.

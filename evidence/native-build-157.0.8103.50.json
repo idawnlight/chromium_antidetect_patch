@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "platform": "Linux x86_64",
+  "upstream_version": "157.0.8103.50",
+  "upstream_commit": "049750111b1e5c11565c792b2aeed5541f332bad",
+  "v8_commit": "440c1c463e2e528c309af5067952e7b11631507f",
+  "patch_series": [
+    "patches/chromium/0001-web-hardware-profile.patch",
+    "patches/chromium/0002-webgl-desktop-normalization.patch",
+    "patches/chromium/0003-automation-cdp-stealth.patch",
+    "patches/v8/0001-inspector-console-stealth.patch"
+  ],
+  "build_args_file": "build/linux-release.gn",
+  "build_args": {
+    "is_debug": false,
+    "is_component_build": false,
+    "symbol_level": 0,
+    "blink_symbol_level": 0,
+    "v8_symbol_level": 0,
+    "chrome_pgo_phase": 0,
+    "use_thin_lto": false,
+    "use_remoteexec": false,
+    "use_dummy_lastchange": false,
+    "proprietary_codecs": true,
+    "ffmpeg_branding": "Chrome"
+  },
+  "binary": "/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome",
+  "sandbox_binary": "/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome_sandbox",
+  "full_build_elapsed_seconds": 4441,
+  "browser_version": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.50",
+    "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  },
+  "container": {
+    "image": "chromium-linux-desktop:157",
+    "gpu_mounted": false,
+    "cpu_limit": 8,
+    "memory_limit_gib": 8,
+    "shared_memory_gib": 1
+  },
+  "verification": {
+    "unit_tests": {
+      "filter": "WebHardwareProfileTest.*:ApproximatedDeviceMemoryTest.*",
+      "passed": 5,
+      "failed": 0,
+      "evidence": "evidence/hardware-profile-unittests-157.txt"
+    },
+    "desktop_verification": {
+      "status": "passed",
+      "scenarios": [
+        "stock-port",
+        "desktop-defaults-pipe",
+        "configured-4gb-port"
+      ],
+      "runtime_enable_getter_hits": 0,
+      "pointerdown_pressure": 0.5,
+      "evidence": "evidence/desktop-verification-chromium-157.0.8103.50.json"
+    },
+    "hardware_profiles": {
+      "status": "passed",
+      "scenarios": [
+        "stock",
+        "defaults",
+        "configured"
+      ],
+      "evidence": "evidence/hardware-verification-chromium-157.0.8103.50.json"
+    },
+    "linux_desktop_snapshot": {
+      "status": "passed",
+      "evidence": "evidence/container-desktop-chromium-157.0.8103.50.json"
+    }
+  }
+}

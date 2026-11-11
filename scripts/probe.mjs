@@ -8,12 +8,36 @@ import path from 'node:path';
 if (!process.argv[2]) throw new Error('Usage: node scripts/probe.mjs /path/to/chrome [output.json]');
 const binary = process.argv[2];
 const output = process.argv[3] ?? path.resolve('evidence/stock-observation.json');
+let baselineVersion = null;
+try {
+  const baseline = JSON.parse(await readFile(new URL('../baseline.json', import.meta.url), 'utf8'));
+  baselineVersion = baseline.version;
+} catch {}
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'chromium-hardware-probe-'));
-const workerCode = `const values = () => ({hardwareConcurrency:navigator.hardwareConcurrency,deviceMemory:navigator.deviceMemory,cpuPerformance:navigator.cpuPerformance,userAgent:navigator.userAgent});`;
+const workerCode = `const values = () => {
+  let webgl = null;
+  try {
+    const gl = new OffscreenCanvas(16, 16).getContext('webgl2');
+    const dbg = gl?.getExtension('WEBGL_debug_renderer_info');
+    webgl = gl ? {
+      unmaskedVendor: dbg ? gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : null,
+      unmaskedRenderer: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : null,
+      maxElementsIndices: gl.getParameter(gl.MAX_ELEMENTS_INDICES),
+    } : null;
+  } catch {}
+  return {
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    deviceMemory: navigator.deviceMemory,
+    cpuPerformance: navigator.cpuPerformance,
+    webdriver: navigator.webdriver,
+    userAgent: navigator.userAgent,
+    webgl,
+  };
+};`;
 const server = createServer((req, res) => {
   if (req.url === '/sw.js') {
     res.setHeader('content-type', 'text/javascript');
-    res.end(workerCode + `self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('message',e=>e.ports[0].postMessage(values()));`);
+    res.end(`const swValues = () => ({hardwareConcurrency:navigator.hardwareConcurrency,deviceMemory:navigator.deviceMemory,cpuPerformance:navigator.cpuPerformance,webdriver:navigator.webdriver,userAgent:navigator.userAgent});self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('message',e=>e.ports[0].postMessage(swValues()));`);
   } else {
     res.setHeader('content-type', 'text/html');
     res.setHeader('Last-Modified', 'Thu, 01 Jan 2026 12:00:00 GMT');
@@ -92,14 +116,14 @@ try {
     if (ready.result.value) break;
     await delay(50);
   }
-  const expression = `(${async function observe() {
+  const expression = `(${async function observe(workerSrc) {
     const attempt = async fn => { try { return await fn(); } catch (e) { return { error: e.name + ': ' + e.message }; } };
     const pick = (obj, keys) => Object.fromEntries(keys.map(k => [k, obj?.[k] ?? null]));
     const out = { secureContext: isSecureContext, crossOriginIsolated, navigator: pick(navigator, ['hardwareConcurrency','deviceMemory','cpuPerformance','maxTouchPoints','platform','userAgent','language','languages','pdfViewerEnabled','webdriver','vendor']) };
     out.locale = {intl:Intl.DateTimeFormat().resolvedOptions(),lastModified:document.lastModified,fixedDate:new Date('2026-01-01T12:00:00Z').toString()};
     out.pageState = {visibility:document.visibilityState,hidden:document.hidden,hasFocus:document.hasFocus(),userActivation:pick(navigator.userActivation,['isActive','hasBeenActive'])};
     out.pdf = {plugins:[...navigator.plugins].map(p=>p.name),mimeTypes:[...navigator.mimeTypes].map(m=>m.type)};
-    out.window = pick(window, ['innerWidth','innerHeight','outerWidth','outerHeight','screenX','screenY','devicePixelRatio']);
+    out.window = { ...pick(window, ['innerWidth','innerHeight','outerWidth','outerHeight','screenX','screenY','devicePixelRatio']), chromeHeight: window.outerHeight - window.innerHeight };
     out.screen = { ...pick(screen, ['width','height','availWidth','availHeight','availLeft','availTop','colorDepth','pixelDepth','isExtended']), orientation: pick(screen.orientation, ['type','angle']) };
     out.css = Object.fromEntries(['pointer:fine','pointer:coarse','any-pointer:fine','hover:hover','any-hover:hover','color-gamut:srgb','color-gamut:p3','color-gamut:rec2020','dynamic-range:high','video-dynamic-range:high','update:fast','prefers-color-scheme:dark','prefers-reduced-motion:reduce','forced-colors:active','inverted-colors:inverted'].map(q => [q, matchMedia('(' + q + ')').matches]));
     out.connection = pick(navigator.connection, ['type','effectiveType','downlink','downlinkMax','rtt','saveData']);
@@ -107,6 +131,14 @@ try {
     out.storage = await attempt(() => navigator.storage.estimate());
     out.battery = await attempt(async () => pick(await navigator.getBattery(), ['charging','chargingTime','dischargingTime','level']));
     out.uaData = await attempt(() => navigator.userAgentData.getHighEntropyValues(['architecture','bitness','model','platformVersion','fullVersionList','wow64']));
+    out.codecs = {
+      h264: document.createElement('video').canPlayType('video/mp4; codecs="avc1.42E01E"'),
+      vp9: document.createElement('video').canPlayType('video/webm; codecs="vp9"'),
+      av1: document.createElement('video').canPlayType('video/mp4; codecs="av01.0.05M.08"'),
+      aac: document.createElement('audio').canPlayType('audio/mp4; codecs="mp4a.40.2"'),
+      opus: document.createElement('audio').canPlayType('audio/webm; codecs="opus"'),
+      mp3: document.createElement('audio').canPlayType('audio/mpeg'),
+    };
     out.permissions = {};
     for (const name of ['window-management','local-fonts','camera','microphone','geolocation','accelerometer','gyroscope','magnetometer','idle-detection']) out.permissions[name] = await attempt(async () => (await navigator.permissions.query({name})).state);
     out.exposure = Object.fromEntries(['gpu','usb','hid','serial','bluetooth','getGamepads'].map(k => [k, typeof navigator[k]]));
@@ -118,31 +150,65 @@ try {
     out.webgl = {};
     for (const name of ['webgl','webgl2']) out.webgl[name] = await attempt(() => {
       const gl = document.createElement('canvas').getContext(name);
-      if (!gl) return null;
+      const caveat = !!document.createElement('canvas').getContext(name, { failIfMajorPerformanceCaveat: true });
+      if (!gl) return { supported: false, caveatSucceeded: caveat };
       const ext = gl.getExtension('WEBGL_debug_renderer_info');
-      const debug=gl.getExtension('WEBGL_debug_shaders');
-      const shader=gl.createShader(gl.VERTEX_SHADER);
-      gl.shaderSource(shader,name==='webgl2'?'#version 300 es\nin vec4 a;void main(){gl_Position=a;}':'attribute vec4 a;void main(){gl_Position=a;}');gl.compileShader(shader);
-      const translated=debug?.getTranslatedShaderSource(shader)??'';const compiled=gl.getShaderParameter(shader,gl.COMPILE_STATUS);gl.deleteShader(shader);
-      return { vendor:gl.getParameter(gl.VENDOR), renderer:gl.getParameter(gl.RENDERER), version:gl.getParameter(gl.VERSION), unmaskedVendor:ext?gl.getParameter(ext.UNMASKED_VENDOR_WEBGL):null, unmaskedRenderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null, maxTextureSize:gl.getParameter(gl.MAX_TEXTURE_SIZE), maxRenderbufferSize:gl.getParameter(gl.MAX_RENDERBUFFER_SIZE), contextAttributes:gl.getContextAttributes(),shaderCompiled:compiled,translatedShaderLength:translated.length,translatedShaderPrefix:translated.slice(0,240),extensions:gl.getSupportedExtensions() };
+      const debug = gl.getExtension('WEBGL_debug_shaders');
+      const shader = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(shader, name==='webgl2'?'#version 300 es\nin vec4 a;void main(){gl_Position=a;}':'attribute vec4 a;void main(){gl_Position=a;}');
+      gl.compileShader(shader);
+      const translated = debug?.getTranslatedShaderSource(shader) ?? '';
+      const compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+      gl.deleteShader(shader);
+      const lowInt = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_INT);
+      return {
+        supported: true,
+        caveatSucceeded: caveat,
+        vendor: gl.getParameter(gl.VENDOR),
+        renderer: gl.getParameter(gl.RENDERER),
+        version: gl.getParameter(gl.VERSION),
+        unmaskedVendor: ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : null,
+        unmaskedRenderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : null,
+        aliasedLineWidthRange: Array.from(gl.getParameter(gl.ALIASED_LINE_WIDTH_RANGE)),
+        aliasedPointSizeRange: Array.from(gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE)),
+        maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
+        maxRenderbufferSize: gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),
+        maxVaryingVectors: gl.getParameter(gl.MAX_VARYING_VECTORS),
+        ...(name === 'webgl2' ? {
+          max3dTextureSize: gl.getParameter(gl.MAX_3D_TEXTURE_SIZE),
+          maxElementsIndices: gl.getParameter(gl.MAX_ELEMENTS_INDICES),
+          maxElementsVertices: gl.getParameter(gl.MAX_ELEMENTS_VERTICES),
+          minProgramTexelOffset: gl.getParameter(gl.MIN_PROGRAM_TEXEL_OFFSET),
+          maxProgramTexelOffset: gl.getParameter(gl.MAX_PROGRAM_TEXEL_OFFSET),
+          maxSamples: gl.getParameter(gl.MAX_SAMPLES),
+          maxTextureLodBias: gl.getParameter(gl.MAX_TEXTURE_LOD_BIAS),
+          uniformBufferOffsetAlignment: gl.getParameter(gl.UNIFORM_BUFFER_OFFSET_ALIGNMENT),
+        } : {}),
+        fragmentLowIntPrecision: [lowInt.rangeMin, lowInt.rangeMax, lowInt.precision],
+        contextAttributes: gl.getContextAttributes(),
+        shaderCompiled: compiled,
+        translatedShaderLength: translated.length,
+        translatedShaderPrefix: translated.slice(0, 240),
+        extensions: gl.getSupportedExtensions(),
+      };
     });
     out.webgpu = await attempt(async () => { const a=await navigator.gpu?.requestAdapter(); return a ? {info:pick(a.info,['vendor','architecture','device','description','subgroupMinSize','subgroupMaxSize','isFallbackAdapter']),features:[...a.features]} : null; });
     out.audio = await attempt(async () => { const a=new AudioContext(); const v={...pick(a,['sampleRate','baseLatency','outputLatency','state']), maxChannelCount:a.destination.maxChannelCount};await a.close();return v; });
-    out.voices = await attempt(async () => {let voices=[];for(let i=0;i<20;i++){voices=speechSynthesis.getVoices();if(voices.length)break;await new Promise(r=>setTimeout(r,100));}return {count:voices.length,languages:[...new Set(voices.map(v=>v.lang))],sample:voices.slice(0,8).map(v=>pick(v,['name','lang','localService','default']))};});
+    out.voices = await attempt(async () => { const voices = speechSynthesis.getVoices(); return {count:voices.length,languages:[...new Set(voices.map(v=>v.lang))],sample:voices.slice(0,8).map(v=>pick(v,['name','lang','localService','default']))}; });
     out.fonts = {computedBodyFontFamily:getComputedStyle(document.body).fontFamily};
     out.raf = await attempt(async () => { const stamps=[];await new Promise(resolve=>{const tick=t=>{stamps.push(t);stamps.length<31?requestAnimationFrame(tick):resolve();};requestAnimationFrame(tick);});const gaps=stamps.slice(1).map((t,i)=>t-stamps[i]).sort((a,b)=>a-b);return {samples:gaps.length,min:gaps[0],median:gaps[Math.floor(gaps.length/2)],max:gaps.at(-1)}; });
-    out.worker = await attempt(async () => { const code='postMessage({hardwareConcurrency:navigator.hardwareConcurrency,deviceMemory:navigator.deviceMemory,cpuPerformance:navigator.cpuPerformance,userAgent:navigator.userAgent})';const url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));const w=new Worker(url);try{return await new Promise((resolve,reject)=>{w.onmessage=e=>resolve(e.data);w.onerror=reject;});}finally{w.terminate();URL.revokeObjectURL(url);} });
+    out.worker = await attempt(async () => { const code = workerSrc + ';postMessage(values())';const url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));const w=new Worker(url);try{return await new Promise((resolve,reject)=>{w.onmessage=e=>resolve(e.data);w.onerror=reject;});}finally{w.terminate();URL.revokeObjectURL(url);} });
     out.serviceWorker = await attempt(async () => { const registration=await navigator.serviceWorker.register('/sw.js');await navigator.serviceWorker.ready;const channel=new MessageChannel();try{const response=new Promise(resolve=>channel.port1.onmessage=e=>resolve(e.data));registration.active.postMessage({},[channel.port2]);return await response;}finally{channel.port1.close();await registration.unregister();} });
     return out;
-  }.toString()})()`;
+  }.toString()})(${JSON.stringify(workerCode)})`;
   const result = await send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }, sessionId);
   if (result.exceptionDetails) throw new Error(JSON.stringify(result.exceptionDetails));
   const cgroup = {};
   for (const name of ['memory.max','cpu.max','cpuset.cpus.effective']) {try {cgroup[name]=(await readFile('/sys/fs/cgroup/'+name,'utf8')).trim();}catch{}}
-  const report = { observedAt:new Date().toISOString(), binary, version, sourceResearchVersion:'156.0.8078.73', observationVersion:version.product.split('/')[1], environment:{display:process.env.PROBE_DISPLAY ? 'external X11 desktop' : 'Xvfb 1920x1080x24 / X11',locale:process.env.LANG,timeZone:process.env.TZ,platform:os.platform(), arch:os.arch(), logicalCpuCount:os.cpus().length, availableParallelism:os.availableParallelism(), totalMemoryBytes:os.totalmem(),cgroup}, launchArgs:args.map(a=>a.startsWith('--user-data-dir=')?'--user-data-dir=<temporary>':a), values:result.result.value };
+  const report = { observedAt:new Date().toISOString(), binary, version, ...(baselineVersion ? { baselineVersion } : {}), observationVersion:version.product.split('/')[1], environment:{display:process.env.PROBE_DISPLAY ? 'external X11 desktop' : 'Xvfb 1920x1080x24 / X11',locale:process.env.LANG,timeZone:process.env.TZ,platform:os.platform(), arch:os.arch(), logicalCpuCount:os.cpus().length, availableParallelism:os.availableParallelism(), totalMemoryBytes:os.totalmem(),cgroup}, launchArgs:args.map(a=>a.startsWith('--user-data-dir=')?'--user-data-dir=<temporary>':a), values:result.result.value };
   await mkdir(path.dirname(output), { recursive:true });
   await writeFile(output, JSON.stringify(report,null,2)+'\n');
-  console.log(JSON.stringify({output,version,navigator:report.values.navigator,worker:report.values.worker,serviceWorker:report.values.serviceWorker,screen:report.values.screen,window:report.values.window},null,2));
+  console.log(JSON.stringify({output,version,navigator:report.values.navigator,codecs:report.values.codecs,webgl2Renderer:report.values.webgl?.webgl2?.unmaskedRenderer,worker:report.values.worker,screen:report.values.screen,window:report.values.window},null,2));
 } finally {
   for (const transaction of pending.values()) { clearTimeout(transaction.timer);transaction.reject(new Error('probe closed')); }
   if (socket?.readyState === WebSocket.OPEN) socket.close();

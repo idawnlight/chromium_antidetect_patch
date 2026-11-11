@@ -1,0 +1,91 @@
+diff --git a/chrome/browser/ui/startup/bad_flags_prompt.cc b/chrome/browser/ui/startup/bad_flags_prompt.cc
+index e978ec9cf1..1688583bff 100644
+--- a/chrome/browser/ui/startup/bad_flags_prompt.cc
++++ b/chrome/browser/ui/startup/bad_flags_prompt.cc
+@@ -51,6 +51,7 @@
+ #include "services/webnn/public/mojom/features.mojom.h"
+ #include "third_party/abseil-cpp/absl/functional/overload.h"
+ #include "third_party/blink/public/common/features_generated.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ #include "ui/base/l10n/l10n_util.h"
+ #include "ui/base/resource/resource_bundle.h"
+ #include "ui/base/resource/scoped_startup_resource_bundle.h"
+@@ -291,6 +292,9 @@ void ShowBadFlagsInfoBarHelper(content::WebContents* web_contents,
+ }  // namespace
+ 
+ void ShowBadFlagsPrompt(content::WebContents* web_contents) {
++  if (blink::GetWebHardwareProfile().has_value()) {
++    return;
++  }
+ // On Android, ShowBadFlagsPrompt doesn't show the warning notification
+ // for flags which are not available in about:flags.
+ #if !BUILDFLAG(IS_ANDROID)
+diff --git a/chrome/browser/ui/startup/infobar_utils.cc b/chrome/browser/ui/startup/infobar_utils.cc
+index 598e361a29..4017238c87 100644
+--- a/chrome/browser/ui/startup/infobar_utils.cc
++++ b/chrome/browser/ui/startup/infobar_utils.cc
+@@ -41,6 +41,7 @@
+ #include "components/tabs/public/tab_interface.h"
+ #include "content/public/common/content_switches.h"
+ #include "google_apis/google_api_keys.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ 
+ #if !BUILDFLAG(IS_CHROMEOS) && !BUILDFLAG(IS_ANDROID)
+ #include "chrome/browser/ui/startup/default_browser_prompt/default_browser_prompt.h"
+@@ -94,6 +95,9 @@ bool ShouldShowBadFlagsSecurityWarnings() {
+ // This is a separate function to avoid accidentally reading the switch from
+ // `startup_command_line`.
+ bool IsAutomationEnabled() {
++  if (blink::GetWebHardwareProfile().has_value()) {
++    return false;
++  }
+   return base::CommandLine::ForCurrentProcess()->HasSwitch(
+       switches::kEnableAutomation);
+ }
+diff --git a/content/browser/devtools/protocol/input_handler.cc b/content/browser/devtools/protocol/input_handler.cc
+index 8468f4d256..476b1ffc82 100644
+--- a/content/browser/devtools/protocol/input_handler.cc
++++ b/content/browser/devtools/protocol/input_handler.cc
+@@ -6,6 +6,7 @@
+ 
+ #include <stddef.h>
+ 
++#include <limits>
+ #include <memory>
+ #include <tuple>
+ #include <utility>
+@@ -496,7 +497,9 @@ CreateWebMouseEvent(const std::string& event_type,
+   mouse_event->button = event_button;
+   mouse_event->click_count = click_count.value_or(0);
+   mouse_event->pointer_type = GetPointerType(pointer_type.value_or(""));
+-  mouse_event->force = force.value_or(0);
++  mouse_event->force = force.has_value()
++                           ? static_cast<float>(*force)
++                           : std::numeric_limits<float>::quiet_NaN();
+   mouse_event->tangential_pressure = tangential_pressure.value_or(0);
+   mouse_event->tilt_x = tilt_x.value_or(0);
+   mouse_event->tilt_y = tilt_y.value_or(0);
+diff --git a/content/child/runtime_features.cc b/content/child/runtime_features.cc
+index fcf03ba0b3..7cfe9b1eef 100644
+--- a/content/child/runtime_features.cc
++++ b/content/child/runtime_features.cc
+@@ -40,6 +40,7 @@
+ #include "third_party/blink/public/common/buildflags.h"
+ #include "third_party/blink/public/common/features.h"
+ #include "third_party/blink/public/common/features_generated.h"
++#include "third_party/blink/public/common/hardware/web_hardware_profile.h"
+ #include "third_party/blink/public/common/loader/referrer_utils.h"
+ #include "third_party/blink/public/common/switches.h"
+ #include "third_party/blink/public/platform/web_runtime_features.h"
+@@ -402,6 +403,11 @@ void SetRuntimeFeaturesFromCommandLine(const base::CommandLine& command_line) {
+       WebRuntimeFeatures::EnableAutomationControlled(true);
+     }
+   }
++
++  if (blink::GetWebHardwareProfile().has_value() &&
++      !command_line.HasSwitch(switches::kHeadless)) {
++    WebRuntimeFeatures::EnableAutomationControlled(false);
++  }
+ }
+ 
+ // Sets blink runtime features that depend on a combination

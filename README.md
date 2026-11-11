@@ -1,27 +1,31 @@
-# Chromium Linux 定制
+# Chromium Linux Desktop Stealth (`release/157`)
 
-本仓管理 Chromium 稳定版来源、依赖版本、原生补丁和构建发行。当前维护分支为 `release/156`，基线见 [baseline.json](baseline.json)。
+本仓库维护基于最新稳定版 **Chromium `157.0.8103.50`**（[baseline.json](baseline.json)）的 Linux 原生补丁集、无泄露桌面容器环境与端到端自动化验收脚本。
 
-目标是保留正常 Linux 桌面、真实渲染与媒体行为，减少网页直接取得的 CPU、内存、GPU 等硬件细节。
+核心设计目标：**保持真实 Linux Chromium 平台身份与完整原生渲染/媒体能力，彻底屏蔽底层服务器或容器的硬件规模、无物理 GPU 软件渲染痕迹以及 CDP/V8 自动化特征，使浏览器无论部署在任何云主机或无卡容器中都与一台标准 Linux Desktop 完全一致。**
 
-已完成稳定版源码调查、Firefox 实际改动对照和 Docker 桌面运行。第一组 CPU/RAM 原生补丁已完成完整浏览器构建，5 项单元测试和三组 Docker 功能验证全部通过。
+- [157 源码审计与补丁架构设计](docs/DESIGN_157.md)
+- [原生补丁配置、构建与单测指南](docs/NATIVE.md)
+- [Docker Linux 桌面环境与运行指南](docs/CONTAINER.md)
+- [开发期真 GPU (RTX 2080 Ti) 与 Mesa llvmpipe WebGL 对照数据](evidence/gpu-reference-comparison.json)
 
-- [CPU/RAM 原生实现、配置与构建](docs/NATIVE.md)
-- [硬件与显示 API 总报告、首版改动范围](docs/HARDWARE_APIS.md)
-- [CPU、内存、存储、网络与外设](docs/cpu-devices.md)
-- [显示、窗口、缩放、CSS 与输入](docs/display.md)
-- [GPU、图形、字体、音频与媒体](docs/render-media.md)
-- [WebNN、WebXR、折叠与屏幕键盘](docs/additional.md)
-- [Firefox 对照：身份、区域、显示与输入](docs/firefox-comparison-identity.md)
-- [Firefox 对照：图形、字体与媒体](docs/firefox-comparison-render.md)
-- [Firefox 对照：自动化与网络](docs/firefox-comparison-automation-network.md)
-- [Docker 桌面安装、运行与结果](docs/CONTAINER.md)
-- [原版运行记录](evidence/stock-cft-156.0.8078.4.json)
-- [Docker 运行记录](evidence/container-desktop-cft-156.0.8078.4.json)
-- [自构建 CPU/RAM 三组验证](evidence/hardware-verification-chromium-156.0.8078.73.json)
-- [自构建 Linux 桌面记录](evidence/container-desktop-chromium-156.0.8078.73.json)
-- [构建参数、工具链与验证汇总](evidence/native-build-156.0.8078.73.json)
+---
 
-源码与原生构建为 Chromium `156.0.8078.73`；此前的原版调查和容器记录使用本机已有 Chrome for Testing `156.0.8078.4`。各份记录分别注明实际版本。报告中的源码链接固定到提交，不跟随 main。
+## 补丁集结构
 
-浏览器二进制、Python runtime 和 Playwright Python 兼容入口各自维护版本，沿用已有 core/wrapper 的职责边界。
+由 [`scripts/apply-patches.sh`](scripts/apply-patches.sh) 按顺序应用到独立 Chromium 源码树（`src/` 与 `src/v8/`）：
+
+| 补丁文件 | 作用仓库 | 解决的核心问题 |
+| --- | --- | --- |
+| [`patches/chromium/0001-web-hardware-profile.patch`](patches/chromium/0001-web-hardware-profile.patch) | `src` | 通过 `INVISIBLE_CHROMIUM_PROFILE` 统一声明 Window/Worker `hardwareConcurrency`、`deviceMemory`（支持 `2/4/8/16/32 GiB` 并同步对齐 V8 `jsHeapSizeLimit` 与导航/子资源内存 Client Hints）及 `cpuPerformance` 档位 |
+| [`patches/chromium/0002-webgl-desktop-normalization.patch`](patches/chromium/0002-webgl-desktop-normalization.patch) | `src` | 无需 `--ignore-gpu-blocklist` 自动启用容器 OpenGL WebGL1/2；保证 `failIfMajorPerformanceCaveat: true` 成功；统一规范化主线程与 Worker `OffscreenCanvas` 的 WebGL vendor/renderer 及 `llvmpipe` 特征参数/着色器整数精度/MSAA 采样数 |
+| [`patches/chromium/0003-automation-cdp-stealth.patch`](patches/chromium/0003-automation-cdp-stealth.patch) | `src` | 支持 `--remote-debugging-pipe` 匿名管道控制且保持 `navigator.webdriver === false`；消除 `--no-sandbox` 等 `kBadFlags` 顶部警告横幅对 `innerHeight` 的挤压；修复 CDP `Input.dispatchMouseEvent` 缺省 `force=0` 导致 `pointerdown.pressure === 0` 的协议破绽 |
+| [`patches/v8/0001-inspector-console-stealth.patch`](patches/v8/0001-inspector-console-stealth.patch) | `src/v8` | 修复 V8 `value-mirror.cc` 原型链 getter 漏洞；隔离 `Runtime.enable` 下 `console.*` 参数包装副作用（零自定义 getter / `Proxy` trap / DOM 属性触发）与未捕获异常栈采集开关 |
+
+---
+
+## 构建配置亮点（[`build/linux-release.gn`](build/linux-release.gn)）
+
+- 保持 `is_chrome_branded = false`（真实 Linux `Chromium` 品牌与 UA-CH）；
+- 启用 `proprietary_codecs = true` 与 `ffmpeg_branding = "Chrome"`，补齐标准 Linux 桌面版必备的 **H.264 (`avc1`) / AAC (`mp4a`) / MP3 / MP4 / HLS** 原生编解码能力；
+- 启用 `use_dummy_lastchange = false`，确保 `Browser.getVersion()` 精确记录上游发布提交 `@049750111b1e5c11565c792b2aeed5541f332bad`。

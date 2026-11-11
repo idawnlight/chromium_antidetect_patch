@@ -1,117 +1,72 @@
-# CPU / RAM 原生补丁
+# 原生配置、构建与验证指南（Chromium `157.0.8103.50`）
 
-本组补丁作用于 Chromium `156.0.8078.73`。维护文件是 [patches/chromium/series](../patches/chromium/series) 中按顺序列出的补丁；完整 Chromium 源码与构建产物放在独立 checkout。
+本组补丁作用于 Chromium Linux Stable `157.0.8103.50`（`049750111b1e5c11565c792b2aeed5541f332bad`）。
 
-## 配置与使用
+---
 
-在启动浏览器前设置 `INVISIBLE_CHROMIUM_PROFILE`：
+## 1. 运行时环境变量 `INVISIBLE_CHROMIUM_PROFILE`
+
+在启动浏览器前设置 `INVISIBLE_CHROMIUM_PROFILE`（由 Browser、Zygote、Renderer、GPU 与 Utility 子进程继承并缓存）：
 
 ```bash
-INVISIBLE_CHROMIUM_PROFILE='{"hardwareConcurrency":8,"deviceMemory":8,"cpuPerformance":3}' \
-  /path/to/chrome --user-data-dir=/path/to/profile
+# 使用标准 Linux Desktop 默认画像（8 核 / 8 GiB / tier 3 / Intel UHD 630 Mesa OpenGL 4.6）
+INVISIBLE_CHROMIUM_PROFILE='{}' /path/to/chrome --user-data-dir=/path/to/profile
 ```
 
-变量由 Linux 子进程和 zygote 继承，各进程首次读取后缓存。一个 browser process 使用一个配置；新页面、跨站 renderer 和独立 Worker 在运行首段网页脚本时即使用它。
-
-| 字段 | 默认值 | 含义 |
+| JSON 字段 | 默认值 | 支持范围与说明 |
 | --- | --- | --- |
-| hardwareConcurrency | 8 | Window 与各类 Worker 声明的逻辑处理器数，正整数 |
-| deviceMemory | 8 | GiB，首版支持 8、16、32 |
-| cpuPerformance | 根据声明核数推导 | 1–2 核→1，3–4→2，5–12→3，13及以上→4；可显式设置0–4 |
+| `hardwareConcurrency` | `8` | 正整数；覆盖 Window 与 Dedicated/Nested/Shared/ServiceWorker |
+| `deviceMemory` | `8` | `2`、`4`、`8`、`16`、`32`（单位 GiB）；同步覆盖 JS `navigator.deviceMemory`、导航与子资源 `Device-Memory` / `Sec-CH-Device-Memory` Client Hints，以及 `gin::IsolateHolder` 的 V8 `jsHeapSizeLimit` |
+| `cpuPerformance` | 按核数自动推导 | `1..2` 核→`1`，`3..4`→`2`，`5..12`→`3`，`>=13`→`4`；也可显式指定 `0..4` |
+| `normalizeWebgl` | `true` | 为 `true` 时规范化 WebGL1/2 硬件参数、整数精度与 MSAA 采样上限，消除 `llvmpipe` 或服务器大显卡特征 |
+| `webglVendor` | `"Google Inc. (Intel)"` | 非空字符串；覆盖主线程与 Worker `OffscreenCanvas` 的 `UNMASKED_VENDOR_WEBGL` |
+| `webglRenderer` | `"ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)"` | 非空字符串；覆盖 `UNMASKED_RENDERER_WEBGL` |
 
-设置 `{}` 使用默认 8/8/3。变量未设置时，全部采用原版数据源。格式或字段值错误会给出启动错误，避免部分字段悄悄落回宿主值。
+- **未设置 `INVISIBLE_CHROMIUM_PROFILE` 时**：全部保留上游 Chromium 原始行为（便于同二进制做 A/B 对照测试）。
+- **JSON 非法或字段越界时**：启动阶段立即 `CHECK` 报错退出，防止配置拼写错误时静默回退暴露宿主机真实硬件。
 
-首版选用 8 GiB 以上档位：在实际内存≥8 GiB的 Linux64 主机上，这些档位对应相同的默认 V8 heap ceiling。低内存档需要同时实现 isolate resource constraints，因此本组配置暂不提供。动态 JS/DOM/Canvas 内存占用保持实际值。
+---
 
-## 修改位置
+## 2. 源码同步、打补丁与构建
 
-| 修改点 | 实现与覆盖范围 |
-| --- | --- |
-| 新增 blink/common/hardware/web_hardware_profile | 解析环境 JSON，保存进程生命周期内不变的网页硬件声明 |
-| NavigatorConcurrentHardware | 从公共 mixin 返回声明核数；Window、Dedicated/Shared/ServiceWorker 共用 |
-| ApproximatedDeviceMemory::Initialize | 将声明 RAM 送入原版分档算法；JS、Browser 导航 CH、Renderer 子资源 CH 共用此实现 |
-| RenderProcessHostImpl::Init | profile tier 优先于持久化 pref 和宿主分类，经现有 InitializeRenderer Mojo 传入；不会被宿主异步 CPU 分类覆盖 |
-
-系统资源查询、线程池、调度、内存 allocator 及 CPU 分类内部实现保持原版。补丁添加的代码通过 C++ 数据入口生效，网页 getter 的原型和属性描述保持原版。原有 CDP 显式 emulation 仍可覆盖 HC/tier；清除后回到 native profile 默认值。
-
-## 应用
-
-先用官方 depot_tools 同步上述 stable tag 及它的 DEPS，然后在本仓根目录执行：
+使用 `depot_tools` 在独立构建目录（如 `/home/v-maxiaolong/.cache/chromium-build`）同步 `157.0.8103.50`：
 
 ```bash
-bash scripts/apply-patches.sh /path/to/chromium/src
-```
-
-应用使用标准 `git apply`，不添加资产或镜像摘要校验。每个 release 分支维护自己版本的补丁。
-
-## Linux 构建
-
-使用官方 depot_tools，在独立目录同步源码。当前实际构建用的是 GitHub 的 Chromium 镜像，DEPS 使用 release 自己的版本：
-
-```python
-# /path/to/chromium-build/.gclient
-solutions = [{
-    "name": "src",
-    "url": "https://github.com/chromium/chromium.git",
-    "managed": False,
-    "deps_file": "DEPS",
-    "custom_deps": {},
-    "custom_vars": {"checkout_pgo_profiles": False},
-}]
-target_os = []
-```
-
-在该构建目录运行：
-
-```bash
-gclient sync --no-history --nohooks --revision src@156.0.8078.73
-python3 src/build/install-build-deps.py --no-prompt --no-arm --no-chromeos-fonts --no-syms
+cd /home/v-maxiaolong/.cache/chromium-build
+. ./env.sh
+git -C src fetch --depth=1 origin refs/tags/157.0.8103.50:refs/tags/157.0.8103.50
+git -C src checkout -f 157.0.8103.50
+gclient sync --no-history --nohooks --revision src@049750111b1e5c11565c792b2aeed5541f332bad
 gclient runhooks
 ```
 
-接着应用本仓补丁，复制 [linux-release.gn](../build/linux-release.gn) 为 `src/out/Release/args.gn`，在 `src` 中运行：
+在 `chromium_patch` 仓库应用全部 Chromium 与 V8 补丁：
 
 ```bash
+cd /home/v-maxiaolong/playground/firefoxes/chromium_patch
+bash scripts/apply-patches.sh /home/v-maxiaolong/.cache/chromium-build/src
+cp build/linux-release.gn /home/v-maxiaolong/.cache/chromium-build/src/out/Release/args.gn
+```
+
+执行编译与单元测试：
+
+```bash
+cd /home/v-maxiaolong/.cache/chromium-build/src
 gn gen out/Release
 autoninja -C out/Release blink_common_unittests
 out/Release/blink_common_unittests \
   --gtest_filter='WebHardwareProfileTest.*:ApproximatedDeviceMemoryTest.*'
-autoninja -C out/Release chrome
+autoninja -C out/Release chrome chrome_sandbox
 ```
 
-当前参数为 release、非 component、无调试符号、LTO/PGO/remoteexec 关闭；`use_dummy_lastchange=false` 使版本元数据使用源码的真实 Git revision。`out/Release` 包含浏览器运行所需的二进制和资源；直接挂载整个目录到桌面容器运行。
+---
 
-## 验证入口
+## 3. 自动化验收脚本
 
-- `blink_common_unittests --gtest_filter='WebHardwareProfileTest.*:ApproximatedDeviceMemoryTest.*'`：配置解析和原版内存分档。
-- `scripts/verify-hardware.mjs`：独立 browser 进程的原版路径、默认配置及非默认配置；首段读取、Worker、iframe、跨站导航与 Client Hints。
-
-```bash
-node scripts/verify-hardware.mjs /path/to/out/Release/chrome evidence/hardware-verification.json
-```
-
-脚本支持与现有观察工具相同的 `PROBE_DISPLAY`、`PROBE_NO_SANDBOX` 和 `PROBE_BROWSER_ARGS`。在 [Docker 桌面](CONTAINER.md) 中，把浏览器目录改成构建的 `out/Release`，并将执行命令改为 `node /opt/probe/verify-hardware.mjs /opt/chrome/chrome /tmp/verification.json`。脚本自行启动三次独立进程并配置环境，无需额外传入 profile。
-
-`--stock-only` 只运行原版路径，已在现有 CfT `.4` 上通过；见 [工具运行记录](../evidence/hardware-verification-stock-cft-156.0.8078.4.json)。这份记录用于确认测试入口可用，native 结果使用自行构建的 `.73` 单独记录。
-
-## 本次构建与运行结果
-
-2026-10-29 完成 Linux x86_64 的完整 `chrome` 构建。源码为 `156.0.8078.73`，使用该 release hooks 提供的 Clang `24.0.0git`，参数见 [linux-release.gn](../build/linux-release.gn)。构建产物位于本机：
-
-```text
-/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome
-```
-
-首次完整构建耗时约 76 分钟，版本元数据增量构建约 88 秒，均退出 0。最终浏览器报告的 revision 为 `@2f9a11097447f226133bc1a31c787291a5eeab98`。工具链、参数、源码提交、构建日志位置与验证入口汇总于 [构建记录](../evidence/native-build-156.0.8078.73.json)。
-
-配置解析 4 项测试与原版内存分档 1 项测试全部通过，见 [5/5 单测记录](../evidence/hardware-profile-unittests.txt)。完整浏览器在 Docker 桌面中以 8 CPU、8 GiB cgroup 限额运行，三个独立进程的结果如下：
-
-| 启动配置 | HC | deviceMemory / 两种内存 CH | Window cpuPerformance | 结果 |
-| --- | --- | --- | --- | --- |
-| 不设置环境变量 | 48 | 32 | 4 | 通过 |
-| `{}` | 8 | 8 | 3 | 通过 |
-| `{"hardwareConcurrency":4,"deviceMemory":16,"cpuPerformance":2}` | 4 | 16 | 2 | 通过 |
-
-每组均检查主页面、同源 iframe、实际 OOPIF、Dedicated/Nested/Shared/Service Worker 的首段读取，以及跨站导航与返回后的读取。Worker 保持原版暴露范围，不出现 `cpuPerformance`。未 opt-in 时不发送内存 CH；收到 `Accept-CH` 后，Browser 导航与 Renderer 子资源的 `Device-Memory`、`Sec-CH-Device-Memory` 均与 JS 相同。三组实际 `jsHeapSizeLimit` 都为 **4,395,630,592 bytes**，动态 used/total 由真实分配产生。
-
-完整断言与快照见 [三组功能验证](../evidence/hardware-verification-chromium-156.0.8078.73.json)。另用同一构建及默认配置读取 [Linux 桌面快照](../evidence/container-desktop-chromium-156.0.8078.73.json)：Linux x86_64、Chromium UA-CH、1920×1080×24、DPR 1、Mesa llvmpipe WebGL1/2 实际编译 shader、48 kHz 双声道音频，时区为 America/New_York。
+- `scripts/verify-desktop.mjs`：在桌面容器内串联验证原版对照、`--remote-debugging-pipe` 默认桌面画像、以及 `4 GiB` 自定义画像三组独立进程，覆盖：
+  - Window / iframe / OOPIF / 四类 Worker 的 CPU、内存、V8 堆上限、`webdriver === false` 与 Client Hints；
+  - 无 `--ignore-gpu-blocklist` 下的 WebGL1/2、Worker `OffscreenCanvas`、`failIfMajorPerformanceCaveat: true`、8x MSAA 调用与全部规范化参数；
+  - H.264 / AAC 编解码器、屏幕工作区面板边距（`availHeight < height`）、无顶部黄条警告（`outerHeight - innerHeight` 正常）、音频输入/输出设备、零 espeak 语音泄露、字体与时区；
+  - `Runtime.enable` 下的实例/原型链 `Error.stack` getter、`Proxy` 与 DOM getter 零触发断言；
+  - CDP `Input.dispatchMouseEvent` 的 `isTrusted`、`pointerdown.pressure === 0.5`、`movementX/Y` 与屏幕坐标偏移断言。
+- `scripts/probe.mjs`：采集单次桌面完整环境快照 JSON。
