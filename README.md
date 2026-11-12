@@ -29,3 +29,17 @@
 - 保持 `is_chrome_branded = false`（真实 Linux `Chromium` 品牌与 UA-CH）；
 - 启用 `proprietary_codecs = true` 与 `ffmpeg_branding = "Chrome"`，补齐标准 Linux 桌面版必备的 **H.264 (`avc1`) / AAC (`mp4a`) / MP3 / MP4 / HLS** 原生编解码能力；
 - 启用 `use_dummy_lastchange = false`，确保 `Browser.getVersion()` 精确记录上游发布提交 `@049750111b1e5c11565c792b2aeed5541f332bad`。
+
+---
+
+## 独立运行时产物打包与外部检测基准
+
+- 使用 [`scripts/package-release.py`](scripts/package-release.py) 从 `out/Release` 提取并 `llvm-strip` 全部 249 个官方运行时文件，生成确定性 PAX 归档（`chromium-157.0.8103.50-stealth-linux-x86_64.tar.gz`，约 225 MiB）、`seal.json`、`provenance.json` 与 `SHA256SUMS`。
+- 配套 Python 自动化与拟人轨迹控制库见 `idawnlight/invisible_chromium`（复用 `invisible_core` Humanize 引擎，通过 `--remote-debugging-pipe` + `Page.createIsolatedWorld` 驱动）。
+- 在无物理 GPU 的 [`chromium-linux-desktop:157`](container/Dockerfile) 容器中实测外部反爬基准（详见 [`evidence/external-benchmark-157.0.8103.50.json`](evidence/external-benchmark-157.0.8103.50.json)）：
+  - **Rebrowser Bot Detector**：`runtimeEnableLeak`、`sourceUrlLeak`、`mainWorldExecution`、`navigatorWebdriver`、`headless`、`workerConsistency`、`nativeTampering` 全部安全通过；
+  - **Sannysoft**：45/45 项全部通过（0 failed）；
+  - **CreepJS**：`0% headless`、`0% stealth`；
+  - **Fingerprint Pro**：`Bot: Not detected`、`Browser Tampering: Not detected`、`Virtual Machine: Not detected`、`Developer Tools: Not detected`、`VPN: Not detected`、`Suspect Score: 0`；
+  - **Google reCAPTCHA v3 (antcpt)**：`score = 0.9`；
+  - **BrowserLeaks**：TLS 1.3 + X25519MLKEM768 + ECH、WebGL2 `Mesa Intel(R) UHD Graphics 630`（`Major Performance Caveat: false`）、WebRTC `No Leak`。

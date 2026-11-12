@@ -1,0 +1,468 @@
+{
+  "seed": 42,
+  "profile": {
+    "hardwareConcurrency": 8,
+    "deviceMemory": 8,
+    "cpuPerformance": 3,
+    "normalizeWebgl": true,
+    "webglVendor": "Google Inc. (Intel)",
+    "webglRenderer": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)"
+  },
+  "timestamp_utc": "2026-11-12T06:37:56Z",
+  "sites": {
+    "rebrowser": {
+      "status": "ok",
+      "elapsed_s": 7.62,
+      "data": {
+        "checks": [
+          {
+            "test": "🟢 dummyFn",
+            "status": "4800.9 ms",
+            "notes": "window.dummyFn() was called! It means you can interact with main world objects."
+          },
+          {
+            "test": "⚪️ sourceUrlLeak",
+            "status": "9.7 ms",
+            "notes": "Call document.getElementById('detections-json') to test sourceUrl leak."
+          },
+          {
+            "test": "⚪️ mainWorldExecution",
+            "status": "11.9 ms",
+            "notes": "Call document.getElementsByClassName('div') to trigger this test. If you did and the test wasn't triggered, then you're running it in an isolated world, which is safe and not detectable."
+          },
+          {
+            "test": "🟢 runtimeEnableLeak",
+            "status": "15.3 ms",
+            "notes": "No leak detected."
+          },
+          {
+            "test": "⚪️ exposeFunctionLeak",
+            "status": "21.3 ms",
+            "notes": "No window.exposedFn. Use page.exposeFunction to trigger this test."
+          },
+          {
+            "test": "🟢 navigatorWebdriver",
+            "status": "24 ms",
+            "notes": "No webdriver presented."
+          },
+          {
+            "test": "🟢 viewport",
+            "status": "103.9 ms",
+            "notes": "Viewport is different from default values used in automation libraries.\n{\n  \"width\": 1272,\n  \"height\": 709\n}"
+          },
+          {
+            "test": "🟢 pwInitScripts",
+            "status": "112.3 ms",
+            "notes": "No window.__pwInitScripts detected."
+          },
+          {
+            "test": "🟢 platformMismatch",
+            "status": "127.7 ms",
+            "notes": "User agent, navigator.platform and client hints agree.\n{\n  \"userAgent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36\",\n  \"navigator.platform\": \"Linux x86_64\",\n  \"userAgentData.platform\": \"Linux\",\n  \"userAgentData.brands\": [\n    {\n      \"brand\": \"Chromium\",\n      \"version\": \"157\"\n    },\n    {\n      \"brand\": \"Not-A.Brand\",\n      \"version\": \"99\"\n    }\n  ],\n  \"activeTextLight\": \"rgb(255, 0, 0)\"\n}"
+          },
+          {
+            "test": "🟢 mobileEmulation",
+            "status": "167.7 ms",
+            "notes": "Desktop user agent, no mobile emulation detected."
+          },
+          {
+            "test": "🟢 documentInterception",
+            "status": "171.9 ms",
+            "notes": "The page was loaded over the network as usual.\n{\n  \"nextHopProtocol\": \"h3\",\n  \"transferSize\": 1540,\n  \"deliveryType\": \"\",\n  \"workerStart\": 0\n}"
+          },
+          {
+            "test": "🟢 popupBlocking",
+            "status": "183.2 ms",
+            "notes": "Popups without a click are blocked, as in a normal browser."
+          },
+          {
+            "test": "🟢 ipcFloodingProtection",
+            "status": "299.9 ms",
+            "notes": "History updates are rate-limited, as in a normal browser.\n{\n  \"applied\": 200\n}"
+          },
+          {
+            "test": "🟢 cdpBindingGlobals",
+            "status": "312.8 ms",
+            "notes": "No unnamed native functions on window."
+          },
+          {
+            "test": "🔴 useragent",
+            "status": "449.5 ms",
+            "notes": "Google Chrome is not presented in navigator.userAgentData. You might be using Google Chrome for Testing which is a red flag.\nTry to specify executablePath and use Google Chrome (stable channel).\n{\n  \"useragentVersionItems\": [\n    {\n      \"brand\": \"Chromium\",\n      \"version\": \"157.0.8103.50\"\n    }\n  ]\n}"
+          },
+          {
+            "test": "🟢 headless",
+            "status": "1854.6 ms",
+            "notes": "No signs of headless Chrome.\n{\n  \"userAgent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36\",\n  \"brands\": [\n    \"Chromium\",\n    \"Not-A.Brand\"\n  ],\n  \"windowChrome\": \"object\",\n  \"notificationPermission\": \"default\",\n  \"notificationsQueryState\": \"prompt\",\n  \"anyPointer\": [\n    \"fine\"\n  ],\n  \"screen\": \"1920x1080\",\n  \"plugins\": 5,\n  \"pdfViewerEnabled\": true,\n  \"webglRenderer\": \"ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)\"\n}"
+          },
+          {
+            "test": "🟢 bypassCsp",
+            "status": "2027.8 ms",
+            "notes": "Content Security Policy (CSP) is enabled, it's expected behavior."
+          },
+          {
+            "test": "🟢 workerConsistency",
+            "status": "2096.9 ms",
+            "notes": "navigator in a Web Worker matches the page.\n{\n  \"main\": {\n    \"userAgent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36\",\n    \"platform\": \"Linux x86_64\",\n    \"languages\": [\n      \"en-US\",\n      \"en\"\n    ],\n    \"hardwareConcurrency\": 8,\n    \"brands\": [\n      {\n        \"brand\": \"Chromium\",\n        \"version\": \"157\"\n      },\n      {\n        \"brand\": \"Not-A.Brand\",\n        \"version\": \"99\"\n      }\n    ]\n  },\n  \"worker\": {\n    \"userAgent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36\",\n    \"platform\": \"Linux x86_64\",\n    \"languages\": [\n      \"en-US\",\n      \"en\"\n    ],\n    \"hardwareConcurrency\": 8,\n    \"brands\": [\n      {\n        \"brand\": \"Chromium\",\n        \"version\": \"157\"\n      },\n      {\n        \"brand\": \"Not-A.Brand\",\n        \"version\": \"99\"\n      }\n    ]\n  }\n}"
+          },
+          {
+            "test": "🟢 nativeTampering",
+            "status": "2123.1 ms",
+            "notes": "Native functions look untouched.\n{\n  \"tampered\": {},\n  \"automationFrames\": {},\n  \"iframeSharesRealm\": false\n}"
+          },
+          {
+            "test": "🟢 storagePartitioning",
+            "status": "2253.8 ms",
+            "notes": "Third-party storage is partitioned, as in a normal Chrome.\n{\n  \"otherOrigin\": \"https://rebrowser-bot-detector.pages.dev\"\n}"
+          }
+        ]
+      }
+    },
+    "sannysoft": {
+      "status": "ok",
+      "elapsed_s": 12.19,
+      "data": {
+        "total_checks": 56,
+        "failed_count": 0,
+        "failed_keys": [],
+        "checks": {
+          "User Agent\n(Old)": {
+            "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "failed": false
+          },
+          "WebDriver\n(New)": {
+            "value": "missing (passed)",
+            "failed": false
+          },
+          "WebDriver Advanced": {
+            "value": "passed",
+            "failed": false
+          },
+          "Chrome\n(New)": {
+            "value": "present (passed)",
+            "failed": false
+          },
+          "Permissions\n(New)": {
+            "value": "prompt",
+            "failed": false
+          },
+          "Plugins Length\n(Old)": {
+            "value": "5",
+            "failed": false
+          },
+          "Plugins is of type PluginArray": {
+            "value": "passed",
+            "failed": false
+          },
+          "Languages\n(Old)": {
+            "value": "en-US,en",
+            "failed": false
+          },
+          "WebGL Vendor": {
+            "value": "Google Inc. (Intel)",
+            "failed": false
+          },
+          "WebGL Renderer": {
+            "value": "ANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+            "failed": false
+          },
+          "Broken Image Dimensions": {
+            "value": "16x16",
+            "failed": false
+          },
+          "PHANTOM_UA": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_PROPERTIES": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_ETSL": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_LANGUAGE": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_WEBSOCKET": {
+            "value": "ok",
+            "failed": false
+          },
+          "MQ_SCREEN": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_OVERFLOW": {
+            "value": "ok",
+            "failed": false
+          },
+          "PHANTOM_WINDOW_HEIGHT": {
+            "value": "ok",
+            "failed": false
+          },
+          "HEADCHR_UA": {
+            "value": "ok",
+            "failed": false
+          },
+          "HEADCHR_CHROME_OBJ": {
+            "value": "ok",
+            "failed": false
+          },
+          "HEADCHR_PERMISSIONS": {
+            "value": "ok",
+            "failed": false
+          },
+          "HEADCHR_PLUGINS": {
+            "value": "ok",
+            "failed": false
+          },
+          "HEADCHR_IFRAME": {
+            "value": "ok",
+            "failed": false
+          },
+          "CHR_DEBUG_TOOLS": {
+            "value": "ok",
+            "failed": false
+          },
+          "SELENIUM_DRIVER": {
+            "value": "ok",
+            "failed": false
+          },
+          "CHR_BATTERY": {
+            "value": "ok",
+            "failed": false
+          },
+          "CHR_MEMORY": {
+            "value": "ok",
+            "failed": false
+          },
+          "TRANSPARENT_PIXEL": {
+            "value": "ok",
+            "failed": false
+          },
+          "SEQUENTUM": {
+            "value": "ok",
+            "failed": false
+          },
+          "VIDEO_CODECS": {
+            "value": "ok",
+            "failed": false
+          },
+          "navigator.cookieEnabled": {
+            "value": "true",
+            "failed": false
+          },
+          "navigator.doNotTrack": {
+            "value": "null",
+            "failed": false
+          },
+          "navigator.msDoNotTrack": {
+            "value": "undefined",
+            "failed": false
+          },
+          "navigator.sendBeacon": {
+            "value": "",
+            "failed": false
+          },
+          "navigator.userAgent": {
+            "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+            "failed": false
+          },
+          "navigator.appName": {
+            "value": "Netscape",
+            "failed": false
+          },
+          "navigator.vendor": {
+            "value": "Google Inc.",
+            "failed": false
+          },
+          "navigator.appCodeName": {
+            "value": "Mozilla",
+            "failed": false
+          },
+          "navigator.getUserMedia": {
+            "value": "",
+            "failed": false
+          },
+          "navigator.sayswho": {
+            "value": "undefined",
+            "failed": false
+          },
+          "navigator.javaEnabled": {
+            "value": "false",
+            "failed": false
+          },
+          "navigator.plugins": {
+            "value": "{\"0\":{\"0\":{},\"1\":{}},\"1\":{\"0\":{},\"1\":{}},\"2\":{\"0\":{},\"1\":{}},\"3\":{\"0\":{},\"1\":{}},\"4\":{\"0\":{},\"1\":{}}}",
+            "failed": false
+          },
+          "screen.width": {
+            "value": "1920",
+            "failed": false
+          },
+          "screen.height": {
+            "value": "1080",
+            "failed": false
+          },
+          "screen.colorDepth": {
+            "value": "24",
+            "failed": false
+          },
+          "navigator.language": {
+            "value": "en-US",
+            "failed": false
+          },
+          "navigator.loadPurpose": {
+            "value": "undefined",
+            "failed": false
+          },
+          "navigator.platform": {
+            "value": "Linux x86_64",
+            "failed": false
+          },
+          "navigator.mediaDevices": {
+            "value": "audioinput: id =\naudiooutput: id =",
+            "failed": false
+          },
+          "navigator.getBattery details": {
+            "value": "Charging: true\nLevel: 1",
+            "failed": false
+          },
+          "Canvas1": {
+            "value": "Hash: 205177304",
+            "failed": false
+          },
+          "Canvas2": {
+            "value": "Hash: 205177304",
+            "failed": false
+          },
+          "Canvas3 (iframe sandbox)": {
+            "value": "Hash: 205177304",
+            "failed": false
+          },
+          "Canvas4 (iframe sandbox)": {
+            "value": "Hash: 205177304",
+            "failed": false
+          },
+          "Canvas5 (iframe)": {
+            "value": "Hash: 205177304",
+            "failed": false
+          }
+        }
+      }
+    },
+    "creepjs": {
+      "status": "ok",
+      "elapsed_s": 8.65,
+      "data": {
+        "fpId": "FP ID: 3f6fcf8f92b2ae452031cc13af02bf701942fe8b3a1fcb67ee8a383a24eb19f8",
+        "summaryLines": [
+          "Headlessb96a4bee",
+          "chromium: true",
+          "38% like headless: 5ff09d0d",
+          "0% headless: 52defe05",
+          "0% stealth: 0c019315",
+          "Chromium 157 (157.0.8103.50)",
+          "Chromium 157 (157.0.8103.50)"
+        ],
+        "likeHeadlessFlags": {
+          "HeadlessnoChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": true,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": false,
+          "hasVvpScreenRes": false,
+          "hasSwiftShader": false,
+          "noWebShare": true,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        }
+      }
+    },
+    "recaptcha_v3": {
+      "status": "ok",
+      "elapsed_s": 8.02,
+      "data": {
+        "score": 0.9,
+        "scoreLine": "Your score is: 0.9"
+      }
+    },
+    "browserleaks": {
+      "status": "ok",
+      "elapsed_s": 9.43,
+      "data": {
+        "tls": {
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+          "ja4": "t13d1518h2_8daaf6152771_4980c97edce0",
+          "ja4_r": "t13d1518h2_002f,0035,009c,009d,1301,1302,1303,c013,c014,c02b,c02c,c02f,c030,cca8,cca9_0005,000a,000b,000d,0012,0017,001b,0023,002b,002d,0033,12e0,44cd,ca34,fe0d,ff01_0904,0905,0906,0403,0804,0401,0503,0805,0501,0806,0601",
+          "ja4_o": "t13d1518h2_acb858a92679_893a90719af8",
+          "ja4_ro": "t13d1518h2_1301,1302,1303,c02b,c02f,c02c,c030,cca9,cca8,c013,c014,009c,009d,002f,0035_000d,000a,ca34,0005,002b,0012,000b,0033,ff01,0017,0000,fe0d,001b,002d,0010,12e0,44cd,0023_0904,0905,0906,0403,0804,0401,0503,0805,0501,0806,0601",
+          "ja3_hash": "fe7bc7ef61bd4a3d213cee4a17bf58a4",
+          "ja3_text": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,13-10-51764-5-43-18-11-51-65281-23-0-65037-27-45-16-4832-17613-35,4588-29-23-24,0",
+          "ja3n_hash": "a3a3161a080b73bda9cc285fb367fcc0",
+          "ja3n_text": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-5-10-11-13-16-18-23-27-35-43-45-51-4832-17613-51764-65037-65281,4588-29-23-24,0",
+          "akamai_hash": "52d84b11737d980aef856699f885ca86",
+          "akamai_text": "1:65536;2:0;4:6291456;6:262144|15663105|0|m,a,s,p"
+        },
+        "webgl": {
+          "Supported Context Name(s)": "webgl2, webgl",
+          "GL Version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+          "Shading Language Version": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+          "Vendor": "WebKit",
+          "Renderer": "WebKit WebGL",
+          "Unmasked Vendor": "!\nGoogle Inc. (Intel)",
+          "Unmasked Renderer": "!\nANGLE (Intel, Mesa Intel(R) UHD Graphics 630 (CFL GT2), OpenGL 4.6)",
+          "Major Performance Caveat": "false"
+        },
+        "webrtc": {
+          "IPv4 Address": "167.220.232.87",
+          "IPv6 Address": "2404:f801:8050:1:3232:6bff:fea1:a3b5",
+          "RTCPeerConnection": "✔\nTrue",
+          "RTCDataChannel": "✔\nTrue",
+          "WebRTC Leak Test": "✔\nNo Leak",
+          "Local IP Address": "-",
+          "Public IP Address": "167.220.232.87\n2404:f801:8050:1:3232:6bff:fea1:a3b5"
+        }
+      }
+    },
+    "fingerprint_pro": {
+      "status": "ok",
+      "elapsed_s": 9.2,
+      "data": {
+        "smartSignals": {
+          "Browser": "Chrome 157.0.0",
+          "Operating System": "Linux",
+          "Confidence Score": "0.98",
+          "Incognito Mode": "Not detected",
+          "Bot": "Not detected",
+          "VPN": "Not detected",
+          "Browser Tampering": "Not detected",
+          "Developer Tools": "Not detected",
+          "Virtual Machine": "Not detected",
+          "Privacy Settings": "Not detected",
+          "IP Blocklist": "Not detected",
+          "Proxy Detection": "Not detected",
+          "High-Activity Device": "Not detected",
+          "Rare Device": "Not detected",
+          "Suspect Score": "0"
+        }
+      }
+    }
+  },
+  "resolved_timezone": "Asia/Tokyo",
+  "browser_version": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.50",
+    "revision": "@049750111b1e5c11565c792b2aeed5541f332bad",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  }
+}
