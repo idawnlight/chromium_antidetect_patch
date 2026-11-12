@@ -25,7 +25,7 @@ sudo docker build -f container/Dockerfile -t chromium-linux-desktop:157 .
 将编译好的 `out/Release` 目录只读挂载到容器 `/opt/chrome`：
 
 ```bash
-CHROMIUM_RELEASE_DIR=/home/v-maxiaolong/.cache/chromium-build/src/out/Release
+CHROMIUM_RELEASE_DIR="$HOME/.cache/chromium-build/src/out/Release"
 NODE_BIN="$(command -v node)"
 
 sudo docker run --rm \

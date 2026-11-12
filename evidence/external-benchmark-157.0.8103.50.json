@@ -423,13 +423,13 @@
           "Major Performance Caveat": "false"
         },
         "webrtc": {
-          "IPv4 Address": "167.220.232.87",
-          "IPv6 Address": "2404:f801:8050:1:3232:6bff:fea1:a3b5",
+          "IPv4 Address": "<redacted>",
+          "IPv6 Address": "<redacted>",
           "RTCPeerConnection": "✔\nTrue",
           "RTCDataChannel": "✔\nTrue",
           "WebRTC Leak Test": "✔\nNo Leak",
           "Local IP Address": "-",
-          "Public IP Address": "167.220.232.87\n2404:f801:8050:1:3232:6bff:fea1:a3b5"
+          "Public IP Address": "<redacted>"
         }
       }
     },

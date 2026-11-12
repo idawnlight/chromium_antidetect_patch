@@ -24,8 +24,8 @@
     "proprietary_codecs": true,
     "ffmpeg_branding": "Chrome"
   },
-  "binary": "/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome",
-  "sandbox_binary": "/home/v-maxiaolong/.cache/chromium-build/src/out/Release/chrome_sandbox",
+  "binary": "out/Release/chrome",
+  "sandbox_binary": "out/Release/chrome_sandbox",
   "full_build_elapsed_seconds": 4441,
   "browser_version": {
     "protocolVersion": "1.3",

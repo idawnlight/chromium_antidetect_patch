@@ -29,10 +29,10 @@ INVISIBLE_CHROMIUM_PROFILE='{}' /path/to/chrome --user-data-dir=/path/to/profile
 
 ## 2. 源码同步、打补丁与构建
 
-使用 `depot_tools` 在独立构建目录（如 `/home/v-maxiaolong/.cache/chromium-build`）同步 `157.0.8103.50`：
+使用 `depot_tools` 在独立构建目录（如 `$HOME/.cache/chromium-build`）同步 `157.0.8103.50`：
 
 ```bash
-cd /home/v-maxiaolong/.cache/chromium-build
+cd "$HOME/.cache/chromium-build"
 . ./env.sh
 git -C src fetch --depth=1 origin refs/tags/157.0.8103.50:refs/tags/157.0.8103.50
 git -C src checkout -f 157.0.8103.50
@@ -43,15 +43,15 @@ gclient runhooks
 在 `chromium_patch` 仓库应用全部 Chromium 与 V8 补丁：
 
 ```bash
-cd /home/v-maxiaolong/playground/firefoxes/chromium_patch
-bash scripts/apply-patches.sh /home/v-maxiaolong/.cache/chromium-build/src
-cp build/linux-release.gn /home/v-maxiaolong/.cache/chromium-build/src/out/Release/args.gn
+cd /path/to/chromium_patch
+bash scripts/apply-patches.sh "$HOME/.cache/chromium-build/src"
+cp build/linux-release.gn "$HOME/.cache/chromium-build/src/out/Release/args.gn"
 ```
 
 执行编译与单元测试：
 
 ```bash
-cd /home/v-maxiaolong/.cache/chromium-build/src
+cd "$HOME/.cache/chromium-build/src"
 gn gen out/Release
 autoninja -C out/Release blink_common_unittests
 out/Release/blink_common_unittests \

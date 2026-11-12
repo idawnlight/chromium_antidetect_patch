@@ -213,7 +213,7 @@ def main() -> int:
                       const k = tds[0].innerText.trim();
                       const v = tds[1].innerText.trim();
                       if (k && /leak|local|public|rtc|ipv4|ipv6/i.test(k)) {
-                        rows[k] = v.slice(0, 140);
+                        rows[k] = /public|ipv4|ipv6/i.test(k) ? '<redacted>' : v.slice(0, 140);
                       }
                     }
                   }
