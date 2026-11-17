@@ -1,6 +1,6 @@
 # Chromium Linux Desktop Stealth (`release/157`)
 
-本仓库维护基于最新稳定版 **Chromium `157.0.8103.50`**（[baseline.json](baseline.json)）的 Linux 原生补丁集、无泄露桌面容器环境与端到端自动化验收脚本。
+本仓库维护基于最新稳定版 **Chromium `157.0.8103.78`**（[baseline.json](baseline.json)）的 Linux 原生补丁集、无泄露桌面容器环境与端到端自动化验收脚本。
 
 核心设计目标：**保持真实 Linux Chromium 平台身份与完整原生渲染/媒体能力，彻底屏蔽底层服务器或容器的硬件规模、无物理 GPU 软件渲染痕迹以及 CDP/V8 自动化特征，使浏览器无论部署在任何云主机或无卡容器中都与一台标准 Linux Desktop 完全一致。**
 
@@ -28,13 +28,13 @@
 
 - 保持 `is_chrome_branded = false`（真实 Linux `Chromium` 品牌与 UA-CH）；
 - 启用 `proprietary_codecs = true` 与 `ffmpeg_branding = "Chrome"`，补齐标准 Linux 桌面版必备的 **H.264 (`avc1`) / AAC (`mp4a`) / MP3 / MP4 / HLS** 原生编解码能力；
-- 启用 `use_dummy_lastchange = false`，确保 `Browser.getVersion()` 精确记录上游发布提交 `@049750111b1e5c11565c792b2aeed5541f332bad`。
+- 启用 `use_dummy_lastchange = false`，确保 `Browser.getVersion()` 精确记录上游发布提交 `@4b3d0dabb8250b6f152d2d85d79e7706e309d087`。
 
 ---
 
 ## 独立运行时产物打包与外部检测基准
 
-- 使用 [`scripts/package-release.py`](scripts/package-release.py) 从 `out/Release` 提取并 `llvm-strip` 全部 249 个官方运行时文件，生成确定性 PAX 归档（`chromium-157.0.8103.50-stealth-linux-x86_64.tar.gz`，约 225 MiB）、`seal.json`、`provenance.json` 与 `SHA256SUMS`。
+- 使用 [`scripts/package-release.py`](scripts/package-release.py) 从 `out/Release` 提取并 `llvm-strip` 全部 249 个官方运行时文件，生成确定性 PAX 归档（`chromium-157.0.8103.78-stealth-linux-x86_64.tar.gz`，约 225 MiB）、`seal.json`、`provenance.json` 与 `SHA256SUMS`。
 - 配套 Python 自动化与拟人轨迹控制库见 `idawnlight/invisible_chromium`（复用 `invisible_core` Humanize 引擎，通过 `--remote-debugging-pipe` + `Page.createIsolatedWorld` 驱动）。
 - 在无物理 GPU 的 [`chromium-linux-desktop:157`](container/Dockerfile) 容器中实测外部反爬基准（详见 [`evidence/external-benchmark-157.0.8103.50.json`](evidence/external-benchmark-157.0.8103.50.json)）：
   - **Rebrowser Bot Detector**：`runtimeEnableLeak`、`sourceUrlLeak`、`mainWorldExecution`、`navigatorWebdriver`、`headless`、`workerConsistency`、`nativeTampering` 全部安全通过；
