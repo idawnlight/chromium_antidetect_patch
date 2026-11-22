@@ -1,5 +1,5 @@
 diff --git a/gpu/command_buffer/service/service_utils.cc b/gpu/command_buffer/service/service_utils.cc
-index 75376d1c52..12fae31539 100644
+index 4b8fa27cbb..d6958eb72e 100644
 --- a/gpu/command_buffer/service/service_utils.cc
 +++ b/gpu/command_buffer/service/service_utils.cc
 @@ -9,6 +9,7 @@
@@ -10,7 +10,7 @@ index 75376d1c52..12fae31539 100644
  #include "base/logging.h"
  #include "base/memory_coordinator/memory_consumer.h"
  #include "base/memory_coordinator/utils.h"
-@@ -268,6 +269,9 @@ GpuPreferences ParseGpuPreferences(const base::CommandLine* command_line) {
+@@ -266,6 +267,9 @@ GpuPreferences ParseGpuPreferences(const base::CommandLine* command_line) {
              std::move(ignored_entries);
        }
      }
@@ -160,7 +160,7 @@ index 9eb36fe26c..02343335ea 100644
      case GL_UNPACK_IMAGE_HEIGHT:
        return GetIntParameter(script_state, pname);
 diff --git a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
-index e72f6f7ca6..1166b09843 100644
+index 1a00418d11..7a3648ca22 100644
 --- a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
 +++ b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
 @@ -64,6 +64,7 @@
@@ -171,7 +171,7 @@ index e72f6f7ca6..1166b09843 100644
  #include "third_party/blink/public/common/thread_safe_browser_interface_broker_proxy.h"
  #include "third_party/blink/public/mojom/gpu/gpu.mojom-blink.h"
  #include "third_party/blink/public/platform/platform.h"
-@@ -745,10 +746,14 @@ WebGLRenderingContextBase::CreateContextProviderInternal(
+@@ -746,10 +747,14 @@ WebGLRenderingContextBase::CreateContextProviderInternal(
    }
  
    const auto& url = execution_context->Url();
@@ -189,7 +189,7 @@ index e72f6f7ca6..1166b09843 100644
    if (context_provider && !context_provider->BindToCurrentSequence()) {
      context_provider = nullptr;
      context_info->error_message = StrCat({"BindToCurrentSequence failed: ",
-@@ -1478,18 +1483,31 @@ void WebGLRenderingContextBase::InitializeNewContext() {
+@@ -1531,18 +1536,31 @@ void WebGLRenderingContextBase::InitializeNewContext() {
    ContextGL()->GetIntegerv(GL_MAX_VERTEX_ATTRIBS, &num_vertex_attribs);
    max_vertex_attribs_ = num_vertex_attribs;
  
@@ -221,7 +221,7 @@ index e72f6f7ca6..1166b09843 100644
      max3d_texture_level_ = WebGLTexture::ComputeLevelCount(
          max3d_texture_size_, max3d_texture_size_, max3d_texture_size_);
      ContextGL()->GetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS,
-@@ -1499,6 +1517,9 @@ void WebGLRenderingContextBase::InitializeNewContext() {
+@@ -1552,6 +1570,9 @@ void WebGLRenderingContextBase::InitializeNewContext() {
        max_cube_map_texture_size_, max_cube_map_texture_size_, 1);
    max_renderbuffer_size_ = 0;
    ContextGL()->GetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &max_renderbuffer_size_);
@@ -231,7 +231,7 @@ index e72f6f7ca6..1166b09843 100644
  
    // These two values from EXT_draw_buffers are lazily queried.
    max_draw_buffers_ = 0;
-@@ -4015,8 +4036,16 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+@@ -4091,8 +4112,16 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
      case GL_ACTIVE_TEXTURE:
        return GetUnsignedIntParameter(script_state, pname);
      case GL_ALIASED_LINE_WIDTH_RANGE:
@@ -248,7 +248,7 @@ index e72f6f7ca6..1166b09843 100644
        return GetWebGLFloatArrayParameter(script_state, pname);
      case GL_ALPHA_BITS:
        if (drawing_buffer_->RequiresAlphaChannelToBePreserved())
-@@ -4091,16 +4120,28 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+@@ -4167,16 +4196,28 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
      case GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS:
        return GetIntParameter(script_state, pname);
      case GL_MAX_CUBE_MAP_TEXTURE_SIZE:
@@ -277,7 +277,7 @@ index e72f6f7ca6..1166b09843 100644
        return GetIntParameter(script_state, pname);
      case GL_MAX_VERTEX_ATTRIBS:
        return GetIntParameter(script_state, pname);
-@@ -4109,6 +4150,15 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+@@ -4185,6 +4226,15 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
      case GL_MAX_VERTEX_UNIFORM_VECTORS:
        return GetIntParameter(script_state, pname);
      case GL_MAX_VIEWPORT_DIMS:
@@ -293,7 +293,7 @@ index e72f6f7ca6..1166b09843 100644
        return GetWebGLIntArrayParameter(script_state, pname);
      case GL_PACK_ALIGNMENT:
        return GetIntParameter(script_state, pname);
-@@ -4219,6 +4269,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+@@ -4295,6 +4345,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
        return ScriptValue::CreateNull(script_state->GetIsolate());
      case WebGLDebugRendererInfo::kUnmaskedRendererWebgl:
        if (ExtensionEnabled(kWebGLDebugRendererInfoName)) {
@@ -304,7 +304,7 @@ index e72f6f7ca6..1166b09843 100644
          return WebGLAny(script_state,
                          String(ContextGL()->GetString(GL_RENDERER)));
        }
-@@ -4228,6 +4282,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+@@ -4304,6 +4358,10 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
        return ScriptValue::CreateNull(script_state->GetIsolate());
      case WebGLDebugRendererInfo::kUnmaskedVendorWebgl:
        if (ExtensionEnabled(kWebGLDebugRendererInfoName)) {
@@ -315,7 +315,7 @@ index e72f6f7ca6..1166b09843 100644
          return WebGLAny(script_state,
                          String(ContextGL()->GetString(GL_VENDOR)));
        }
-@@ -4529,6 +4587,13 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
+@@ -4605,6 +4663,13 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
    GLint precision = 0;
    ContextGL()->GetShaderPrecisionFormat(shader_type, precision_type, range,
                                          &precision);
@@ -329,7 +329,7 @@ index e72f6f7ca6..1166b09843 100644
    return MakeGarbageCollected<WebGLShaderPrecisionFormat>(range[0], range[1],
                                                            precision);
  }
-@@ -9079,11 +9144,14 @@ void WebGLRenderingContextBase::MaybeRestoreContext(TimerBase*) {
+@@ -9156,11 +9221,14 @@ void WebGLRenderingContextBase::MaybeRestoreContext(TimerBase*) {
    Platform::WebGLContextInfo gl_info;
    const auto& url = Host()->GetExecutionContextUrl();
  

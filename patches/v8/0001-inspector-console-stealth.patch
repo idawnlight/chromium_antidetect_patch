@@ -1,5 +1,5 @@
 diff --git a/src/inspector/v8-console-message.cc b/src/inspector/v8-console-message.cc
-index 5a8c91cf7b4..c5ddbb40563 100644
+index f65c04ddf01..8dd977a6844 100644
 --- a/src/inspector/v8-console-message.cc
 +++ b/src/inspector/v8-console-message.cc
 @@ -4,6 +4,7 @@
@@ -10,7 +10,7 @@ index 5a8c91cf7b4..c5ddbb40563 100644
  #include <span>
  
  #include "include/v8-container.h"
-@@ -273,6 +274,33 @@ V8ConsoleMessage::wrapArguments(V8InspectorSessionImpl* session,
+@@ -286,6 +287,33 @@ V8ConsoleMessage::wrapArguments(V8InspectorSessionImpl* session,
    auto args =
        std::make_unique<protocol::Array<protocol::Runtime::RemoteObject>>();
  
@@ -45,7 +45,7 @@ index 5a8c91cf7b4..c5ddbb40563 100644
    if (value->IsObject() && m_type == ConsoleAPIType::kTable &&
        generatePreview) {
 diff --git a/src/inspector/v8-runtime-agent-impl.cc b/src/inspector/v8-runtime-agent-impl.cc
-index 0120bbd5cf4..f61cf6d9f08 100644
+index ac4cd7f119b..a11512ca863 100644
 --- a/src/inspector/v8-runtime-agent-impl.cc
 +++ b/src/inspector/v8-runtime-agent-impl.cc
 @@ -30,6 +30,7 @@
@@ -56,7 +56,7 @@ index 0120bbd5cf4..f61cf6d9f08 100644
  #include <inttypes.h>
  
  #include <memory>
-@@ -1134,8 +1135,12 @@ Response V8RuntimeAgentImpl::enable() {
+@@ -1142,8 +1143,12 @@ Response V8RuntimeAgentImpl::enable() {
        m_session->contextGroupId());
    m_enabled = true;
    m_state->setBoolean(V8RuntimeAgentImplState::runtimeEnabled, true);
@@ -72,34 +72,38 @@ index 0120bbd5cf4..f61cf6d9f08 100644
    V8ConsoleMessageStorage* storage =
        m_inspector->ensureConsoleMessageStorage(m_session->contextGroupId());
 diff --git a/src/inspector/value-mirror.cc b/src/inspector/value-mirror.cc
-index ac78cea1653..653fde6f84b 100644
+index e4df20d9717..eadc03054f1 100644
 --- a/src/inspector/value-mirror.cc
 +++ b/src/inspector/value-mirror.cc
-@@ -275,29 +275,42 @@ v8::MaybeLocal<v8::Value> getErrorProperty(v8::Local<v8::Context> context,
+@@ -333,33 +333,42 @@ v8::MaybeLocal<v8::Value> getErrorProperty(v8::Local<v8::Context> context,
    v8::TryCatch tryCatch(isolate);
    v8::MicrotasksScope microtasksScope(context,
                                        v8::MicrotasksScope::kDoNotRunMicrotasks);
 -  v8::Local<v8::Value> descriptor;
 -  if (!object->GetOwnPropertyDescriptor(context, name).ToLocal(&descriptor)) {
--    tryCatch.Reset();
--    return object->Get(context, name);
+-    return v8::MaybeLocal<v8::Value>();
 -  }
 -  if (!descriptor->IsObject()) return object->Get(context, name);
 -
 -  v8::Local<v8::Object> descriptorObject = descriptor.As<v8::Object>();
--  v8::Local<v8::Value> getDescriptor;
--  if (!descriptorObject->HasOwnProperty(context, toV8String(isolate, "get"))
--           .FromJust()) {
--    tryCatch.Reset();
+-  v8::Maybe<bool> hasGet =
+-      descriptorObject->HasOwnProperty(context, toV8String(isolate, "get"));
+-  if (hasGet.IsNothing()) {
+-    return v8::MaybeLocal<v8::Value>();
+-  }
+-  if (!hasGet.FromJust()) {
 -    return object->Get(context, name);
 -  }
+-  if (v8::debug::SideEffectCheckScope::IsActive(isolate)) {
+-    return v8::MaybeLocal<v8::Value>();
+-  }
+-  v8::Local<v8::Value> getDescriptor;
 -  if (!descriptorObject->Get(context, toV8String(isolate, "get"))
 -           .ToLocal(&getDescriptor)) {
--    tryCatch.Reset();
--    return object->Get(context, name);
+-    return v8::MaybeLocal<v8::Value>();
 -  }
 -
--  if (getDescriptor->IsFunction() &&
+-  if (!getDescriptor->IsFunction() ||
 -      !isBuiltinGetter(getDescriptor.As<v8::Function>())) {
 -    return v8::MaybeLocal<v8::Value>();
 +  v8::Local<v8::Value> current = object;
@@ -111,27 +115,27 @@ index ac78cea1653..653fde6f84b 100644
 +    v8::Local<v8::Value> descriptor;
 +    if (!currentObj->GetOwnPropertyDescriptor(context, name)
 +             .ToLocal(&descriptor)) {
-+      tryCatch.Reset();
 +      return v8::MaybeLocal<v8::Value>();
 +    }
 +    if (descriptor->IsObject()) {
 +      v8::Local<v8::Object> descriptorObject = descriptor.As<v8::Object>();
-+      bool hasGet = false;
-+      if (!descriptorObject->HasOwnProperty(context, toV8String(isolate, "get"))
-+               .To(&hasGet)) {
-+        tryCatch.Reset();
++      v8::Maybe<bool> hasGet =
++          descriptorObject->HasOwnProperty(context, toV8String(isolate, "get"));
++      if (hasGet.IsNothing()) {
 +        return v8::MaybeLocal<v8::Value>();
 +      }
-+      if (!hasGet) {
++      if (!hasGet.FromJust()) {
 +        break;
++      }
++      if (v8::debug::SideEffectCheckScope::IsActive(isolate)) {
++        return v8::MaybeLocal<v8::Value>();
 +      }
 +      v8::Local<v8::Value> getDescriptor;
 +      if (!descriptorObject->Get(context, toV8String(isolate, "get"))
 +               .ToLocal(&getDescriptor)) {
-+        tryCatch.Reset();
 +        return v8::MaybeLocal<v8::Value>();
 +      }
-+      if (getDescriptor->IsFunction() &&
++      if (!getDescriptor->IsFunction() ||
 +          !isBuiltinGetter(getDescriptor.As<v8::Function>())) {
 +        return v8::MaybeLocal<v8::Value>();
 +      }
