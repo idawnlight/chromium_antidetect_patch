@@ -1,0 +1,77 @@
+diff --git a/src/execution/isolate.cc b/src/execution/isolate.cc
+index 61e238eafa8..3209d247f5c 100644
+--- a/src/execution/isolate.cc
++++ b/src/execution/isolate.cc
+@@ -8169,7 +8169,13 @@ bool StringEqualsLocales(Isolate* isolate, const std::string& str,
+ 
+ }  // namespace
+ 
++namespace {
++base::LazyRecursiveMutex g_default_locale_mutex =
++    LAZY_RECURSIVE_MUTEX_INITIALIZER;
++}  // namespace
++
+ const std::string& Isolate::DefaultLocale() {
++  base::LockGuard<base::RecursiveMutex> guard(g_default_locale_mutex.Pointer());
+   if (default_locale_.empty()) {
+     icu::Locale default_locale;
+     // Translate ICU's fallback locale to a well-known locale.
+@@ -8187,16 +8193,28 @@ const std::string& Isolate::DefaultLocale() {
+   return default_locale_;
+ }
+ 
++std::string IsolateDefaultLocaleForOffThread(Isolate* isolate) {
++  base::LockGuard<base::RecursiveMutex> guard(g_default_locale_mutex.Pointer());
++  return std::string(isolate->DefaultLocale());
++}
++
+ void Isolate::set_default_locale(const std::string& locale) {
++  base::LockGuard<base::RecursiveMutex> guard(g_default_locale_mutex.Pointer());
+   DCHECK_EQ(default_locale_.length(), 0);
+   default_locale_ = locale;
+-  isolate_data_.default_locale_may_require_special_case_mapping_ =
+-      Intl::LocaleRequiresSpecialCaseMapping(default_locale_);
++  base::AsAtomic8::Relaxed_Store(
++      &isolate_data_.default_locale_may_require_special_case_mapping_,
++      Intl::LocaleRequiresSpecialCaseMapping(default_locale_));
+ }
+ 
+ void Isolate::ResetDefaultLocale() {
+-  default_locale_.clear();
+-  isolate_data_.default_locale_may_require_special_case_mapping_ = true;
++  {
++    base::LockGuard<base::RecursiveMutex> guard(
++        g_default_locale_mutex.Pointer());
++    default_locale_.clear();
++    base::AsAtomic8::Relaxed_Store(
++        &isolate_data_.default_locale_may_require_special_case_mapping_, 1);
++  }
+   clear_cached_icu_objects();
+   // We inline fast paths assuming certain locales. Since this path is rarely
+   // taken, we deoptimize everything to keep things simple.
+diff --git a/src/execution/local-isolate.cc b/src/execution/local-isolate.cc
+index e5b8b342f48..73e55ebfbfc 100644
+--- a/src/execution/local-isolate.cc
++++ b/src/execution/local-isolate.cc
+@@ -14,6 +14,10 @@
+ namespace v8 {
+ namespace internal {
+ 
++#ifdef V8_INTL_SUPPORT
++std::string IsolateDefaultLocaleForOffThread(Isolate* isolate);
++#endif
++
+ LocalIsolate::LocalIsolate(Isolate* isolate, ThreadKind kind,
+                            v8::base::Stack::StackSlot stack_start)
+     : HiddenLocalFactory(isolate),
+@@ -26,7 +30,9 @@ LocalIsolate::LocalIsolate(Isolate* isolate, ThreadKind kind,
+                        : GetCurrentStackPosition() - v8_flags.stack_size * KB)
+ #ifdef V8_INTL_SUPPORT
+       ,
+-      default_locale_(isolate->DefaultLocale())
++      default_locale_(kind == ThreadKind::kMain
++                          ? isolate->DefaultLocale()
++                          : IsolateDefaultLocaleForOffThread(isolate))
+ #endif
+ {
+ #ifdef V8_RUNTIME_CALL_STATS

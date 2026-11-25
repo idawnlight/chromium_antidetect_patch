@@ -21,12 +21,14 @@
 | [`patches/chromium/0002-webgl-desktop-normalization.patch`](patches/chromium/0002-webgl-desktop-normalization.patch) | `src` | 无需 `--ignore-gpu-blocklist` 自动启用容器 OpenGL WebGL1/2；保证 `failIfMajorPerformanceCaveat: true` 成功；统一规范化主线程与 Worker `OffscreenCanvas` 的 WebGL vendor/renderer 及 `llvmpipe` 特征参数/着色器整数精度/MSAA 采样数 |
 | [`patches/chromium/0003-automation-cdp-stealth.patch`](patches/chromium/0003-automation-cdp-stealth.patch) | `src` | 支持 `--remote-debugging-pipe` 匿名管道控制且保持 `navigator.webdriver === false`；消除 `--no-sandbox` 等 `kBadFlags` 顶部警告横幅对 `innerHeight` 的挤压；修复 CDP `Input.dispatchMouseEvent` 缺省 `force=0` 导致 `pointerdown.pressure === 0` 的协议破绽 |
 | [`patches/v8/0001-inspector-console-stealth.patch`](patches/v8/0001-inspector-console-stealth.patch) | `src/v8` | 修复 V8 `value-mirror.cc` 原型链 getter 漏洞；隔离 `Runtime.enable` 下 `console.*` 参数包装副作用（零自定义 getter / `Proxy` trap / DOM 属性触发）与未捕获异常栈采集开关 |
+| [`patches/v8/0002-isolate-default-locale-thread-safe.patch`](patches/v8/0002-isolate-default-locale-thread-safe.patch) | `src/v8` | 修复 V8 `Isolate::DefaultLocale()` / `set_default_locale()` / `ResetDefaultLocale()` 与 `ThreadPoolForeg` 后台线程构造 `LocalIsolate` 并发读写 `std::string default_locale_` 的数据竞争（消除 `Emulation.setLocaleOverride` 激活时页面脚本并发编译触发的 renderer 崩溃） |
 
 ---
 
 ## 构建配置亮点（[`build/linux-release.gn`](build/linux-release.gn)）
 
 - 保持 `is_chrome_branded = false`（真实 Linux `Chromium` 品牌与 UA-CH）；
+- 显式设置 `is_debug = false`、`dcheck_always_on = false`、`enable_expensive_dchecks = false`，与零售版 Release Chromium 对齐（避免非 official 构建默认保留致命 `DCHECK` 及全量 V8/Blink 调试校验开销）；
 - 启用 `proprietary_codecs = true` 与 `ffmpeg_branding = "Chrome"`，补齐标准 Linux 桌面版必备的 **H.264 (`avc1`) / AAC (`mp4a`) / MP3 / MP4 / HLS** 原生编解码能力；
 - 启用 `use_dummy_lastchange = false`，确保 `Browser.getVersion()` 精确记录上游发布提交 `@14d6f648e8cd7ad750a4044200ce94d3321be260`。
 
